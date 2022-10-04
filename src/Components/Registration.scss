@@ -1,7 +1,42 @@
-$color : red;
+$color : linear-gradient(to bottom, #9037D4, #302b63, #9037D4) ;
+.RegisterMain{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $color;
+}
 
-.d {
-  width: 500px;
-  height: 500px;
-  background-color: $color;
+.RegisterMain .Main{
+    width: 300px;
+    height: 500px;
+    background-color: #EBEBFA;
+    border-radius: 20px;
+}
+
+.RegisterMain .Main .header {
+    text-align: center;
+    font-size: 30px;
+    font-family: sans-serif;
+}
+
+.ToggleContainer {
+    width: 180px;
+    height: 50px;
+    margin: 0 auto;
+    display: flex;
+}
+.LoginToggle,.SignUpToggle {
+    width: 70%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid 1px gray;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.LoginToggle {
+    background: linear-gradient(to bottom,#cb42f5,#f542ec);
 }
