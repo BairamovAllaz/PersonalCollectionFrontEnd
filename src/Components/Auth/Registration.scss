@@ -1,11 +1,12 @@
-$color : linear-gradient(to bottom, #9037D4, #302b63, #9037D4) ;
+$color : linear-gradient(90deg, #5D54A4, #7C78B8);
 $butcolors : linear-gradient(to bottom,#cb42f5,#f542ec);
 .RegisterMain{
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(90deg, #5D54A4, #7C78B8);;
+    background: $color;
+    overflow: hidden;
 }
 
 .RegisterMain .Main{
