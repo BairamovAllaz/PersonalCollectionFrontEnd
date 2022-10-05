@@ -5,13 +5,15 @@ $butcolors : linear-gradient(to bottom,#cb42f5,#f542ec);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: $color;
+    background: linear-gradient(90deg, #5D54A4, #7C78B8);;
 }
 
 .RegisterMain .Main{
-    width: 300px;
-    background-color: #EBEBFA;
+    width: 17%;
+    background-color: #f2f7ff;
     border-radius: 20px;
+    position:relative;
+    height: auto;
 }
 
 .RegisterMain .Main .header {
@@ -37,3 +39,36 @@ $butcolors : linear-gradient(to bottom,#cb42f5,#f542ec);
     cursor: pointer;
     margin: 3px;
 }
+
+@media (min-width:320px)  {
+    .RegisterMain .Main{
+        width: 80%;
+    }
+}
+@media (min-width:481px)  {
+    .RegisterMain .Main{
+        width: 60%;
+    }
+}
+@media (min-width:641px)  {
+    .RegisterMain .Main{
+        width: 40%;
+    }
+}
+@media (min-width:961px)  {
+    .RegisterMain .Main{
+        width: 30%;
+    }
+}
+@media (min-width:1025px) {
+    .RegisterMain .Main{
+        width: 30%;
+    }
+}
+@media (min-width:1281px) {
+    .RegisterMain .Main{
+        width: 18%;
+    }
+}
+
+
