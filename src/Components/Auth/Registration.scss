@@ -1,4 +1,5 @@
 $color : linear-gradient(to bottom, #9037D4, #302b63, #9037D4) ;
+$butcolors : linear-gradient(to bottom,#cb42f5,#f542ec);
 .RegisterMain{
     height: 100vh;
     display: flex;
@@ -9,7 +10,6 @@ $color : linear-gradient(to bottom, #9037D4, #302b63, #9037D4) ;
 
 .RegisterMain .Main{
     width: 300px;
-    height: 500px;
     background-color: #EBEBFA;
     border-radius: 20px;
 }
@@ -35,8 +35,5 @@ $color : linear-gradient(to bottom, #9037D4, #302b63, #9037D4) ;
     border: solid 1px gray;
     border-radius: 5px;
     cursor: pointer;
-}
-
-.LoginToggle {
-    background: linear-gradient(to bottom,#cb42f5,#f542ec);
+    margin: 3px;
 }

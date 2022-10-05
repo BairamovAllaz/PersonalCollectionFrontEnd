@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.scss';
-import Registration from "./Components/Registration";
+import Registration from "./Components/Auth/Registration";
 
 function App() {
   return (
