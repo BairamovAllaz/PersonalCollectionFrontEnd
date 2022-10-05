@@ -62,7 +62,7 @@ function Registration() {
                                     variant="contained"
                                     component="label"
                                     style = {{
-                                        marginTop : "10px",
+                                        marginTop : "15px",
                                         width : "65%",
                                         height: "50px"
                                     }}
