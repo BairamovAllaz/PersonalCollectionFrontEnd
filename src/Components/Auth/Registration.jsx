@@ -5,9 +5,11 @@ import Button from '@mui/material/Button';
 import {SiPrivateinternetaccess} from 'react-icons/si'
 import {BiImageAdd} from 'react-icons/bi'
 import GoogleButton from 'react-google-button'
+import {useNavigate} from "react-router-dom";
 import axios from 'axios';
 
 function Registration() {
+    const navigation = useNavigate();
     const [isLog, setisLog] = useState(true)
     const [firstName,setfirstName] = useState("");
     const [lastName,setlastName] = useState("");
@@ -17,11 +19,13 @@ function Registration() {
 
     const LoginClick = (e) => {
         e.preventDefault();
-        const UserData = new FormData();
-        UserData.append("email",email);
-        UserData.append("password",password);
-        axios.post("http://localhost:5100/v1/login",UserData).then(() => {
-            console.log("login succes");
+        const UserData = {
+            email,
+            password
+        }
+        axios.post("http://localhost:5100/v1/login",UserData).then((response) => {
+            setStorage(response.data);
+            navigation("/");
         }).catch((err) => {
             alert(err.response.data)
         })
@@ -36,8 +40,10 @@ function Registration() {
          UserData.append("email",email);
          UserData.append("password",password);
          UserData.append("image",image);
-         axios.post("http://localhost:5100/v1/register",UserData).then(() => {
+         axios.post("http://localhost:5100/v1/register",UserData).then((response) => {
              console.log("Registering succes");
+             setStorage(response.data);
+             navigation("/");
          }).catch((err) => {
              alert(err.response.data)
          })
@@ -45,13 +51,16 @@ function Registration() {
     }
 
 
+    function setStorage(user){
+        localStorage.setItem('user',JSON.stringify(user));
+    }
+
     function clearInputs() {
         setfirstName("");
         setlastName("");
         setEmail("");
         setPassword("");
     }
-
 
     return (
         <div className="RegisterMain">
