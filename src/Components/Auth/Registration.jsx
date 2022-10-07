@@ -340,7 +340,7 @@ function Registration() {
                                     />
                                 </DialogContent>
                                 <DialogActions>
-                                    <Button onClick={handleCloseGuest}>Cancel</Button>
+                                    <Button onClick={handleCloseGuestForgot}>Cancel</Button>
                                     <Button onClick={() => {
                                         if(email !== ""){
                                             ForgotPassword();
