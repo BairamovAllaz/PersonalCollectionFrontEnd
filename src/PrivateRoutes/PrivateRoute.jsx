@@ -1,6 +1,6 @@
 import { Route, Redirect, useNavigate, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Home from '../Home'
+import Home from '../Components/Home'
 export { PrivateRoute };
 function PrivateRoute({children}) {
     const [isAuth, setisAuth] = useState();

@@ -7,11 +7,11 @@ import {
     Link
 } from "react-router-dom";
 import {useEffect,useState} from 'react';
-import PrivateRoute from './Components/Auth/PrivateRoute'
-import Registration from "./Components/Auth/Registration";
+import PrivateRoute from './PrivateRoutes/PrivateRoute'
+import Auth from "./Components/Auth/Auth";
 import Home from "./Components/Home";
-import LoginSuccess from './Components/Auth/LoginSuccess'
-import ForgotPassword from "./Components/Auth/ForgotPassword";
+import LoginSuccess from './Components/Auth/AuthComponents/LoginSuccess'
+import ForgotPassword from "./Components/Auth/AuthComponents/ForgotPassword";
 function App() {
 
   return (
@@ -26,7 +26,7 @@ function App() {
                         </PrivateRoute>
                     }
                 />
-                <Route path="/auth" element={<Registration/>}/>
+                <Route path="/auth" element={<Auth/>}/>
                 <Route path="/success/google" element={<LoginSuccess/>}/>
                 <Route path="/forgot-password/:id/:token" element={<ForgotPassword/>}/>
             </Routes>
