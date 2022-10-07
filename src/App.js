@@ -10,7 +10,7 @@ import {useEffect,useState} from 'react';
 import PrivateRoute from './Components/Auth/PrivateRoute'
 import Registration from "./Components/Auth/Registration";
 import Home from "./Components/Home";
-
+import LoginSuccess from './Components/Auth/LoginSuccess'
 function App() {
 
   return (
@@ -26,6 +26,7 @@ function App() {
                     }
                 />
                 <Route path="/auth" element={<Registration/>}/>
+                <Route path="/success/google" element={<LoginSuccess/>}/>
             </Routes>
         </BrowserRouter>
     </div>

@@ -1,7 +1,9 @@
 function Home() {
     return (
         <div className="App">
-            <h1>Hello Home user</h1>
+            <button onClick={() =>  {
+                localStorage.clear();
+            }}>Logout</button>
         </div>
     );
 }
