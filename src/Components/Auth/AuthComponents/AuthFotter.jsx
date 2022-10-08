@@ -1,6 +1,5 @@
 import GoogleButton from "react-google-button";
 import Button from "@mui/material/Button";
-import {SiPrivateinternetaccess} from "react-icons/si";
 import ModalForgotPassword from "../Modals/ModalForgotPassword";
 import ModalGuestAccount from "../Modals/ModalGuestAccount";
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
