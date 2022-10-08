@@ -11,6 +11,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import * as React from "react";
 import {styled} from "@mui/material/styles";
+import Drawer from '@mui/material/Drawer';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -25,55 +26,40 @@ function DrawerC({isDrawerOpened, handleCloseDrawer}) {
     const handleClose = () => {
         handleCloseDrawer(false);
     }
-    const list = (anchor) => (
-        <Box
-            sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
-            role="presentation"
-            onClick={isDrawerOpened}
-            onKeyDown={handleClose}
-        >
-            <DrawerHeader>
-                <IconButton onClick={handleClose}>
-                    <ChevronLeftIcon/>
-                </IconButton>
-            </DrawerHeader>
-            <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-            <Divider />
-            <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-        </Box>
-    );
 
     return(
         <div>
-            <DrawerC
+            <Drawer
                 anchor={"left"}
                 open={isDrawerOpened}
-                onClose={handleCloseDrawer}
+                onClose={handleClose}
             >
-                {list("left")}
-            </DrawerC>
+                <DrawerHeader>
+                    <IconButton onClick={handleClose}>
+                        <ChevronLeftIcon/>
+                    </IconButton>
+                </DrawerHeader>
+
+                <Box
+                    role="presentation"
+                    onClick={handleClose}
+                    onKeyDown={handleClose}
+                >
+                    <List>
+                        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                            <ListItem key={text} disablePadding>
+                                <ListItemButton>
+                                    <ListItemIcon>
+                                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                    </ListItemIcon>
+                                    <ListItemText primary={text} />
+                                </ListItemButton>
+                            </ListItem>
+                        ))}
+                    </List>
+                    <Divider />
+                </Box>
+            </Drawer>
         </div>
     );
 }
