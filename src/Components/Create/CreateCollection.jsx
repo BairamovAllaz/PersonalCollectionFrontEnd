@@ -34,6 +34,11 @@ function getStepContent(step) {
 
 export const InfoContext = React.createContext();
 function CreateCollection() {
+    const [fieldList, setFieldList] = React.useState([{ field_name: "", field_type: "" }]);
+    const [image, setImage] = React.useState([]);
+    const [markDownInput,setMarkDownInput] = React.useState();
+
+
     const [activeStep, setActiveStep] = React.useState(0);
 
     const handleNext = () => {
@@ -45,7 +50,7 @@ function CreateCollection() {
     };
     return(
         <div>
-            <InfoContext.Provider>
+            <InfoContext.Provider value = {{inputList: fieldList,setInputList: setFieldList,files: image,setFiles: setImage,markDownInput,setMarkDownInput}}>
                 <AppBar
                     position="absolute"
                     color="default"
@@ -57,7 +62,7 @@ function CreateCollection() {
                 >
                     <Toolbar>
                         <Typography variant="h6" color="inherit" noWrap>
-                            Company name
+                            Collection App
                         </Typography>
                     </Toolbar>
                 </AppBar>

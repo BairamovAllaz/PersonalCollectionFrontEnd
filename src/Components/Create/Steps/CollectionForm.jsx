@@ -1,15 +1,18 @@
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import React, {useContext} from 'react';
+import ReactMarkdown from "react-markdown";
+import {InfoContext} from "../CreateCollection";
 
 function CollectionForm() {
+    const {markDownInput,setMarkDownInput} = useContext(InfoContext);
     return(
         <div>
-            <Typography variant="h6" gutterBottom>
-                collection info
-            </Typography>
             <Grid container spacing={4}>
                 <Grid item xs={12}>
                     <TextField
@@ -19,19 +22,32 @@ function CollectionForm() {
                         label="Collection Name"
                         fullWidth
                         autoComplete="given-name"
-                        variant="standard"
+                        variant="outlined"
                     />
                 </Grid>
                 <Grid item xs={12}>
                     <TextField
-                        required
-                        id="description"
-                        name="description"
+                        id="outlined-multiline-static"
                         label="Description"
-                        fullWidth
-                        autoComplete="family-name"
-                        variant="standard"
+                        multiline
+                        rows={4}
+                        placeholder="Write your description here support markdown!"
+                        sx = {{width : "100%"}}
+                        value = {markDownInput}
+                        onChange = {(e) => setMarkDownInput(e.target.value)}
                     />
+                    <Accordion style = {{marginTop : "10px"}}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                        >
+                            <Typography>MarkDown Result</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails style = {{textAlign : "left"}}>
+                           <ReactMarkdown children={markDownInput} style = {{width : "100%",height : "100px"}}/>
+                        </AccordionDetails>
+                    </Accordion>
                 </Grid>
                 <Grid item xs={12}>
                     <TextField
@@ -41,10 +57,11 @@ function CollectionForm() {
                         label="Topic"
                         fullWidth
                         autoComplete="shipping address-line1"
-                        variant="standard"
+                        variant="outlined"
                     />
                 </Grid>
             </Grid>
+
         </div>
     )
 }
