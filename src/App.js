@@ -12,6 +12,7 @@ import Auth from "./Components/Auth/Auth";
 import Home from "./Components/Home";
 import LoginSuccess from './Components/Auth/AuthComponents/LoginSuccess'
 import ForgotPassword from "./Components/Auth/AuthComponents/ForgotPassword";
+import CreateCollection from "./Components/Create/CreateCollection";
 function App() {
 
   return (
@@ -29,6 +30,7 @@ function App() {
                 <Route path="/auth" element={<Auth/>}/>
                 <Route path="/success/google" element={<LoginSuccess/>}/>
                 <Route path="/forgot-password/:id/:token" element={<ForgotPassword/>}/>
+                <Route path="/collection/:id/create" element={<CreateCollection/>}/>
             </Routes>
         </BrowserRouter>
     </div>
