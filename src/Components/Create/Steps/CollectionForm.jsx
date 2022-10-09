@@ -10,7 +10,11 @@ import ReactMarkdown from "react-markdown";
 import {InfoContext} from "../CreateCollection";
 
 function CollectionForm() {
-    const {markDownInput,setMarkDownInput} = useContext(InfoContext);
+    const {
+        markDownInput,setMarkDownInput,
+        name,setName,
+        topic,setTopic,
+    } = useContext(InfoContext);
     return(
         <div>
             <Grid container spacing={4}>
@@ -23,6 +27,8 @@ function CollectionForm() {
                         fullWidth
                         autoComplete="given-name"
                         variant="outlined"
+                        value = {name}
+                        onChange={(e) => setName(e.target.value)}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -58,6 +64,8 @@ function CollectionForm() {
                         fullWidth
                         autoComplete="shipping address-line1"
                         variant="outlined"
+                        value = {topic}
+                        onChange = {(e) => setTopic(e.target.value)}
                     />
                 </Grid>
             </Grid>

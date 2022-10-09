@@ -16,6 +16,7 @@ import CollectionForm from "./Steps/CollectionForm";
 import FieldsForm from "./Steps/FieldsForm";
 import ImageForm from "./Steps/ImageForm";
 import Final from "./Steps/Final";
+import axios from "axios";
 
 const steps = ["Create Collection","Define Fields","Collection Image"];
 
@@ -36,6 +37,8 @@ export const InfoContext = React.createContext();
 function CreateCollection() {
     const [fieldList, setFieldList] = React.useState([{ field_name: "", field_type: "" }]);
     const [image, setImage] = React.useState([]);
+    const [name,setName] = React.useState();
+    const [topic,setTopic] = React.useState();
     const [markDownInput,setMarkDownInput] = React.useState();
 
 
@@ -48,9 +51,47 @@ function CreateCollection() {
     const handleBack = () => {
         setActiveStep(activeStep - 1);
     };
+
+    //TODO fix usser id default image, topic,chgehck empty fields
+    const createCollectionClick = (e) => {
+        e.preventDefault();
+        console.log(image[0])
+        const obj = {
+            name,
+            description: markDownInput,
+            topic,
+            image,
+            field : fieldList
+        }
+
+        const formData = new FormData();
+        formData.append("name",name);
+        formData.append("description",markDownInput);
+        formData.append("topic",topic);
+        formData.append("image",image[0]);
+        formData.append('field',JSON.stringify(fieldList));
+
+        axios.post(`${global.config.backendUrl}/collection/create`, formData).then((response) => {
+            console.log(response.data);
+        }).catch((err) => {
+            alert(err.response.data)
+        })
+
+
+    }
+
+
     return(
         <div>
-            <InfoContext.Provider value = {{inputList: fieldList,setInputList: setFieldList,files: image,setFiles: setImage,markDownInput,setMarkDownInput}}>
+            <InfoContext.Provider value = {{
+                inputList: fieldList,
+                setInputList: setFieldList,
+                files: image,
+                setFiles: setImage,
+                markDownInput,setMarkDownInput,
+                name,setName,
+                topic,setTopic,
+            }}>
                 <AppBar
                     position="absolute"
                     color="default"
@@ -95,13 +136,21 @@ function CreateCollection() {
                                             </Button>
                                         )}
 
-                                        <Button
-                                            variant="contained"
-                                            onClick={handleNext}
-                                            sx={{ mt: 3, ml: 1 }}
-                                        >
-                                            {activeStep === steps.length - 1 ? 'Create Collection' : 'Next'}
-                                        </Button>
+                                        {
+                                            activeStep === steps.length - 1 ? (
+                                                <Button
+                                                    variant="contained"
+                                                    onClick={createCollectionClick}
+                                                    sx={{ mt: 3, ml: 1 }}
+                                                >Create Collection</Button>
+                                            ) : (
+                                                <Button
+                                                    variant="contained"
+                                                    onClick={handleNext}
+                                                    sx={{ mt: 3, ml: 1 }}
+                                                >Next</Button>
+                                            )
+                                        }
                                     </Box>
                                 </React.Fragment>
                             )}
