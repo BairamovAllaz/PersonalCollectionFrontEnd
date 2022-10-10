@@ -17,6 +17,7 @@ import FieldsForm from "./Steps/FieldsForm";
 import ImageForm from "./Steps/ImageForm";
 import Final from "./Steps/Final";
 import axios from "axios";
+import {useParams} from 'react-router-dom';
 
 const steps = ["Create Collection","Define Fields","Collection Image"];
 
@@ -35,24 +36,35 @@ function getStepContent(step) {
 
 export const InfoContext = React.createContext();
 function CreateCollection() {
+    const {id} = useParams();
+    const [collectionId,setCollectionId] = React.useState();
     const [fieldList, setFieldList] = React.useState([{ field_name: "", field_type: "" }]);
     const [image, setImage] = React.useState([]);
-    const [name,setName] = React.useState();
-    const [topic,setTopic] = React.useState();
-    const [markDownInput,setMarkDownInput] = React.useState();
-
+    const [name,setName] = React.useState("");
+    const [topic,setTopic] = React.useState("");
+    const [markDownInput,setMarkDownInput] = React.useState("");
 
     const [activeStep, setActiveStep] = React.useState(0);
 
     const handleNext = () => {
-        setActiveStep(activeStep + 1);
+        if(checkIfEmpty()) {
+            setActiveStep(activeStep + 1);
+        }
     };
 
     const handleBack = () => {
         setActiveStep(activeStep - 1);
     };
 
-    //TODO fix usser id default image, topic,chgehck empty fields
+    function checkIfEmpty() {
+        if(name === "" || topic === "" || markDownInput === "") {
+            alert("Cant be empty");
+            return false;
+        }
+       return true;
+    }
+
+
     const createCollectionClick = (e) => {
         e.preventDefault();
         console.log(image[0])
@@ -66,18 +78,20 @@ function CreateCollection() {
 
         const formData = new FormData();
         formData.append("name",name);
+        formData.append("userId",id);
         formData.append("description",markDownInput);
         formData.append("topic",topic);
         formData.append("image",image[0]);
         formData.append('field',JSON.stringify(fieldList));
 
         axios.post(`${global.config.backendUrl}/collection/create`, formData).then((response) => {
+            //TODO FIX UNDIFEND SENDING
+            setCollectionId(response.data);
             console.log(response.data);
         }).catch((err) => {
             alert(err.response.data)
         })
-
-
+        handleNext();
     }
 
 
@@ -91,6 +105,8 @@ function CreateCollection() {
                 markDownInput,setMarkDownInput,
                 name,setName,
                 topic,setTopic,
+                id,
+                collectionId
             }}>
                 <AppBar
                     position="absolute"

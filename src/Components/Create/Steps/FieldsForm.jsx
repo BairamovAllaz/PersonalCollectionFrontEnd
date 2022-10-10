@@ -28,9 +28,13 @@ function FieldsForm() {
         setInputList(list);
     };
 
-    const handleAddClick = () => {
-        setInputList([...inputList, { field_name: "", field_type: "" }]);
-    };
+    const handleAddClick = (x) => {
+        if(x.field_name === "" || x.field_type === "") {
+            alert("Please fill to add");
+        }else {
+            setInputList([...inputList, { field_name: "", field_type: "" }]);
+        }
+    }
 
     return(
         <div>
@@ -75,7 +79,7 @@ function FieldsForm() {
                             <Grid item xs={2} sm = {2}>
                                 {
                                     inputList.length - 1 === i ? (
-                                        <Button variant="contained" color = "success" style = {{marginTop : "10px"}} onClick = {handleAddClick}>
+                                        <Button variant="contained" color = "success" style = {{marginTop : "10px"}} onClick = {() => handleAddClick(x)}>
                                             <AddCircleIcon/>
                                         </Button>
                                     ) : (

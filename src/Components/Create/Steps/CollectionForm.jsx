@@ -8,6 +8,10 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import React, {useContext} from 'react';
 import ReactMarkdown from "react-markdown";
 import {InfoContext} from "../CreateCollection";
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import axios from "axios";
 
 function CollectionForm() {
     const {
@@ -15,6 +19,17 @@ function CollectionForm() {
         name,setName,
         topic,setTopic,
     } = useContext(InfoContext);
+    const [topics,setTopics] = React.useState([]);
+
+    React.useEffect(() => {
+        axios.get(`${global.config.backendUrl}/collection/getTopics`).then((response) => {
+            console.log(response.data);
+            setTopics(response.data);
+        }).catch((err) => {
+            alert(err.response.data)
+        })
+    },[])
+
     return(
         <div>
             <Grid container spacing={4}>
@@ -50,23 +65,31 @@ function CollectionForm() {
                         >
                             <Typography>MarkDown Result</Typography>
                         </AccordionSummary>
-                        <AccordionDetails style = {{textAlign : "left"}}>
-                           <ReactMarkdown children={markDownInput} style = {{width : "100%",height : "100px"}}/>
+                        <AccordionDetails style = {{textAlign : "left",width : `${markDownInput.length > 0 ? "300px" : "0"}`,height : `${markDownInput.length > 0 ? "300px" : "0"}`}}>
+                            {
+                                <ReactMarkdown children={markDownInput} style = {{width : "100%",height : "100px"}}/>
+                            }
                         </AccordionDetails>
                     </Accordion>
                 </Grid>
                 <Grid item xs={12}>
-                    <TextField
-                        required
-                        id="topic"
-                        name="topic"
-                        label="Topic"
-                        fullWidth
-                        autoComplete="shipping address-line1"
-                        variant="outlined"
-                        value = {topic}
-                        onChange = {(e) => setTopic(e.target.value)}
-                    />
+                    <FormControl fullWidth>
+                        <Typography style = {{textAlign : "left",padding : "10px"}}>Topic</Typography>
+                        <Select
+                            labelId="Topic"
+                            id="topic"
+                            label = "Topic"
+                            onChange = {(e) => setTopic(e.target.value)}
+                        >
+                            {
+                                topics &&
+                                topics?.map(({topic_name,Id}) => (
+                                    <MenuItem key={Id} value={topic_name}>{topic_name}</MenuItem>
+                                ))
+                            }
+                        </Select>
+                    </FormControl>
+
                 </Grid>
             </Grid>
 
