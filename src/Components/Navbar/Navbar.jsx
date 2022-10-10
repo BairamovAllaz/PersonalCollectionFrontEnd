@@ -15,10 +15,27 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import DrawerC from './NavbarComponents/DrawerC';
 import {Search, SearchIconWrapper, StyledInputBase} from "./Style/navbarStyle";
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import {useContext, useState} from "react";
+import {Avatar} from "@mui/material";
+import {Link, useNavigate} from "react-router-dom";
+
 
 function Navbar() {
+    const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+    const [isAuth, setisAuth] = useState(false);
+
+    const [user, setUser] = React.useState("");
+
+    React.useEffect(() => {
+        const juser = JSON.parse(localStorage.getItem("user"));
+        if(user !== null) {
+            setUser(juser);
+        }
+    }, [])
+
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -46,6 +63,11 @@ function Navbar() {
         setOpenDrawer(!openDrawer);
     };
 
+    React.useEffect(() => {
+        console.log(user);
+    }, [])
+
+
     const menuId = 'primary-search-account-menu';
 
     const renderMenu = (
@@ -64,8 +86,9 @@ function Navbar() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <MenuItem onClick={handleMenuClose}>
+                <Link to={`/user/${user.Id}`} style={{color: "black"}}>Profile</Link>
+            </MenuItem>
         </Menu>
     );
 
@@ -87,21 +110,13 @@ function Navbar() {
             onClose={handleMobileMenuClose}
         >
             <MenuItem>
-                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="error">
-                        <MailIcon />
-                    </Badge>
-                </IconButton>
-                <p>Messages</p>
-            </MenuItem>
-            <MenuItem>
                 <IconButton
                     size="large"
                     aria-label="show 17 new notifications"
                     color="inherit"
                 >
                     <Badge badgeContent={17} color="error">
-                        <NotificationsIcon />
+                        <NotificationsIcon/>
                     </Badge>
                 </IconButton>
                 <p>Notifications</p>
@@ -114,16 +129,16 @@ function Navbar() {
                     aria-haspopup="true"
                     color="inherit"
                 >
-                    <AccountCircle />
+
                 </IconButton>
-                <p>Profile</p>
+                <p>{user.firstName}</p>
             </MenuItem>
         </Menu>
     );
 
 
-    return(
-        <Box sx={{ flexGrow: 1 }}>
+    return (
+        <Box sx={{flexGrow: 1}}>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton
@@ -131,37 +146,37 @@ function Navbar() {
                         edge="start"
                         color="inherit"
                         aria-label="open drawer"
-                        sx={{ mr: 2 }}
+                        sx={{mr: 2}}
                         onClick={handleDrawerOpen}
                     >
-                        <MenuIcon />
+                        <MenuIcon/>
                     </IconButton>
                     <Typography
                         variant="h6"
                         noWrap
                         component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
+                        sx={{display: {xs: 'none', sm: 'block'}}}
                     >
                         Collection
                     </Typography>
                     <Search>
                         <SearchIconWrapper>
-                            <SearchIcon />
+                            <SearchIcon/>
                         </SearchIconWrapper>
                         <StyledInputBase
                             placeholder="Search…"
-                            inputProps={{ 'aria-label': 'search' }}
+                            inputProps={{'aria-label': 'search'}}
                         />
                     </Search>
-                    <Box sx={{ flexGrow: 1 }} />
-                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                    <Box sx={{flexGrow: 1}}/>
+                    <Box sx={{display: {xs: 'none', md: 'flex'}}}>
                         <IconButton
                             size="large"
                             aria-label="show 17 new notifications"
                             color="inherit"
                         >
                             <Badge badgeContent={17} color="error">
-                                <NotificationsIcon />
+                                <NotificationsIcon/>
                             </Badge>
                         </IconButton>
                         <IconButton
@@ -173,27 +188,50 @@ function Navbar() {
                             onClick={handleProfileMenuOpen}
                             color="inherit"
                         >
-                            <AccountCircle />
+                            {
+                                user.userRole === "Guest" ? (
+                                    <AssignmentIndIcon/>
+                                ) : (
+                                    <Avatar alt="image" src={`${global.config.backendUrl}/uploads/${user.image}`}/>
+                                )
+                            }
                         </IconButton>
                     </Box>
-                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="show more"
-                            aria-controls={mobileMenuId}
-                            aria-haspopup="true"
-                            onClick={handleMobileMenuOpen}
-                            color="inherit"
-                        >
-                            <MoreIcon />
-                        </IconButton>
-                    </Box>
+                    {
+                        user.userRole === "Guest" ? (
+                            <></>
+                        ) : (
+                            <Box sx={{display: {xs: 'flex', md: 'none'}}}>
+                                <IconButton
+                                    size="large"
+                                    aria-label="show more"
+                                    aria-controls={mobileMenuId}
+                                    aria-haspopup="true"
+                                    onClick={handleMobileMenuOpen}
+                                    color="inherit"
+                                >
+                                    <MoreIcon/>
+                                </IconButton>
+                            </Box>
+                        )
+                    }
+
                 </Toolbar>
             </AppBar>
-            {renderMobileMenu}
-            {renderMenu}
-           <DrawerC isDrawerOpened={openDrawer} handleCloseDrawer={() => setOpenDrawer(false)}/>
+            {
+                user.userRole === "Guest" ? (
+                    <></>
+                ) : (
+                    <div>
+                        {renderMobileMenu}
+                        {renderMenu}
+                    </div>
+                )
+
+            }
+            <DrawerC isDrawerOpened={openDrawer} handleCloseDrawer={() => setOpenDrawer(false)}/>
         </Box>
     );
 }
+
 export default Navbar;

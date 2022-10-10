@@ -30,7 +30,7 @@ function ModalGuestAccount({isDialogOpened, handleCloseDialog}) {
         const GuestAccount = {
             firstName,
             lastName,
-            type: "Guest"
+            userRole: "Guest"
         }
         setStorage(GuestAccount);
         navigation("/");

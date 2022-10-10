@@ -42,6 +42,7 @@ function CreateCollection() {
     const [image, setImage] = React.useState([]);
     const [name,setName] = React.useState("");
     const [topic,setTopic] = React.useState("");
+    const [about,setAbout] = React.useState("");
     const [markDownInput,setMarkDownInput] = React.useState("");
 
     const [activeStep, setActiveStep] = React.useState(0);
@@ -81,11 +82,11 @@ function CreateCollection() {
         formData.append("userId",id);
         formData.append("description",markDownInput);
         formData.append("topic",topic);
+        formData.append("about",about);
         formData.append("image",image[0]);
         formData.append('field',JSON.stringify(fieldList));
 
         axios.post(`${global.config.backendUrl}/collection/create`, formData).then((response) => {
-            //TODO FIX UNDIFEND SENDING
             setCollectionId(response.data);
             console.log(response.data);
         }).catch((err) => {
@@ -106,7 +107,8 @@ function CreateCollection() {
                 name,setName,
                 topic,setTopic,
                 id,
-                collectionId
+                collectionId,
+                about,setAbout
             }}>
                 <AppBar
                     position="absolute"

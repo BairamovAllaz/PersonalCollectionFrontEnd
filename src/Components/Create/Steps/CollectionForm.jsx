@@ -17,6 +17,7 @@ function CollectionForm() {
     const {
         markDownInput,setMarkDownInput,
         name,setName,
+        about,setAbout,
         topic,setTopic,
     } = useContext(InfoContext);
     const [topics,setTopics] = React.useState([]);
@@ -46,6 +47,21 @@ function CollectionForm() {
                         onChange={(e) => setName(e.target.value)}
                     />
                 </Grid>
+
+                <Grid item xs={12}>
+                    <TextField
+                        required
+                        id="about"
+                        name="about"
+                        label="Little About"
+                        fullWidth
+                        autoComplete="given-name"
+                        variant="outlined"
+                        value = {about}
+                        onChange={(e) => setAbout(e.target.value)}
+                    />
+                </Grid>
+
                 <Grid item xs={12}>
                     <TextField
                         id="outlined-multiline-static"

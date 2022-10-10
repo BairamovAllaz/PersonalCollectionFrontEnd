@@ -5,13 +5,13 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import * as React from "react";
 import {styled} from "@mui/material/styles";
 import Drawer from '@mui/material/Drawer';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import {useNavigate} from "react-router-dom";
 
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -22,9 +22,16 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     justifyContent: 'flex-end',
 }));
 
+
 function DrawerC({isDrawerOpened, handleCloseDrawer}) {
+    const navigation = useNavigate();
     const handleClose = () => {
         handleCloseDrawer(false);
+    }
+
+    const logout = () => {
+        localStorage.clear();
+        navigation("/auth");
     }
 
     return(
@@ -46,16 +53,14 @@ function DrawerC({isDrawerOpened, handleCloseDrawer}) {
                     onKeyDown={handleClose}
                 >
                     <List>
-                        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                            <ListItem key={text} disablePadding>
-                                <ListItemButton>
+                            <ListItem >
+                                <ListItemButton onClick={logout}>
                                     <ListItemIcon>
-                                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                        <ExitToAppIcon/>
                                     </ListItemIcon>
-                                    <ListItemText primary={text} />
+                                    <ListItemText primary={"LogOut"} />
                                 </ListItemButton>
                             </ListItem>
-                        ))}
                     </List>
                     <Divider />
                 </Box>
