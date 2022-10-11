@@ -27,7 +27,12 @@ function Login() {
             email,
             password
         }
-        axios.post(`${global.config.backendUrl}/v1/login`, UserData).then((response) => {
+        axios.post(`${global.config.backendUrl}/v1/login`,UserData,{
+            withCredentials : true,
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then((response) => {
             setStorage(response.data);
             navigation("/");
         }).catch((err) => {

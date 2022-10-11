@@ -27,7 +27,12 @@ function Sign() {
         UserData.append("email", email);
         UserData.append("password", password);
         UserData.append("image", image);
-        axios.post(`${global.config.backendUrl}/v1/register`, UserData).then((response) => {
+        axios.post(`${global.config.backendUrl}/v1/register`, UserData,{
+            withCredentials : true,
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then((response) => {
             setStorage(response.data);
             navigation("/");
         }).catch((err) => {

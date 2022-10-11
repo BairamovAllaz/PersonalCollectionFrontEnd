@@ -25,6 +25,17 @@ function App() {
     const { pathname } = useLocation();
     React.useEffect(() => {
         setUser(JSON.parse(localStorage.getItem("user")));
+
+        axios.get(`${global.config.backendUrl}/v1/getuser`,{
+            withCredentials : true,
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then((response) => {
+            console.log("User: " + response.data);
+        }).catch((err) => {
+            alert(err.response.data)
+        })
     },[])
 
 
