@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import * as React from "react";
 import {styled} from '@mui/material/styles';
@@ -10,6 +10,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import EditIcon from '@mui/icons-material/Edit';
 import CollectionList from "./UserProfileComponents/CollectionList";
+import {UserPermisionContext} from "../../UserContext/Context";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -35,23 +36,9 @@ function TabPanel(props) {
 
 function UserProfile() {
     const {userId} = useParams();
-    const [user, setUser] = React.useState("");
+    const navigate = useNavigate();
+    const {user} = React.useContext(UserPermisionContext);
     const [collections,setCollections] = React.useState([]);
-
-
-    React.useEffect(() => {
-        axios.get(`${global.config.backendUrl}/v1/getuser`,{
-            withCredentials: true,
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        }).then((response) => {
-            setUser(response.data);
-        }).catch((err) => {
-            alert(err.response.data)
-        })
-    }, [])
-
 
     React.useEffect(() => {
         axios.get(`${global.config.backendUrl}/userpage/getCollections/${userId}`).then(response => {
@@ -89,7 +76,7 @@ function UserProfile() {
                                     </Typography>
                                 </Box>
                             <Grid item>
-                                <Button style = {{marginTop:"20px",width : "50%",marginBottom : "30px"}} variant="outlined" startIcon={<EditIcon/>}>Edit Profile</Button>
+                                <Button style = {{marginTop:"20px",width : "50%",marginBottom : "30px"}} variant="outlined" startIcon={<EditIcon/>} onClick = {() => navigate(`/User/${user.Id}/edit`)}>Edit Profile</Button>
                             </Grid>
                     </Paper>
                 </Grid>

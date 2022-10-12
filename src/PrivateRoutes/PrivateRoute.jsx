@@ -1,7 +1,7 @@
 import { Route, Redirect, useNavigate, Navigate } from "react-router-dom";
 import {useContext, useEffect, useState} from "react";
 import Home from '../Components/Home'
-import {UserPermisionContext} from "./Context";
+import {UserPermisionContext} from "../UserContext/Context";
 import axios from "axios";
 import * as React from "react";
 export { PrivateRoute };

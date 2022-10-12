@@ -1,15 +1,14 @@
-import { Route, Redirect, useNavigate, Navigate } from "react-router-dom";
+import {Route, Redirect, useNavigate, Navigate, useParams} from "react-router-dom";
 import React, {useContext, useEffect, useState} from "react";
 import {UserPermisionContext} from "../UserContext/Context";
-import Admin from "../Components/AdminPage/Admin";
-import NotAdminPage from "../Components/AdminPage/AdminComponents/NotAdminPage";
-import axios from "axios";
-function AdminPrivateRoute({children}) {
-    const navigate = useNavigate();
+import NotYou from "./NotYou";
+import UserEdit from "../Components/UserProfil/UserProfileComponents/UserEdit";
+function MyPrivate({children}) {
+    const {userId} = useParams();
     const [isAuth, setisAuth] = useState(false);
     const {user} = React.useContext(UserPermisionContext);
     React.useEffect( () => {
-        if(user.userRole === true) {
+        if(user.Id == userId) {
             setisAuth(true);
         }else{
             setisAuth(false);
@@ -20,7 +19,7 @@ function AdminPrivateRoute({children}) {
         return <div>getting</div>
     }
     return (
-        isAuth ? <Admin /> : <NotAdminPage/>
+        isAuth ? <UserEdit/> : <NotYou/>
     );
 }
-export default AdminPrivateRoute;
+export default MyPrivate;

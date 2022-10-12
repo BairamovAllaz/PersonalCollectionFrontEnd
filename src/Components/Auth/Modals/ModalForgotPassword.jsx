@@ -10,21 +10,20 @@ import axios from "axios";
 import {useState} from 'react';
 
 function ModalForgotPassword({isDialogOpened, handleCloseDialog}) {
-    const [email,setEmail] = useState("");
+    const [email, setEmail] = useState("");
     const handleClose = () => {
         handleCloseDialog(false);
     }
 
     const ForgotPassword = () => {
-        axios.post(`${global.config.backendUrl}/v1/forgot-password`, {email : email}).then((response) => {
+        axios.post(`${global.config.backendUrl}/v1/forgot-password`, {email: email}).then((response) => {
             alert(response.data);
         }).catch((err) => {
             alert(err.response.data)
         })
-
     }
 
-    return(
+    return (
         <div>
             <Dialog open={isDialogOpened} onClose={handleClose}>
                 <DialogTitle>Forgot Password</DialogTitle>
@@ -43,10 +42,10 @@ function ModalForgotPassword({isDialogOpened, handleCloseDialog}) {
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
                     <Button onClick={() => {
-                        if(email !== ""){
+                        if (email !== "") {
                             ForgotPassword();
                             handleClose();
-                        }else {
+                        } else {
                             alert("Please fill email field");
                         }
                     }}>Send</Button>
@@ -56,4 +55,5 @@ function ModalForgotPassword({isDialogOpened, handleCloseDialog}) {
         </div>
     )
 }
+
 export default ModalForgotPassword;

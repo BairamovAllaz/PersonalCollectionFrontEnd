@@ -18,8 +18,10 @@ import Admin from "./Components/AdminPage/Admin";
 import AdminPrivateRoute from "./PrivateRoutes/AdminPrivateRoute";
 import UserProfile from "./Components/UserProfil/UserProfile";
 import Navbar from "./Components/Navbar/Navbar";
-import Context, {UserPermisionContext} from "./PrivateRoutes/Context";
-import CollectionShowPage from "./CollectionShowPage/CollectionShowPage";
+import Context, {UserPermisionContext} from "./UserContext/Context";
+import CollectionShowPage from "./Components/CollectionShowPage/CollectionShowPage";
+import UserEdit from "./Components/UserProfil/UserProfileComponents/UserEdit";
+import MyPrivate from "./PrivateRoutes/MyPrivate";
 function App() {
     const { pathname } = useLocation();
     const [isLoading, setLoading] = useState(true);
@@ -66,6 +68,11 @@ function App() {
                     <Route path="/collection/:id/create" element={<CreateCollection/>}/>
                     <Route path="/user/:userId" element={<UserProfile/>}/>
                     <Route path="/User/:userId/collection/:collectionId" element={<CollectionShowPage/>}/>
+                    <Route  element={
+                        <MyPrivate/>
+                    }>
+                        <Route path="/User/:userId/edit" element={<UserEdit/>}/>
+                    </Route>
                         <Route
                             path="/admin"
                             element={

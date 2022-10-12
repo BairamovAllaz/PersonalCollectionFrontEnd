@@ -17,7 +17,7 @@ import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import {useContext, useState} from "react";
 import {Avatar} from "@mui/material";
 import {Link, useNavigate} from "react-router-dom";
-import {UserPermisionContext} from "../../PrivateRoutes/Context"
+import {UserPermisionContext} from "../../UserContext/Context"
 import axios from "axios";
 
 
