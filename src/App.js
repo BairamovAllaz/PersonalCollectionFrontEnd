@@ -4,7 +4,7 @@ import {
     BrowserRouter,
     Routes,
     Route,
-    Link, useLocation, useNavigate
+    Link, useLocation, useNavigate, Navigate
 } from "react-router-dom";
 import PrivateRoute from './PrivateRoutes/PrivateRoute'
 import Auth from "./Components/Auth/Auth";
@@ -18,11 +18,10 @@ import Admin from "./Components/AdminPage/Admin";
 import AdminPrivateRoute from "./PrivateRoutes/AdminPrivateRoute";
 import UserProfile from "./Components/UserProfil/UserProfile";
 import Navbar from "./Components/Navbar/Navbar";
-import Context from "./PrivateRoutes/Context";
+import Context, {UserPermisionContext} from "./PrivateRoutes/Context";
 import CollectionShowPage from "./CollectionShowPage/CollectionShowPage";
 function App() {
     const { pathname } = useLocation();
-    const [user, setUser] = useState();
     const [isLoading, setLoading] = useState(true);
     // useEffect(() => {
     //     const guest = JSON.parse(localStorage.getItem("user"));
@@ -41,23 +40,9 @@ function App() {
     //         })
     //     }
     // }, []);
+    const {user} = React.useContext(UserPermisionContext);
 
-
-    useEffect(() => {
-        axios.get(`${global.config.backendUrl}/v1/getuser`, {
-            withCredentials: true,
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        }).then((response) => {
-            setUser(response.data);
-            setLoading(false)
-        }).catch((err) => {
-            console.log(err);
-        })
-    }, []);
-
-    if(isLoading) {
+    if(user === null) {
         return <div className="App">Loading...</div>;
     }
   return (
@@ -81,12 +66,14 @@ function App() {
                     <Route path="/collection/:id/create" element={<CreateCollection/>}/>
                     <Route path="/user/:userId" element={<UserProfile/>}/>
                     <Route path="/User/:userId/collection/:collectionId" element={<CollectionShowPage/>}/>
-                    <Route
-                        path="/admin"
-                        element={
-                            <Admin/>
-                        }
-                    />
+                        <Route
+                            path="/admin"
+                            element={
+                                <AdminPrivateRoute>
+                                    <Admin />
+                                </AdminPrivateRoute>
+                            }
+                        />
                 </Routes>
     </div>
 

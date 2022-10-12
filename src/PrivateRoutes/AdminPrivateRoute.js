@@ -7,24 +7,20 @@ import axios from "axios";
 function AdminPrivateRoute({children}) {
     const navigate = useNavigate();
     const [isAuth, setisAuth] = useState(false);
+    const {user} = React.useContext(UserPermisionContext);
     React.useEffect( () => {
-        const user = JSON.parse(localStorage.getItem("user"));
-        if(user !== null) {
+        if(user.userRole === true) {
+            setisAuth(true);
+        }else{
             setisAuth(false);
-        }else {
-            axios.get(`${global.config.backendUrl}/v1/getuser`,{
-                withCredentials : true
-            }).then((response) => {
-                console.log(response.data);
-                if (response.data.userRole === true) {
-                    setisAuth(true);
-                }
-            }).catch((err) => {
-                alert(err.response.data)
-            })
         }
     },[])
 
-    return isAuth ? <Admin /> : <NotAdminPage/>;
+    if(user === null) {
+        return <div>getting</div>
+    }
+    return (
+        isAuth ? <Admin /> : <NotAdminPage/>
+    );
 }
 export default AdminPrivateRoute;

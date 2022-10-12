@@ -25,7 +25,6 @@ function Navbar() {
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-    const [isAuth, setisAuth] = useState(false);
     const {user} = React.useContext(UserPermisionContext);
 
     const isMenuOpen = Boolean(anchorEl);
