@@ -26,8 +26,7 @@ function Navbar() {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const [isAuth, setisAuth] = useState(false);
-    const [user,setUser] = useState("");
-    //const value = React.useContext(UserPermisionContext);
+    const {user} = React.useContext(UserPermisionContext);
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -54,26 +53,6 @@ function Navbar() {
     const handleDrawerOpen = () => {
         setOpenDrawer(!openDrawer);
     };
-
-    React.useEffect (() => {
-        const guest = JSON.parse(localStorage.getItem("user"));
-        if(guest !== null){
-            setUser(guest);
-        }else {
-            axios.get(`${global.config.backendUrl}/v1/getuser`, {
-                withCredentials: true,
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            }).then((response) => {
-                setUser(response.data);
-            }).catch((err) => {
-                console.log(err);
-            })
-        }
-        console.log(user);
-    },[]);
-
 
     const menuId = 'primary-search-account-menu';
 

@@ -22,32 +22,50 @@ import Context from "./PrivateRoutes/Context";
 import CollectionShowPage from "./CollectionShowPage/CollectionShowPage";
 function App() {
     const { pathname } = useLocation();
-    const [isAuth, setisAuth] = useState(false);
+    const [user, setUser] = useState();
+    const [isLoading, setLoading] = useState(true);
+    // useEffect(() => {
+    //     const guest = JSON.parse(localStorage.getItem("user"));
+    //     if(guest !== null){
+    //         setisAuth(true);
+    //     }else {
+    //         axios.get(`${global.config.backendUrl}/v1/getuser`, {
+    //             withCredentials: true,
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             }
+    //         }).then((response) => {
+    //             setisAuth(true);
+    //         }).catch((err) => {
+    //             setisAuth(false);
+    //         })
+    //     }
+    // }, []);
+
+
     useEffect(() => {
-        const guest = JSON.parse(localStorage.getItem("user"));
-        if(guest !== null){
-            setisAuth(true);
-        }else {
-            axios.get(`${global.config.backendUrl}/v1/getuser`, {
-                withCredentials: true,
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            }).then((response) => {
-                setisAuth(true);
-            }).catch((err) => {
-                setisAuth(false);
-            })
-        }
+        axios.get(`${global.config.backendUrl}/v1/getuser`, {
+            withCredentials: true,
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then((response) => {
+            setUser(response.data);
+            setLoading(false)
+        }).catch((err) => {
+            console.log(err);
+        })
     }, []);
+
+    if(isLoading) {
+        return <div className="App">Loading...</div>;
+    }
   return (
       <div className="App">
-
-        {
-            pathname !== '/auth' &&
-            <Navbar/>
-
-        }
+          {
+              pathname !== '/auth' &&
+              <Navbar/>
+          }
                 <Routes>
                     <Route
                         path="/"
@@ -66,10 +84,8 @@ function App() {
                     <Route
                         path="/admin"
                         element={
-                        <AdminPrivateRoute>
                             <Admin/>
-                        </AdminPrivateRoute>
-                    }
+                        }
                     />
                 </Routes>
     </div>

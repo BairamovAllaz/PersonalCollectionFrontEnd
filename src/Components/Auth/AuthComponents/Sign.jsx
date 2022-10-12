@@ -15,12 +15,11 @@ function Sign() {
     const [image, setImage] = useState("");
 
 
-    const RegisterClick = (e) => {
+    const RegisterClick = () => {
         if (isBlankInputsRegister()) {
             alert("Please fill all the input fileds");
             return;
         }
-        e.preventDefault();
         const UserData = new FormData();
         UserData.append("firstName", firstName);
         UserData.append("lastName", lastName);
@@ -30,8 +29,8 @@ function Sign() {
         axios.post(`${global.config.backendUrl}/v1/register`, UserData,{
             withCredentials : true,
         }).then((response) => {
-            alert("User registered please login");
-            window.location.reload();
+                alert("User register successfuly")
+                window.location.reload();
         }).catch((err) => {
             alert(err.response.data)
         })

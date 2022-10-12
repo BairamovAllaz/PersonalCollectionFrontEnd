@@ -38,10 +38,10 @@ function DrawerC({isDrawerOpened, handleCloseDrawer}) {
             }
         }).then((response) => {
             console.log(response.data);
+            localStorage.clear();
         }).catch((err) => {
             console.log(err);
         })
-        localStorage.clear();
         navigation("/auth");
     }
 

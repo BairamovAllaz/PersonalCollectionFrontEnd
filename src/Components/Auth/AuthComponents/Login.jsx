@@ -12,12 +12,11 @@ function Login() {
     const [password, setPassword] = useState("");
 
 
-    const LoginClick = (e) => {
+    const LoginClick = () => {
         if (isBlankInputsLogin()) {
             alert("Fields cannot be empty")
             return;
         }
-        e.preventDefault();
         const UserData = {
             email,
             password
@@ -28,7 +27,8 @@ function Login() {
                 'Content-Type': 'application/json',
             }
         }).then((response) => {
-            navigation("/");
+            setStorage();
+            window.location.href = "/";
         }).catch((err) => {
             alert(err.response.data)
         })
@@ -49,7 +49,7 @@ function Login() {
     }
 
     function setStorage() {
-        localStorage.setItem('isLog', JSON.stringify(true));
+        localStorage.setItem('isLog', true);
     }
 
     return (

@@ -7,12 +7,15 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
+import * as React from "react";
+import {UserPermisionContext} from "../../../PrivateRoutes/Context";
 
 
 function ModalGuestAccount({isDialogOpened, handleCloseDialog}) {
     const navigation = useNavigate();
     const [firstName, setfirstName] = useState("");
     const [lastName, setlastName] = useState("");
+    const {setUser} = React.useContext(UserPermisionContext);
 
     const handleClose = () => {
         handleCloseDialog(false);
@@ -32,12 +35,14 @@ function ModalGuestAccount({isDialogOpened, handleCloseDialog}) {
             lastName,
             userRole: "Guest"
         }
+        setUser(GuestAccount);
         setStorage(GuestAccount);
         navigation("/");
     }
 
     function setStorage(user) {
         localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem("isLog",true);
     }
 
     return (
