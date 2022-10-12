@@ -12,6 +12,7 @@ import {styled} from "@mui/material/styles";
 import Drawer from '@mui/material/Drawer';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -30,6 +31,16 @@ function DrawerC({isDrawerOpened, handleCloseDrawer}) {
     }
 
     const logout = () => {
+        axios.get(`${global.config.backendUrl}/v1/logout`, {
+            withCredentials: true,
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then((response) => {
+            console.log(response.data);
+        }).catch((err) => {
+            console.log(err);
+        })
         localStorage.clear();
         navigation("/auth");
     }

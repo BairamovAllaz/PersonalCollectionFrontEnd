@@ -29,12 +29,9 @@ function Sign() {
         UserData.append("image", image);
         axios.post(`${global.config.backendUrl}/v1/register`, UserData,{
             withCredentials : true,
-            headers: {
-                'Content-Type': 'application/json',
-            }
         }).then((response) => {
-            setStorage(response.data);
-            navigation("/");
+            alert("User registered please login");
+            window.location.reload();
         }).catch((err) => {
             alert(err.response.data)
         })

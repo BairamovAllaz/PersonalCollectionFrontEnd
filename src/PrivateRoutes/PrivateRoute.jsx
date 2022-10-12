@@ -1,32 +1,32 @@
 import { Route, Redirect, useNavigate, Navigate } from "react-router-dom";
 import {useContext, useEffect, useState} from "react";
 import Home from '../Components/Home'
-import {UserPermisionContext} from "../App";
+import {UserPermisionContext} from "./Context";
 import axios from "axios";
 export { PrivateRoute };
 function PrivateRoute({children}) {
-    const [isAuth, setisAuth] = useState();
+    const [isAuth, setisAuth] = useState(false);
     const navigate = useNavigate();
-    const {user} = useContext(UserPermisionContext);
     useEffect(() => {
-        if (JSON.parse(localStorage.getItem('user')) !== null) {
-            setisAuth(true);
+        const guest = JSON.parse(localStorage.getItem("user"));
+        if(guest !== null){
             navigate("/");
-        } else {
-            setisAuth(false);
-            navigate("/auth");
+            setisAuth(true);
+        }else {
+            axios.get(`${global.config.backendUrl}/v1/getuser`, {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }).then((response) => {
+                navigate("/");
+                setisAuth(true);
+            }).catch((err) => {
+                navigate("/auth");
+                setisAuth(false);
+            })
         }
-        axios.get(`${global.config.backendUrl}/v1/getuser`,{
-            withCredentials : true,
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        }).then((response) => {
-            console.log("Private uiserser: " + response.data);
-        }).catch((err) => {
-            alert(err.response.data)
-        })
     }, []);
-    return isAuth ? <Home /> : <Navigate to="/auth" />;
+    return isAuth ? children : <Navigate to="/auth" />;
 }
 export default PrivateRoute;

@@ -9,8 +9,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import DrawerC from './NavbarComponents/DrawerC';
@@ -19,6 +17,8 @@ import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import {useContext, useState} from "react";
 import {Avatar} from "@mui/material";
 import {Link, useNavigate} from "react-router-dom";
+import {UserPermisionContext} from "../../PrivateRoutes/Context"
+import axios from "axios";
 
 
 function Navbar() {
@@ -26,16 +26,8 @@ function Navbar() {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const [isAuth, setisAuth] = useState(false);
-
-    const [user, setUser] = React.useState("");
-
-    React.useEffect(() => {
-        const juser = JSON.parse(localStorage.getItem("user"));
-        if(user !== null) {
-            setUser(juser);
-        }
-    }, [])
-
+    const [user,setUser] = useState("");
+    //const value = React.useContext(UserPermisionContext);
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -63,9 +55,24 @@ function Navbar() {
         setOpenDrawer(!openDrawer);
     };
 
-    React.useEffect(() => {
+    React.useEffect (() => {
+        const guest = JSON.parse(localStorage.getItem("user"));
+        if(guest !== null){
+            setUser(guest);
+        }else {
+            axios.get(`${global.config.backendUrl}/v1/getuser`, {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }).then((response) => {
+                setUser(response.data);
+            }).catch((err) => {
+                console.log(err);
+            })
+        }
         console.log(user);
-    }, [])
+    },[]);
 
 
     const menuId = 'primary-search-account-menu';

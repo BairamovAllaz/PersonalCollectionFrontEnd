@@ -40,7 +40,12 @@ function UserProfile() {
 
 
     React.useEffect(() => {
-        axios.get(`${global.config.backendUrl}/v1/get/${userId}`).then((response) => {
+        axios.get(`${global.config.backendUrl}/v1/getuser`,{
+            withCredentials: true,
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then((response) => {
             setUser(response.data);
         }).catch((err) => {
             alert(err.response.data)
@@ -72,7 +77,7 @@ function UserProfile() {
         <div>
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={4}>
-                    <Paper variant="outlined" elevation="4" >
+                    <Paper variant="outlined" elevation="2" >
                                 <Avatar
                                     alt="Remy Sharp"
                                     src={`${global.config.backendUrl}/uploads/${user.image}`}
@@ -84,7 +89,7 @@ function UserProfile() {
                                     </Typography>
                                 </Box>
                             <Grid item>
-                                <Button style = {{marginTop:"20px",width : "50%"}} variant="outlined" startIcon={<EditIcon/>}>Edit Profile</Button>
+                                <Button style = {{marginTop:"20px",width : "50%",marginBottom : "30px"}} variant="outlined" startIcon={<EditIcon/>}>Edit Profile</Button>
                             </Grid>
                     </Paper>
                 </Grid>

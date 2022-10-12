@@ -6,11 +6,6 @@ import Snackbar from '@mui/material/Snackbar';
 import React,{useState} from 'react';
 import axios from "axios";
 
-import MuiAlert from '@mui/material/Alert';
-const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
-
 function Login() {
     const navigation = useNavigate();
     const [email, setEmail] = useState("");
@@ -33,7 +28,6 @@ function Login() {
                 'Content-Type': 'application/json',
             }
         }).then((response) => {
-            setStorage(response.data);
             navigation("/");
         }).catch((err) => {
             alert(err.response.data)
@@ -54,8 +48,8 @@ function Login() {
         setPassword("");
     }
 
-    function setStorage(user) {
-        localStorage.setItem('user', JSON.stringify(user));
+    function setStorage() {
+        localStorage.setItem('isLog', JSON.stringify(true));
     }
 
     return (

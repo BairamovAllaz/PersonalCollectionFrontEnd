@@ -4,7 +4,7 @@ import {
     BrowserRouter,
     Routes,
     Route,
-    Link, useLocation
+    Link, useLocation, useNavigate
 } from "react-router-dom";
 import PrivateRoute from './PrivateRoutes/PrivateRoute'
 import Auth from "./Components/Auth/Auth";
@@ -12,42 +12,42 @@ import Home from "./Components/Home";
 import LoginSuccess from './Components/Auth/AuthComponents/LoginSuccess'
 import ForgotPassword from "./Components/Auth/AuthComponents/ForgotPassword";
 import CreateCollection from "./Components/Create/CreateCollection";
-import React,{useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Admin from "./Components/AdminPage/Admin";
 import AdminPrivateRoute from "./PrivateRoutes/AdminPrivateRoute";
 import UserProfile from "./Components/UserProfil/UserProfile";
 import Navbar from "./Components/Navbar/Navbar";
-export const UserPermisionContext = React.createContext();
+import Context from "./PrivateRoutes/Context";
+import CollectionShowPage from "./CollectionShowPage/CollectionShowPage";
 function App() {
-
-    const [user,setUser] = React.useState("");
     const { pathname } = useLocation();
-    React.useEffect(() => {
-        setUser(JSON.parse(localStorage.getItem("user")));
-
-        axios.get(`${global.config.backendUrl}/v1/getuser`,{
-            withCredentials : true,
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        }).then((response) => {
-            console.log("User: " + response.data);
-        }).catch((err) => {
-            alert(err.response.data)
-        })
-    },[])
-
-
+    const [isAuth, setisAuth] = useState(false);
+    useEffect(() => {
+        const guest = JSON.parse(localStorage.getItem("user"));
+        if(guest !== null){
+            setisAuth(true);
+        }else {
+            axios.get(`${global.config.backendUrl}/v1/getuser`, {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }).then((response) => {
+                setisAuth(true);
+            }).catch((err) => {
+                setisAuth(false);
+            })
+        }
+    }, []);
   return (
-    <div className="App">
-        <UserPermisionContext.Provider value = {{
-            user,
-        }}>
-            {
-                pathname !== '/auth' &&
-                <Navbar/>
-            }
+      <div className="App">
+
+        {
+            pathname !== '/auth' &&
+            <Navbar/>
+
+        }
                 <Routes>
                     <Route
                         path="/"
@@ -62,6 +62,7 @@ function App() {
                     <Route path="/forgot-password/:id/:token" element={<ForgotPassword/>}/>
                     <Route path="/collection/:id/create" element={<CreateCollection/>}/>
                     <Route path="/user/:userId" element={<UserProfile/>}/>
+                    <Route path="/User/:userId/collection/:collectionId" element={<CollectionShowPage/>}/>
                     <Route
                         path="/admin"
                         element={
@@ -71,8 +72,8 @@ function App() {
                     }
                     />
                 </Routes>
-        </UserPermisionContext.Provider>
     </div>
+
   );
 }
 
