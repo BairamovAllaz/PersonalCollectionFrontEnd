@@ -4,31 +4,88 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import React from "react";
 import Box from "@mui/material/Box";
-import {Autocomplete, Avatar} from "@mui/material";
+import {Autocomplete, Avatar, FormControl, InputLabel, Select} from "@mui/material";
 import Button from "@mui/material/Button";
-import UpgradeIcon from "@mui/icons-material/Upgrade";
 import {TextField} from "@material-ui/core";
-import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import axios from 'axios'
-
-const tags = [
-    {name : "Happy"},{name : "Expensive"},{name : "Beautiful"},{name : "Top"},{name : "Recomended"},{name : "Nice"}
-]
+import MenuItem from "@mui/material/MenuItem";
 
 function CreateItem() {
     const {id} = useParams();
+    const [tags, setTags] = React.useState([]);
+    const [fields, setFields] = React.useState([]);
+    const [values,setValues] = React.useState({});
 
-    // React.useEffect(() => {
-    //     axios.get(`${global.config.backendUrl}/collection/getTags/`).then(response => {
-    //         setTags(response.data)
-    //     }).catch(err => {
-    //         console.log(err);
-    //     })
-    // },[])
+    React.useEffect(() => {
+        axios.get(`${global.config.backendUrl}/collection/getTags`).then(response => {
+            setTags(response.data)
+        }).catch(err => {
+            console.log(err);
+        })
+    }, [])
+
+    React.useEffect(() => {
+        axios.get(`${global.config.backendUrl}/collection/getFields/${id}`).then(response => {
+            setFields(response.data)
+        }).catch(err => {
+            console.log(err);
+        })
+        console.log(values);
+    }, [])
+
+    React.useEffect(() => {
+        fields.map((item, index) => {
+            return setValues({
+                ...values,
+                [index]: item.value
+            });
+        });
+    },[fields])
 
 
+    if (tags.length === 0 || fields.length === 0) {
+        return <div>Loading...</div>
+    }
 
-    return(
+    const render = (element) => {
+        if (element.field_type === "Text") {
+            return <TextField id="outlined-basic"
+                              label="outlined" variant="outlined"
+                              style={{marginTop: "40px"}}
+                              label={`${element.field_name}`}/>
+        } else if (element.field_type === "Number") {
+            return <TextField id="outlined-number"
+                              type="number" InputLabelProps={{shrink: true}}
+                              style={{marginTop: "40px"}}
+                              label={`${element.field_name}`}/>
+        } else if (element.field_type === "BigText") {
+            return <TextField id="filled-multiline-flexible" label="Multiline" multiline maxRows={4} variant="outlined"
+                              style={{marginTop: "40px"}} label={`${element.field_name}`}/>
+        } else if (element.field_type === "Boolean") {
+            return <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label" style={{marginTop: "40px"}}>Age</InputLabel>
+                <Select
+                    label={`${element.field_name}`}
+                    style={{marginTop: "40px"}}
+                    InputLabelProps={{shrink: true}}
+                >
+                    <MenuItem value={true}>True</MenuItem>
+                    <MenuItem value={false}>False</MenuItem>
+                </Select>
+            </FormControl>
+        } else if (element.field_type === "Date") {
+            return (
+                <div>
+                    <TextField type="date" InputProps={{inputProps: {min: "1500-05-01", max: "2020-05-04"}}}
+                               style={{marginTop: "40px", width: "100%"}}
+                               InputLabelProps={{shrink: true}}
+                               label={`${element.field_name}`}/>
+                </div>
+            )
+        }
+    }
+
+    return (
         <div>
             <Container component="main" maxWidth="sm" sx={{mb: 4}}>
                 <Paper variant="outlined" sx={{my: {xs: 3, md: 6}, p: {xs: 2, md: 3}}}>
@@ -37,7 +94,7 @@ function CreateItem() {
                     </Typography>
                     <React.Fragment>
                         <Box sx={{display: 'grid', justifyContent: 'center'}}>
-                            <TextField id="outlined" label="Item Name" variant="outlined" style = {{marginTop : "30px"}} />
+                            <TextField id="outlined" label="Item Name" variant="outlined" style={{marginTop: "30px"}}/>
                             <br/>
                             <Autocomplete
                                 multiple
@@ -49,14 +106,18 @@ function CreateItem() {
                                     <TextField
                                         {...params}
                                         variant="standard"
-                                        label="Multiple values"
+                                        label="Tags"
                                         placeholder="Favorites"
                                     />
                                 )}
-                                style = {{marginTop : "30px"}}
+                                style={{marginTop: "30px"}}
                             />
-                            <br/>
-                            <Button  variant="contained" style = {{marginTop : "30px"}}>Update User</Button>
+                            {
+                                fields.map(element => (
+                                    render(element)
+                                ))
+                            }
+                            <Button variant="contained" style={{marginTop: "30px"}}>Create Item</Button>
                         </Box>
                     </React.Fragment>
                 </Paper>
@@ -64,4 +125,5 @@ function CreateItem() {
         </div>
     )
 }
+
 export default CreateItem;

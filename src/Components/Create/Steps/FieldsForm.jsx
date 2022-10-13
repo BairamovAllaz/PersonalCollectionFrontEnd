@@ -70,6 +70,7 @@ function FieldsForm() {
                                     >
                                         <MenuItem value={"Number"}>Number</MenuItem>
                                         <MenuItem value={"Text"}>Text</MenuItem>
+                                        <MenuItem value={"BigText"}>Big Text</MenuItem>
                                         <MenuItem value={"Boolean"}>Boolean</MenuItem>
                                         <MenuItem value={"Date"}>Date</MenuItem>
                                     </Select>
