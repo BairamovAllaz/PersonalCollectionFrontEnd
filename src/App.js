@@ -22,6 +22,7 @@ import Context, {UserPermisionContext} from "./UserContext/Context";
 import CollectionShowPage from "./Components/CollectionShowPage/CollectionShowPage";
 import UserEdit from "./Components/UserProfil/UserProfileComponents/UserEdit";
 import MyPrivate from "./PrivateRoutes/MyPrivate";
+import CreateItem from "./Components/Create/CreateItem";
 function App() {
     const { pathname } = useLocation();
     const [isLoading, setLoading] = useState(true);
@@ -66,6 +67,7 @@ function App() {
                     <Route path="/success/google" element={<LoginSuccess/>}/>
                     <Route path="/forgot-password/:id/:token" element={<ForgotPassword/>}/>
                     <Route path="/collection/:id/create" element={<CreateCollection/>}/>
+                    <Route path="/collection/item/:id/create" element={<CreateItem/>}/>
                     <Route path="/user/:userId" element={<UserProfile/>}/>
                     <Route path="/User/:userId/collection/:collectionId" element={<CollectionShowPage/>}/>
                     <Route  element={
