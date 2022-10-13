@@ -17,7 +17,7 @@ function UserEdit() {
     const [firstName,setFirstName] = React.useState("");
     const [lastName,setLastName] = React.useState("");
     const [email,setEmail] = React.useState("");
-    const [image,setImage] = React.useState("");
+    const [image,setImage] = React.useState();
 
     const {user} = React.useContext(UserPermisionContext);
 
@@ -37,8 +37,19 @@ function UserEdit() {
         e.preventDefault();
         const updates = CheckUpdates(e);
         const toUpdate = removeEmpty(updates);
-        axios.put(`${global.config.backendUrl}/userpage/updateUser/${userId}`, toUpdate).then((response) => {
+
+        const formdata = new FormData();
+        if(image !== undefined) {
+            formdata.append("image",URL.createObjectURL(image));
+        }else{
+            formdata.append("image","");
+        }
+        for (const key of Object.keys(toUpdate)) {
+            formdata.append(key, toUpdate[key]);
+        }
+        axios.put(`${global.config.backendUrl}/userpage/updateUser/${userId}`, formdata).then((response) => {
             alert(response.data);
+            window.location.reload();
         }).catch((err) => {
             alert(err.response.data)
         })
@@ -49,7 +60,7 @@ function UserEdit() {
 
     function CheckUpdates(e) {
         let updates = {};
-        if(user.firstName !== firstName) {
+        if(user.firstName !== e.firstName) {
             updates.firstName = firstName;
         }
         if(user.lastName !== e.lastName) {
@@ -58,7 +69,15 @@ function UserEdit() {
         if(user.email !== e.email) {
             updates.email = email;
         }
+        if(image !== null) {
+            updates.image = image;
+        }
         return updates;
+    }
+
+    const ref = React.useRef()
+    const handleClick = (e) => {
+        ref.current.click()
     }
 
     return (
@@ -75,7 +94,8 @@ function UserEdit() {
                                 src={`${global.config.backendUrl}/uploads/${user.image}`}
                                 sx={{ width: 120, height: 120,marginTop : "20px",margin : "0 auto"}}
                             />
-                            <Button startIcon = {<UpgradeIcon/>} variant="contained" sx = {{marginTop : "20px"}}>Image</Button>
+                            <Button startIcon = {<UpgradeIcon/>} variant="contained" sx = {{marginTop : "20px"}} onClick = {handleClick}>Image</Button>
+                            <input ref={ref} type="file" style = {{display : "none"}} onChange={(e) => setImage(e.target.files[0])}/>
                             <br/>
                             <TextField id="outlined" label="FirstName" variant="outlined" defaultValue={`${user.firstName}`} onChange = {(e) => setFirstName(e.target.value)}/>
                             <br/>

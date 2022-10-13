@@ -37,12 +37,11 @@ function TabPanel(props) {
 function UserProfile() {
     const {userId} = useParams();
     const navigate = useNavigate();
-    const {user} = React.useContext(UserPermisionContext);
-    const [collections,setCollections] = React.useState([]);
+    const [user,setUser] = React.useState([]);
 
     React.useEffect(() => {
         axios.get(`${global.config.backendUrl}/userpage/getCollections/${userId}`).then(response => {
-            setCollections(response.data)
+            setUser(response.data);
         }).catch((err) => {
             console.log(err);
         })
@@ -60,49 +59,57 @@ function UserProfile() {
         };
     }
 
+    if(user.length < 0) {
+       return <div>Loading</div>
+    }
+
     return (
         <div>
-            <Grid container spacing={2}>
-                <Grid item xs={12} sm={4}>
-                    <Paper variant="outlined" elevation="2" >
+            {
+                user.map(element => (
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm={4}>
+                            <Paper variant="outlined" elevation="2" >
                                 <Avatar
                                     alt="Remy Sharp"
-                                    src={`${global.config.backendUrl}/uploads/${user.image}`}
+                                    src={`${global.config.backendUrl}/uploads/${element.image}`}
                                     sx={{ width: {xs : "100px",sm : "300px"}, height: {xs : "100px",sm : "300px"},margin : "0 auto",marginTop: "10px"}}
                                 />
                                 <Box>
                                     <Typography sx ={{fontSize: "30px",fontWeight : "600",color : "gray",paddingTop : "10px"}}>
-                                        {user.firstName} {user.lastName}
+                                        {element.firstName} {element.lastName}
                                     </Typography>
                                 </Box>
-                            <Grid item>
-                                <Button style = {{marginTop:"20px",width : "50%",marginBottom : "30px"}} variant="outlined" startIcon={<EditIcon/>} onClick = {() => navigate(`/User/${user.Id}/edit`)}>Edit Profile</Button>
-                            </Grid>
-                    </Paper>
-                </Grid>
-                <Grid item xs={12} sm={8}>
-                    <Paper variant="outlined" elevation = "4" sx = {{height : "100vh"}}>
-                        <Box sx={{ width: '100%' }}>
-                            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                                    <Tab label="Collection" {...a11yProps(0)} />
-                                    <Tab label="Item Two" {...a11yProps(1)} />
-                                    <Tab label="Item Three" {...a11yProps(2)} />
-                                </Tabs>
-                            </Box>
-                            <CollectionList user = {user} collections = {collections} value={value} index={0}>
-                                Item One
-                            </CollectionList>
-                            <TabPanel value={value} index={1}>
-                                Item Two
-                            </TabPanel>
-                            <TabPanel value={value} index={2}>
-                                Item Three
-                            </TabPanel>
-                        </Box>
-                    </Paper>
-                </Grid>
-            </Grid>
+                                <Grid item>
+                                    <Button style = {{marginTop:"20px",width : "50%",marginBottom : "30px"}} variant="outlined" startIcon={<EditIcon/>} onClick = {() => navigate(`/User/${element.Id}/edit`)}>Edit Profile</Button>
+                                </Grid>
+                            </Paper>
+                        </Grid>
+                        <Grid item xs={12} sm={8}>
+                            <Paper variant="outlined" elevation = "4" sx = {{height : "100vh"}}>
+                                <Box sx={{ width: '100%' }}>
+                                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                                        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                                            <Tab label="Collection" {...a11yProps(0)} />
+                                            <Tab label="Item Two" {...a11yProps(1)} />
+                                            <Tab label="Item Three" {...a11yProps(2)} />
+                                        </Tabs>
+                                    </Box>
+                                    <CollectionList user = {element} collections = {element.collections} value={value} index={0}>
+                                        Item One
+                                    </CollectionList>
+                                    <TabPanel value={value} index={1}>
+                                        Item Two
+                                    </TabPanel>
+                                    <TabPanel value={value} index={2}>
+                                        Item Three
+                                    </TabPanel>
+                                </Box>
+                            </Paper>
+                        </Grid>
+                    </Grid>
+                ))
+            }
         </div>
     )
 }
