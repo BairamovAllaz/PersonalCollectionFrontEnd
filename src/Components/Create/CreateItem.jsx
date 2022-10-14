@@ -15,6 +15,8 @@ function CreateItem() {
     const [tags, setTags] = React.useState([]);
     const [fields, setFields] = React.useState([]);
     const [values,setValues] = React.useState({});
+    const [itemName,setItemName] = React.useState("");
+    const [selectedTags,setSelectedTags] = React.useState("");
 
     React.useEffect(() => {
         axios.get(`${global.config.backendUrl}/collection/getTags`).then(response => {
@@ -33,34 +35,51 @@ function CreateItem() {
         console.log(values);
     }, [])
 
-    React.useEffect(() => {
-        fields.map((item, index) => {
-            return setValues({
-                ...values,
-                [index]: item.value
-            });
-        });
-    },[fields])
+    const handleChange = (e,idx) => {
+        let cl = [...fields];
+        let obj = cl[idx];
+        obj.field_value = e.target.value;
+        cl[idx] = obj;
+        setFields([...cl])
+        console.log(fields);
+    }
 
+
+    const Create = () => {
+        axios.put(`${global.config.backendUrl}/collection/addFieldsValue/${id}`,fields).then(response => {
+            alert(response.data);
+        }).catch(err => {
+            console.log(err);
+        })
+    }
 
     if (tags.length === 0 || fields.length === 0) {
         return <div>Loading...</div>
     }
 
-    const render = (element) => {
+    const render = (element,i) => {
         if (element.field_type === "Text") {
             return <TextField id="outlined-basic"
-                              label="outlined" variant="outlined"
+                              variant="outlined"
                               style={{marginTop: "40px"}}
-                              label={`${element.field_name}`}/>
+                              label={`${element.field_name}`}
+                              name = {`${element.field_name}`}
+                              onChange={(e) => handleChange(e,i)}
+                />
         } else if (element.field_type === "Number") {
             return <TextField id="outlined-number"
                               type="number" InputLabelProps={{shrink: true}}
                               style={{marginTop: "40px"}}
-                              label={`${element.field_name}`}/>
+                              label={`${element.field_name}`}
+                              name = {`${element.field_name}`}
+                              onChange={(e) => handleChange(e,i)}
+                    />
         } else if (element.field_type === "BigText") {
             return <TextField id="filled-multiline-flexible" label="Multiline" multiline maxRows={4} variant="outlined"
-                              style={{marginTop: "40px"}} label={`${element.field_name}`}/>
+                              style={{marginTop: "40px"}} label={`${element.field_name}`}
+                              name = {`${element.field_name}`}
+                              onChange={(e) => handleChange(e,i)}
+                    />
         } else if (element.field_type === "Boolean") {
             return <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label" style={{marginTop: "40px"}}>Age</InputLabel>
@@ -68,6 +87,8 @@ function CreateItem() {
                     label={`${element.field_name}`}
                     style={{marginTop: "40px"}}
                     InputLabelProps={{shrink: true}}
+                    name = {`${element.field_name}`}
+                    onChange={(e) => handleChange(e,i)}
                 >
                     <MenuItem value={true}>True</MenuItem>
                     <MenuItem value={false}>False</MenuItem>
@@ -79,7 +100,10 @@ function CreateItem() {
                     <TextField type="date" InputProps={{inputProps: {min: "1500-05-01", max: "2020-05-04"}}}
                                style={{marginTop: "40px", width: "100%"}}
                                InputLabelProps={{shrink: true}}
-                               label={`${element.field_name}`}/>
+                               label={`${element.field_name}`}
+                               name = {`${element.field_name}`}
+                               onChange={(e) => handleChange(e,i)}
+                    />
                 </div>
             )
         }
@@ -113,11 +137,11 @@ function CreateItem() {
                                 style={{marginTop: "30px"}}
                             />
                             {
-                                fields.map(element => (
-                                    render(element)
+                                fields.map((element,i) => (
+                                    render(element,i)
                                 ))
                             }
-                            <Button variant="contained" style={{marginTop: "30px"}}>Create Item</Button>
+                            <Button variant="contained" style={{marginTop: "30px"}} onClick = {Create}>Create Item</Button>
                         </Box>
                     </React.Fragment>
                 </Paper>
