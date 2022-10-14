@@ -10,29 +10,6 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import EditIcon from '@mui/icons-material/Edit';
 import CollectionList from "./UserProfileComponents/CollectionList";
-import {UserPermisionContext} from "../../UserContext/Context";
-
-function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-
-    return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            style = {{height : "100vh"}}
-            {...other}
-        >
-            {value === index && (
-                <Box sx={{ p: 3 }}>
-                    <Typography>{children}</Typography>
-                </Box>
-            )}
-        </div>
-    );
-}
-
 
 function UserProfile() {
     const {userId} = useParams();
@@ -51,13 +28,6 @@ function UserProfile() {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-
-    function a11yProps(index) {
-        return {
-            id: `simple-tab-${index}`,
-            'aria-controls': `simple-tabpanel-${index}`,
-        };
-    }
 
     if(user.length < 0) {
        return <div>Loading</div>
@@ -89,22 +59,9 @@ function UserProfile() {
                         <Grid item xs={12} sm={8}>
                             <Paper variant="outlined" elevation = "4" sx = {{height : "100vh"}}>
                                 <Box sx={{ width: '100%' }}>
-                                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                                        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                                            <Tab label="Collection" {...a11yProps(0)} />
-                                            <Tab label="Item Two" {...a11yProps(1)} />
-                                            <Tab label="Item Three" {...a11yProps(2)} />
-                                        </Tabs>
-                                    </Box>
                                     <CollectionList user = {element} collections = {element.collections} value={value} index={0}>
                                         Item One
                                     </CollectionList>
-                                    <TabPanel value={value} index={1}>
-                                        Item Two
-                                    </TabPanel>
-                                    <TabPanel value={value} index={2}>
-                                        Item Three
-                                    </TabPanel>
                                 </Box>
                             </Paper>
                         </Grid>

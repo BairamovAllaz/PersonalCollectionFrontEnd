@@ -51,11 +51,11 @@ function Navbar() {
         setOpenDrawer(!openDrawer);
     };
 
-    React.useEffect(() => {
-        if(user === null) {
-            localStorage.removeItem("isLog");
-        }
-    },[])
+    // React.useEffect(() => {
+    //     if(user === null) {
+    //         localStorage.removeItem("isLog");
+    //     }
+    // },[])
 
 
     const menuId = 'primary-search-account-menu';

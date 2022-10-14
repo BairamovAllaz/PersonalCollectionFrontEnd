@@ -10,20 +10,14 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 function CollectionList(props) {
     const navigate = useNavigate();
-    const { user,collections,children, value, index, ...other } = props;
+    const { user,collections } = props;
     return(
         <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
             style = {{height : "100vh",overflowY : "auto"}}
-            {...other}
         >
             <div style={{textAlign : "right"}}>
                 <Button variant="contained" sx = {{margin : "20px"}} startIcon={<AddIcon/>} onClick = {() => navigate(`/collection/${user.Id}/create`)}>Collection</Button>
             </div>
-            {value === index && (
                 <Box sx={{ p: 3 , flexWrap: 'wrap',display:"flex",justifyContent: {xs : "center",sm : "left"}}}>
                     {
                         collections.map(element => (
@@ -47,14 +41,13 @@ function CollectionList(props) {
                                     </Typography>
                                 </CardContent>
                                 <CardActions >
-                                    <Button size="small" startIcon={<VisibilityIcon/>} variant="outlined" color = "secondary">Show</Button>
+                                    <Button size="small" startIcon={<VisibilityIcon/>} variant="outlined" color = "secondary" onClick = {() => navigate(`/User/${user.Id}/collection/${element.Id}`)}>Show</Button>
                                     <Button size="small" startIcon = {<DeleteIcon/>} variant="outlined" color = "error">Delete</Button>
                                 </CardActions>
                             </Card>
                         ))
                     }
                 </Box>
-            )}
         </div>
     )
 }
