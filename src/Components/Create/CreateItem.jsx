@@ -44,7 +44,6 @@ function CreateItem() {
         console.log(fields);
     }
 
-
     const Create = () => {
         axios.put(`${global.config.backendUrl}/collection/addFieldsValue/${id}`,fields).then(response => {
             alert(response.data);

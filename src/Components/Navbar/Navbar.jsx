@@ -18,8 +18,6 @@ import {useContext, useState} from "react";
 import {Avatar} from "@mui/material";
 import {Link, useNavigate} from "react-router-dom";
 import {UserPermisionContext} from "../../UserContext/Context"
-import axios from "axios";
-
 
 function Navbar() {
     const navigate = useNavigate();
@@ -52,6 +50,13 @@ function Navbar() {
     const handleDrawerOpen = () => {
         setOpenDrawer(!openDrawer);
     };
+
+    React.useEffect(() => {
+        if(user === null) {
+            localStorage.removeItem("isLog");
+        }
+    },[])
+
 
     const menuId = 'primary-search-account-menu';
 
@@ -120,6 +125,7 @@ function Navbar() {
             </MenuItem>
         </Menu>
     );
+
 
 
     return (

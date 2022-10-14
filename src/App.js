@@ -13,7 +13,6 @@ import LoginSuccess from './Components/Auth/AuthComponents/LoginSuccess'
 import ForgotPassword from "./Components/Auth/AuthComponents/ForgotPassword";
 import CreateCollection from "./Components/Create/CreateCollection";
 import React, {useEffect, useState} from "react";
-import axios from "axios";
 import Admin from "./Components/AdminPage/Admin";
 import AdminPrivateRoute from "./PrivateRoutes/AdminPrivateRoute";
 import UserProfile from "./Components/UserProfil/UserProfile";
@@ -23,33 +22,17 @@ import CollectionShowPage from "./Components/CollectionShowPage/CollectionShowPa
 import UserEdit from "./Components/UserProfil/UserProfileComponents/UserEdit";
 import MyPrivate from "./PrivateRoutes/MyPrivate";
 import CreateItem from "./Components/Create/CreateItem";
+import {Grid} from "@material-ui/core";
 function App() {
     const { pathname } = useLocation();
     const [isLoading, setLoading] = useState(true);
-    // useEffect(() => {
-    //     const guest = JSON.parse(localStorage.getItem("user"));
-    //     if(guest !== null){
-    //         setisAuth(true);
-    //     }else {
-    //         axios.get(`${global.config.backendUrl}/v1/getuser`, {
-    //             withCredentials: true,
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             }
-    //         }).then((response) => {
-    //             setisAuth(true);
-    //         }).catch((err) => {
-    //             setisAuth(false);
-    //         })
-    //     }
-    // }, []);
     const {user} = React.useContext(UserPermisionContext);
 
     if(user === null) {
         return <div className="App">Loading...</div>;
     }
   return (
-      <div className="App">
+      <Grid className="App">
           {
               pathname !== '/auth' &&
               <Navbar/>
@@ -84,7 +67,7 @@ function App() {
                             }
                         />
                 </Routes>
-    </div>
+      </Grid>
 
   );
 }

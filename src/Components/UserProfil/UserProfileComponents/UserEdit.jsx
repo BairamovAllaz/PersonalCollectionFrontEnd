@@ -97,15 +97,15 @@ function UserEdit() {
                             <Button startIcon = {<UpgradeIcon/>} variant="contained" sx = {{marginTop : "20px"}} onClick = {handleClick}>Image</Button>
                             <input ref={ref} type="file" style = {{display : "none"}} onChange={(e) => setImage(e.target.files[0])}/>
                             <br/>
-                            <TextField id="outlined" label="FirstName" variant="outlined" defaultValue={`${user.firstName}`} onChange = {(e) => setFirstName(e.target.value)}/>
+                            <TextField id="outlined" label="FirstName" variant="outlined" defaultValue={`${user.firstName}`} onChange = {(e) => setFirstName(e.target.value)} style = {{marginTop :"30px"}}/>
                             <br/>
-                            <TextField id="outlined" label="LastName" variant="outlined" defaultValue={`${user.lastName}`} onChange = {(e) => setLastName(e.target.value)}/>
+                            <TextField id="outlined" label="LastName" variant="outlined" defaultValue={`${user.lastName}`} onChange = {(e) => setLastName(e.target.value)} style = {{marginTop :"30px"}}/>
                             <br/>
-                            <TextField id="outlined" label="Email" variant="outlined" defaultValue={`${user.email}`}  onChange = {(e) => setEmail(e.target.value)}/>
+                            <TextField id="outlined" label="Email" variant="outlined" defaultValue={`${user.email}`}  onChange = {(e) => setEmail(e.target.value)} style = {{marginTop :"30px"}}/>
                             <br/>
-                                <Button sx = {{width : "300px"}} color = "secondary" startIcon = {<ChangeCircleIcon/>} onClick={ForgotPassword}>Change Password</Button>
+                                <Button sx = {{width : "300px"}} color = "secondary" startIcon = {<ChangeCircleIcon/>} onClick={ForgotPassword} style = {{marginTop :"30px"}}>Change Password</Button>
                             <br/>
-                            <Button  variant="contained" onClick = {UpdateUser}>Update User</Button>
+                            <Button  variant="contained" onClick = {UpdateUser} style = {{marginTop :"30px"}}>Update User</Button>
                         </Box>
                     </React.Fragment>
                 </Paper>

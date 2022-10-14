@@ -67,7 +67,7 @@ function UserProfile() {
         <div>
             {
                 user.map(element => (
-                    <Grid container spacing={2}>
+                    <Grid container spacing={2} >
                         <Grid item xs={12} sm={4}>
                             <Paper variant="outlined" elevation="2" >
                                 <Avatar
@@ -81,7 +81,8 @@ function UserProfile() {
                                     </Typography>
                                 </Box>
                                 <Grid item>
-                                    <Button style = {{marginTop:"20px",width : "50%",marginBottom : "30px"}} variant="outlined" startIcon={<EditIcon/>} onClick = {() => navigate(`/User/${element.Id}/edit`)}>Edit Profile</Button>
+                                    <Button style = {{marginTop:"20px",width : "50%",marginBottom : "30px"}} variant="outlined" startIcon={<EditIcon/>}
+                                            onClick = {() => navigate(`/User/${element.Id}/edit`)}>Edit Profile</Button>
                                 </Grid>
                             </Paper>
                         </Grid>
