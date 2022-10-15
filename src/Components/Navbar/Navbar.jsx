@@ -52,10 +52,11 @@ function Navbar() {
     };
 
     // React.useEffect(() => {
-    //     if(user === null) {
+    //     if(user === undefined) {
     //         localStorage.removeItem("isLog");
+    //         navigate("/auth");
     //     }
-    // },[])
+    // })
 
 
     const menuId = 'primary-search-account-menu';
