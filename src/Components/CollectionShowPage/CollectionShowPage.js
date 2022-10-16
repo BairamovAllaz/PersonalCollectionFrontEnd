@@ -9,9 +9,7 @@ import { styled } from "@mui/material/styles";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import CardHeader from "@mui/material/CardHeader";
-import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AppsIcon from "@mui/icons-material/Apps";
 import InfoIcon from "@mui/icons-material/Info";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
@@ -19,6 +17,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { UserPermisionContext } from "../../UserContext/Context";
 import DescriptionIcon from "@mui/icons-material/Description";
 import CollectionDescModal from "./CollectionShowPageComponents/CollectionDescModal";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ItemsContainer from "./CollectionShowPageComponents/ItemsContainer";
+
 const Img = styled("img")({
   margin: "auto",
   display: "block",
@@ -148,9 +152,21 @@ function CollectionShowPage() {
                       onClick={handleClickOpenDialog}
                     />
                   </CardActions>
+                  <Accordion style={{ margin: "10px auto" }}>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel1a-content"
+                      id="panel1a-header"
+                    >
+                      <Typography>Filter</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails style={{}}>
+                      <h1>Filter</h1>
+                    </AccordionDetails>
+                  </Accordion>
                 </Grid>
                 <Grid item md={8} xs={12}>
-                  <h1>About</h1>
+                      <ItemsContainer items={collection.items} />
                 </Grid>
               </Grid>
             </Paper>
