@@ -4,7 +4,7 @@ import axios from "axios";
 import Container from "@mui/material/Container";
 import { Grid, Paper } from "@material-ui/core";
 import Typography from "@mui/material/Typography";
-import { Avatar, ButtonBase, CardMedia } from "@mui/material";
+import { Avatar, ButtonBase, CardMedia, Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
@@ -22,6 +22,16 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ItemsContainer from "./CollectionShowPageComponents/ItemsContainer";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
+import TextField from "@mui/material/TextField";
+import AddIcon from "@mui/icons-material/Add";
+import Checkbox from "@mui/material/Checkbox";
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import Favorite from "@mui/icons-material/Favorite";
 
 const Img = styled("img")({
   margin: "auto",
@@ -36,10 +46,18 @@ function CollectionShowPage() {
   const { userId, collectionId } = useParams();
   const [values, setValues] = React.useState([]);
   const [openDialog, setOpenDialog] = React.useState(false);
+  const [selectedFilter, setSelectedFilter] = React.useState("recommended");
+  const [searchText, setSearchText] = React.useState("");
 
   const handleClickOpenDialog = () => {
     setOpenDialog(!openDialog);
   };
+
+  const handleFilterChange = e => {
+    setSelectedFilter(e.target.value);
+  };
+
+  const searchFilter = () => {};
 
   React.useEffect(() => {
     axios
@@ -55,7 +73,44 @@ function CollectionShowPage() {
       });
   }, []);
 
-  if (values === undefined) {
+  const addLikeCollection = collectionId => {
+    const info = {
+      collectionId,
+      userId: user.Id,
+    };
+    axios
+      .post(`${global.config.backendUrl}/collection/addLikeCollection`, info, {
+        withCredentials: true,
+      })
+      .then(response => {
+      })
+      .catch(err => {
+        console.log(err);
+      });
+      window.location.reload();
+  };
+
+  const DisLikeCollection = collectionId => {
+    axios
+      .get(
+        `${global.config.backendUrl}/collection/CollectionDislike/${user.Id}/${collectionId}`,
+        {
+          withCredentials: true,
+        }
+      )
+      .then(response => {
+      })
+      .catch(err => {
+        console.log(err);
+      });
+      window.location.reload();
+  };
+
+  function CheckUserLiked(likes) {
+    return likes.some(el => el.userId === user.Id);
+  }
+
+  if (values === null) {
     return <div>Loading...</div>;
   }
 
@@ -99,7 +154,7 @@ function CollectionShowPage() {
                           ).toLocaleDateString("en-US")}`}
                         />
                       </Grid>
-                      <Grid item xs={6} md={12}>
+                      <Grid item xs={6} md={12} style={{ marginTop: "30px" }}>
                         <Typography
                           sx={{ mb: 1.5 }}
                           color="text.secondary"
@@ -116,9 +171,11 @@ function CollectionShowPage() {
                               justifyContent: "center",
                             }}
                           >
-                            <InfoIcon />
-                            <span style={{ padding: "3px" }}>
-                              {collection.about}
+                            <span style={{ padding: "2px" }}>
+                              <InfoIcon style={{ fontSize: "20px" }} />
+                              <p style={{ marginTop: "-1px" }}>
+                                {collection.about}
+                              </p>
                             </span>
                           </div>
                         </Typography>
@@ -129,14 +186,28 @@ function CollectionShowPage() {
                     {user.Role === "Guest" || user.Id != userId ? (
                       <></>
                     ) : (
-                      <DeleteIcon
-                        sx={{
-                          marginLeft: "20px",
-                          color: "red",
-                          cursor: "pointer",
-                          fontSize: "30px",
-                        }}
-                      />
+                      <>
+                        <DeleteIcon
+                          sx={{
+                            marginLeft: "20px",
+                            color: "red",
+                            cursor: "pointer",
+                            fontSize: "30px",
+                          }}
+                        />
+                        <AddIcon
+                          sx={{
+                            paddingLeft: "20px",
+                            cursor: "pointer",
+                            fontSize: "30px",
+                          }}
+                          onClick={() =>
+                            navigation(
+                              `/collection/item/${collection.Id}/create`
+                            )
+                          }
+                        />
+                      </>
                     )}
                     <CollectionDescModal
                       isDialogOpened={openDialog}
@@ -151,22 +222,92 @@ function CollectionShowPage() {
                       }}
                       onClick={handleClickOpenDialog}
                     />
+                    {CheckUserLiked(collection.collectionLikes) == true ? (
+                      <Checkbox
+                        icon={<Favorite sx={{ color: "red" }} />}
+                        checkedIcon={<FavoriteBorder />}
+                        onClick={() => DisLikeCollection(collection.Id)}
+                        sx={{
+                          marginLeft: "auto",
+                          marginTop: "20px",
+                        }}
+                      />
+                    ) : (
+                      <Checkbox
+                        icon={<FavoriteBorder />}
+                        checkedIcon={<Favorite sx={{ color: "red" }} />}
+                        onClick={() => addLikeCollection(collection.Id)}
+                        sx={{
+                          marginLeft: "auto",
+                          marginTop: "20px",
+                        }}
+                      />
+                    )}
+                    <p style={{ paddingTop: "15px" }}>
+                      {collection.collectionLikes.length}
+                    </p>
                   </CardActions>
-                  <Accordion style={{ margin: "10px auto" }}>
-                    <AccordionSummary
-                      expandIcon={<ExpandMoreIcon />}
-                      aria-controls="panel1a-content"
-                      id="panel1a-header"
-                    >
-                      <Typography>Filter</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails style={{}}>
-                      <h1>Filter</h1>
-                    </AccordionDetails>
-                  </Accordion>
+                  <Box
+                    sx={{ width: "100%", height: "200px", marginTop: "20px" }}
+                  >
+                    <FormControl>
+                      <FormLabel id="demo-row-radio-buttons-group-label">
+                        Filter
+                      </FormLabel>
+                      <TextField
+                        id="filled-search"
+                        label="Search field"
+                        type="search"
+                        variant="outlined"
+                        onChange={e => {
+                          setSearchText(e.target.value);
+                        }}
+                        sx={{
+                          marginTop: "20px",
+                        }}
+                      />
+                      <RadioGroup
+                        row
+                        aria-labelledby="demo-row-radio-buttons-group-label"
+                        name="row-radio-buttons-group"
+                        checked={selectedFilter === "recommended"}
+                        onChange={e => handleFilterChange(e)}
+                        sx={{
+                          marginTop: "20px",
+                          display: "flex",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <FormControlLabel
+                          value="ByLike"
+                          control={<Radio />}
+                          label="Most-Liked"
+                        />
+                        <FormControlLabel
+                          value="ByComment"
+                          control={<Radio />}
+                          label="Most-Comment"
+                        />
+                        <FormControlLabel
+                          value="latest"
+                          control={<Radio />}
+                          label="Latest"
+                        />
+                        <FormControlLabel
+                          value="recommended"
+                          control={<Radio />}
+                          label="recommended"
+                        />
+                      </RadioGroup>
+                    </FormControl>
+                  </Box>
                 </Grid>
                 <Grid item md={8} xs={12}>
-                      <ItemsContainer items={collection.items} />
+                  <ItemsContainer
+                    items={collection.items}
+                    searchText={searchText}
+                    selectedFilter={selectedFilter}
+                  />
                 </Grid>
               </Grid>
             </Paper>

@@ -2,20 +2,34 @@ import { Route, Redirect, useNavigate, Navigate } from "react-router-dom";
 import {useContext, useEffect, useState} from "react";
 import Home from '../Components/Home'
 import * as React from "react";
+import axios from 'axios'
 export { PrivateRoute };
 function PrivateRoute({children}) {
     const [isAuth, setisAuth] = useState(false);
-    const navigate = useNavigate();
-    useEffect(() => {
-       const isLog = localStorage.getItem("isLog");
-       if(isLog) {
-           setisAuth(true);
-           navigate("/")
-       }else{
-           setisAuth(false);
-           navigate("/auth")
-       }
-    }, []);
+    const [isLoading, setisLoading] = useState(true);
+    React.useLayoutEffect(() => {
+        axios
+          .get(`${global.config.backendUrl}/v1/getuser`, {
+            withCredentials: true,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+          .then(response => {
+            console.log(response.data);
+            setisAuth(response.data);
+            setisLoading(false);
+          })
+          .catch(err => {
+            alert(err.response.data);
+          });
+      }, []);
+
+      if(isLoading === true) { 
+        return <div>Loading...</div>
+      }
+
+      
 
     return(isAuth ? <Home/> : <Navigate to="/auth" />);
 }

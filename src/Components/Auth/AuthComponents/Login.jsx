@@ -27,7 +27,6 @@ function Login() {
                 'Content-Type': 'application/json',
             }
         }).then((response) => {
-            setStorage();
             window.location.href = "/";
         }).catch((err) => {
             alert(err.response.data)
@@ -46,10 +45,6 @@ function Login() {
     function clearInputs() {
         setEmail("");
         setPassword("");
-    }
-
-    function setStorage() {
-        localStorage.setItem('isLog', true);
     }
 
     return (

@@ -68,7 +68,8 @@ function CreateItem() {
     axios
       .post(`${global.config.backendUrl}/items/addItem/${id}`, formData)
       .then(response => {
-        alert(response.data);
+        alert("Item Was Created");
+        window.location.reload();
       })
       .catch(err => {
         console.log(err);
