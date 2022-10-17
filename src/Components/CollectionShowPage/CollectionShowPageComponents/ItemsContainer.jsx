@@ -38,21 +38,26 @@ function ItemsContainer({ items, searchText, selectedFilter }) {
     return likes.some(el => el.userId === user.Id);
   }
 
-
-  function Search(items) { 
-    if(selectedFilter === "recommended") { 
+  function Search(items) {
+    if (selectedFilter === "recommended") {
       return items;
-    }else if(selectedFilter === "ByLike") { 
-       const lowestPriceGoods = items.sort((el1, el2) =>
-         el1.itemLikes.length.localeCompare(el2.itemLikes.length, undefined, { numeric: true })
-       );
-      console.log(lowestPriceGoods); 
-    }else { 
+    } else if (selectedFilter === "ByLike") {
+      const lowestPriceGoods = items.sort((el1, el2) =>
+        el1.itemLikes.length.localeCompare(el2.itemLikes.length, undefined, {
+          numeric: true,
+        })
+      );
+      console.log(lowestPriceGoods);
+    } else {
       return items;
     }
   }
- 
+
   const addLikeItem = itemId => {
+    if (user.userRole === "Guest") {
+      alert("You cant like you are guest please register or sign");
+      return;
+    }
     const info = {
       itemId,
       userId: user.Id,
@@ -69,6 +74,10 @@ function ItemsContainer({ items, searchText, selectedFilter }) {
   };
 
   const DisLikeItem = itemId => {
+    if (user.userRole === "Guest") {
+      alert("You cant like you are guest please register or sign");
+      return;
+    }
     axios
       .get(
         `${global.config.backendUrl}/items/ItemDislike/${user.Id}/${itemId}`,
@@ -94,7 +103,7 @@ function ItemsContainer({ items, searchText, selectedFilter }) {
         width: "100%",
         height: "100%",
         overflowY: "auto",
-        marginLeft: { sm: "120px" },
+        marginLeft: { sm: "140px" },
       }}
     >
       <div>
@@ -107,107 +116,108 @@ function ItemsContainer({ items, searchText, selectedFilter }) {
             ) {
               return el;
             }
-        }).map((element, id) => (
-        <Accordion
-          expanded={expanded === `panel_${id}`}
-          onChange={handleChangeExpanded(`panel_${id}`)}
-          sx={{
-            marginTop: "10px",
-            width: { xs: "100%", sm: "60%" },
-            border: "solid 1px gray",
-          }}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls={`panel_${id}d-content`}
-            id={`panel_${id}d-header`}
-          >
-            <Grid container spacing={2}>
-              <Grid item>
-                <ButtonBase sx={{ width: 80, height: 80 }}>
-                  <Img
-                    alt="complex"
-                    src={`${global.config.backendUrl}/uploads/${element.image}`}
-                  />
-                </ButtonBase>
-                <Typography variant="subtitle1" component="div" noWrap>
-                  {CheckUserLiked(element.itemLikes) == true ? (
-                    <Checkbox
-                      icon={<Favorite sx={{ color: "red" }} />}
-                      checkedIcon={<FavoriteBorder />}
-                      onClick={() => DisLikeItem(element.Id, element.likes)}
-                      sx={{
-                        marginLeft: "auto",
-                        marginTop: "20px",
-                      }}
-                    />
-                  ) : (
-                    <Checkbox
-                      icon={<FavoriteBorder />}
-                      checkedIcon={<Favorite sx={{ color: "red" }} />}
-                      onClick={() => addLikeItem(element.Id, element.likes)}
-                      sx={{
-                        marginLeft: "auto",
-                        marginTop: "20px",
-                      }}
-                    />
-                  )}
-                  <span style={{ position: "relative", top: "10px" }}>
-                    {element.itemLikes.length}
-                  </span>
-
-                  <Button style={{ marginTop: "20px" }}>
-                    <OpenInNewIcon />
-                  </Button>
-                </Typography>
-              </Grid>
-              <Grid item xs={6} sm container>
-                <Grid item xs container direction="column" spacing={2}>
-                  <Grid item xs>
-                    <Typography
-                      gutterBottom
-                      variant="subtitle1"
-                      component="div"
-                      sx={{ display: "block", justifyContent: "center" }}
-                    >
-                      <span style={{ fontWeight: "700" }}>
-                        {element.item_name}
+          })
+          .map((element, id) => (
+            <Accordion
+              expanded={expanded === `panel_${id}`}
+              onChange={handleChangeExpanded(`panel_${id}`)}
+              sx={{
+                marginTop: "10px",
+                width: { xs: "100%", sm: "60%" },
+                border: "solid 1px #e3e1da",
+              }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls={`panel_${id}d-content`}
+                id={`panel_${id}d-header`}
+              >
+                <Grid container spacing={2}>
+                  <Grid item>
+                    <ButtonBase sx={{ width: 80, height: 80 }}>
+                      <Img
+                        alt="complex"
+                        src={`${global.config.backendUrl}/uploads/${element.image}`}
+                      />
+                    </ButtonBase>
+                    <Typography variant="subtitle1" component="div" noWrap>
+                      {CheckUserLiked(element.itemLikes) == true ? (
+                        <Checkbox
+                          icon={<Favorite sx={{ color: "red" }} />}
+                          checkedIcon={<FavoriteBorder />}
+                          onClick={() => DisLikeItem(element.Id, element.likes)}
+                          sx={{
+                            marginLeft: "auto",
+                            marginTop: "20px",
+                          }}
+                        />
+                      ) : (
+                        <Checkbox
+                          icon={<FavoriteBorder />}
+                          checkedIcon={<Favorite sx={{ color: "red" }} />}
+                          onClick={() => addLikeItem(element.Id, element.likes)}
+                          sx={{
+                            marginLeft: "auto",
+                            marginTop: "20px",
+                          }}
+                        />
+                      )}
+                      <span style={{ position: "relative", top: "10px" }}>
+                        {element.itemLikes.length}
                       </span>
-                      <p>{new Date(element.createdAt).toDateString()}</p>
+
+                      <Button style={{ marginTop: "20px" }}>
+                        <OpenInNewIcon />
+                      </Button>
                     </Typography>
                   </Grid>
+                  <Grid item xs={6} sm container>
+                    <Grid item xs container direction="column" spacing={2}>
+                      <Grid item xs>
+                        <Typography
+                          gutterBottom
+                          variant="subtitle1"
+                          component="div"
+                          sx={{ display: "block", justifyContent: "center" }}
+                        >
+                          <span style={{ fontWeight: "700" }}>
+                            {element.item_name}
+                          </span>
+                          <p>{new Date(element.createdAt).toDateString()}</p>
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Grid>
-          </AccordionSummary>
-          <AccordionDetails>
-            <div>
-              <Stack direction="row" spacing={1}>
-                {element.itemTags.map(tag => (
-                  <div>
-                    <Chip label={tag.tag_name} />
-                  </div>
-                ))}
-              </Stack>
+              </AccordionSummary>
+              <AccordionDetails>
+                <div>
+                  <Stack direction="row" spacing={1}>
+                    {element.itemTags.map(tag => (
+                      <div>
+                        <Chip label={tag.tag_name} />
+                      </div>
+                    ))}
+                  </Stack>
 
-              {element.itemFields.map(field => (
-                <p style={{ textAlign: "left" }}>
-                  {field.field_value == "" ? (
-                    <></>
-                  ) : (
-                    <p>
-                      <span style={{ color: "#88909e", fontWeight: "700" }}>
-                        {field.field_name}
-                      </span>{" "}
-                      : <span>{field.field_value}</span>
+                  {element.itemFields.map(field => (
+                    <p style={{ textAlign: "left" }}>
+                      {field.field_value == "" ? (
+                        <></>
+                      ) : (
+                        <p>
+                          <span style={{ color: "#88909e", fontWeight: "700" }}>
+                            {field.field_name}
+                          </span>{" "}
+                          : <span>{field.field_value}</span>
+                        </p>
+                      )}
                     </p>
-                  )}
-                </p>
-              ))}
-            </div>
-          </AccordionDetails>
-        </Accordion>
-        ))}
+                  ))}
+                </div>
+              </AccordionDetails>
+            </Accordion>
+          ))}
       </div>
     </Box>
   );
