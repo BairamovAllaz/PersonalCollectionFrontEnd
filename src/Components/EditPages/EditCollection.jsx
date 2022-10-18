@@ -27,6 +27,7 @@ import Checkbox from "@mui/material/Checkbox";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserPermisionContext } from "../../UserContext/Context";
+import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 function EditCollection() {
   const navigate = useNavigate();
   const { collectionId, userId } = useParams();
@@ -98,7 +99,6 @@ function EditCollection() {
         formdata
       )
       .then(response => {
-        alert(response.data);
         window.location.reload();
       })
       .catch(err => {
@@ -137,11 +137,12 @@ function EditCollection() {
       .delete(`${global.config.backendUrl}/items/DeleteItemById/${itemId}`, {
         withCredentials: true,
       })
-      .then(response => {})
+      .then(response => {
+        window.location.reload();
+      })
       .catch(err => {
         console.log(err);
       });
-    window.location.reload();
   };
 
   if (isLoaded) {
@@ -168,7 +169,7 @@ function EditCollection() {
                     width: 160,
                     maxHeight: { xs: 160, md: 167 },
                     maxWidth: { xs: 160, md: 250 },
-                    margin: "0 auto",
+                    margin: "20px auto",
                   }}
                   justifyContent="center"
                   src={`${global.config.backendUrl}/uploads/${collection.image}`}
@@ -176,7 +177,7 @@ function EditCollection() {
                 <Button
                   startIcon={<UpgradeIcon />}
                   variant="contained"
-                  sx={{ marginTop: "20px" }}
+                  sx={{ marginTop: "30px" }}
                   onClick={handleClick}
                 >
                   Image
@@ -194,7 +195,7 @@ function EditCollection() {
                   variant="outlined"
                   defaultValue={`${collection.name}`}
                   onChange={e => setName(e.target.value)}
-                  style={{ marginTop: "30px" }}
+                  style={{ marginTop: "30px", marginBottom: "20px" }}
                 />
                 <br />
                 <TextField
@@ -202,11 +203,11 @@ function EditCollection() {
                   label="Description"
                   multiline
                   rows={4}
-                  sx={{ width: "100%" }}
+                  sx={{ width: "100%", marginTop: "40px" }}
                   defaultValue={`${collection.description}`}
                   onChange={e => setMarkDownInput(e.target.value)}
                 />
-                <Accordion style={{ marginTop: "10px" }}>
+                <Accordion style={{ marginTop: "30px" }}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
@@ -274,13 +275,14 @@ function EditCollection() {
                 </FormControl>
                 <br />
 
-                <Accordion style={{ marginTop: "10px" }}>
+                <Accordion style={{ marginTop: "20px" }}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                   >
-                    <Typography>Items update</Typography>
+                    <LibraryBooksIcon />
+                    <Typography sx={{ ml: 2 }}>Items update</Typography>
                   </AccordionSummary>
                   <AccordionDetails>
                     {collection.items.map(element => (
@@ -321,6 +323,7 @@ function EditCollection() {
                                       color: "red",
                                       cursor: "pointer",
                                       fontSize: "20px",
+                                      marginLeft: "30px",
                                     }}
                                     onClick={() => DeleteItem(element.Id)}
                                   />

@@ -40,6 +40,7 @@ function CollectionShowPage() {
   const [openDialog, setOpenDialog] = React.useState(false);
   const [selectedFilter, setSelectedFilter] = React.useState("recommended");
   const [searchText, setSearchText] = React.useState("");
+  const [Items,setItems] = React.useState([]);
 
   const handleClickOpenDialog = () => {
     setOpenDialog(!openDialog);

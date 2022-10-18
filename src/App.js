@@ -60,26 +60,38 @@ function App() {
           path="/User/:userId/collection/:collectionId"
           element={<CollectionShowPage />}
         />
-        {/* TOOD FIX PRIVATE ROUTE */}
-        {/* <Route element={<MyPrivate />}> */}
-        <Route path="/User/:userId/edit" element={<UserEdit />} />
+        <Route
+          path="/User/:userId/edit"
+          element={
+            <MyPrivate>
+              <UserEdit />
+            </MyPrivate>
+          }
+        />
         <Route
           path="/User/:userId/Collection/:collectionId/edit"
-          element={<EditCollection />}
+          element={
+            <MyPrivate>
+              <EditCollection />
+            </MyPrivate>
+          }
         />
         <Route
           path="/User/:userId/collection/item/:id/create"
-          element={<CreateItem />}
-        />
-        <Route
-          path="/User/:userId/collection/:id/create"
-          element={<CreateCollection />}
+          element={
+            <MyPrivate>
+              <CreateCollection />
+            </MyPrivate>
+          }
         />
         <Route
           path="/User/:userId/collection/:collectionId/Item/:itemId/edit"
-          element={<EditItem />}
+          element={
+            <MyPrivate>
+              <EditItem />
+            </MyPrivate>
+          }
         />
-        {/* </Route> */}
         <Route
           path="/admin"
           element={

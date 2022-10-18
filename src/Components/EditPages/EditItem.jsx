@@ -19,17 +19,33 @@ import MenuItem from "@mui/material/MenuItem";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 function EditItem() {
   const [items, setItems] = React.useState([]);
-  const [isLoaded, setIsLoaded] = React.useState(true);
+  const [isLoadedItem, setIsLoadedItem] = React.useState(true);
+  const [ItemName, setItemName] = React.useState("");
+  const [isLoadedField, setIsLoadedField] = React.useState(true);
   const [image, setImage] = React.useState();
   const [fields, setFields] = React.useState([]);
 
   const { itemId } = useParams();
   React.useEffect(() => {
     axios
-      .get(`${global.config.backendUrl}/items/getAllItemsFileds/${itemId}`)
+      .get(`${global.config.backendUrl}/items/getItemById/${itemId}`)
       .then(response => {
         setItems(response.data);
-        setIsLoaded(false);
+        console.log(response.data);
+        setIsLoadedItem(false);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
+
+  React.useEffect(() => {
+    axios
+      .get(`${global.config.backendUrl}/items/getAllItemsFileds/${itemId}`)
+      .then(response => {
+        setFields(response.data);
+        console.log(response.data);
+        setIsLoadedField(false);
       })
       .catch(err => {
         console.log(err);
@@ -41,13 +57,16 @@ function EditItem() {
     ref.current.click();
   };
 
-  //TODO FIX HANDLE CHANGE
-  const handleChange = (e, idx, fields) => {
-    fields[idx].field_value = e.target.value;
+  const handleChange = (e, idx) => {
+    let cl = [...fields];
+    let obj = cl[idx];
+    obj.field_value = e.target.value;
+    cl[idx] = obj;
+    setFields([...cl]);
     console.log(fields);
   };
 
-  const render = (element, i,fields) => {
+  const render = (element, i) => {
     if (element.field_type === "Text") {
       return (
         <TextField
@@ -57,7 +76,7 @@ function EditItem() {
           label={`${element.field_name}`}
           defaultValue={`${element.field_value}`}
           name={`${element.field_name}`}
-          onChange={e => handleChange(e, i, fields)}
+          onChange={e => handleChange(e, i)}
         />
       );
     } else if (element.field_type === "Number") {
@@ -70,7 +89,7 @@ function EditItem() {
           label={`${element.field_name}`}
           defaultValue={`${element.field_value}`}
           name={`${element.field_name}`}
-          onChange={e => handleChange(e, i, fields)}
+          onChange={e => handleChange(e, i)}
         />
       );
     } else if (element.field_type === "BigText") {
@@ -84,7 +103,7 @@ function EditItem() {
           label={`${element.field_name}`}
           defaultValue={`${element.field_value}`}
           name={`${element.field_name}`}
-          onChange={e => handleChange(e, i, fields)}
+          onChange={e => handleChange(e, i)}
         />
       );
     } else if (element.field_type === "Boolean") {
@@ -94,7 +113,7 @@ function EditItem() {
             id="demo-simple-select-label"
             style={{ marginTop: "40px" }}
           >
-            Age
+            {element.field_value}
           </InputLabel>
           <Select
             label={`${element.field_name}`}
@@ -102,7 +121,7 @@ function EditItem() {
             InputLabelProps={{ shrink: true }}
             defaultValue={`${element.field_value}`}
             name={`${element.field_name}`}
-            onChange={e => handleChange(e, i, fields)}
+            onChange={e => handleChange(e, i)}
           >
             <MenuItem value={true}>True</MenuItem>
             <MenuItem value={false}>False</MenuItem>
@@ -122,19 +141,44 @@ function EditItem() {
             label={`${element.field_name}`}
             defaultValue={`${element.field_value}`}
             name={`${element.field_name}`}
-            onChange={e => handleChange(e, i, fields)}
+            onChange={e => handleChange(e, i)}
           />
         </div>
       );
     }
   };
 
-  if (isLoaded) {
+  const UpdateItem = () => {
+    const formData = new FormData();
+    if (image !== undefined) {
+      formData.append("image", image);
+    } else {
+      formData.append("image", "");
+    }
+    formData.append("item_name", ItemName);
+    formData.append("fields", JSON.stringify(fields));
+    axios
+      .put(
+        `${global.config.backendUrl}/items/updateItemFields/${itemId}`,
+        formData,
+        {
+          withCredentials: true,
+        }
+      )
+      .then(response => {
+        window.location.reload();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  if (isLoadedItem || isLoadedField) {
     return <div>Loading...</div>;
   }
   return (
     <div>
-      {items.map((item, i) => (
+      {items.map(item => (
         <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
           <Paper
             variant="outlined"
@@ -152,7 +196,7 @@ function EditItem() {
                     width: 160,
                     maxHeight: { xs: 160, md: 167 },
                     maxWidth: { xs: 160, md: 250 },
-                    margin: "0 auto",
+                    margin: "20px auto",
                   }}
                   justifyContent="center"
                   src={`${global.config.backendUrl}/uploads/${item.image}`}
@@ -172,14 +216,22 @@ function EditItem() {
                   onChange={e => setImage(e.target.files[0])}
                 />
                 <br />
-                {item.itemFields.map(field => render(field, i,item.itemFields))}
+                <TextField
+                  id="outlined-basic"
+                  variant="outlined"
+                  style={{ marginTop: "40px" }}
+                  label="Item Name"
+                  defaultValue={`${item.item_name}`}
+                  onChange={e => setItemName(e.target.value)}
+                />
+                {fields.map((field, i) => render(field, i))}
                 <br />
                 <Button
                   variant="contained"
-                  //onClick={UpdateUser}
+                  onClick={UpdateItem}
                   style={{ marginTop: "30px" }}
                 >
-                  Update User
+                  Update Item
                 </Button>
               </Box>
             </React.Fragment>

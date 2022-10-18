@@ -16,7 +16,7 @@ function MyPrivate({children}) {
     },[])
 
     if(user === null) {
-        return <div>getting</div>
+        return <div>getting...</div>
     }
     return isAuth ? children : <NotYou />;
 }

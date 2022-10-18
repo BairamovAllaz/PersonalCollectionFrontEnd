@@ -24,33 +24,40 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 
-//TODO FIX FILTERING
-
 function ItemsContainer({ items, searchText, selectedFilter }) {
   const { user } = React.useContext(UserPermisionContext);
+  const [Items, setItems] = React.useState([]);
   const [expanded, setExpanded] = React.useState("panel_0");
 
   const handleChangeExpanded = panel => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
 
+  React.useEffect(() => {
+    setItems(items);
+  }, [items]);
+
+  //TODO FIX FILTER AGAIN
+  React.useEffect(() => {
+    // if (selectedFilter === "recommended") {
+    //    setItems(Items);
+    // } else if (selectedFilter === "ByLike") {
+
+    if (selectedFilter === "ByLike") {
+      const lowestPriceGoods = items.sort(
+        (el1, el2) => el2.itemLikes.length - el1.itemLikes.length
+      );
+      setItems(lowestPriceGoods);
+    }
+
+    // } else {
+    //   setItems(items);
+    // }
+  }, [selectedFilter]);
+
+
   function CheckUserLiked(likes) {
     return likes.some(el => el.userId === user.Id);
-  }
-
-  function Search(items) {
-    if (selectedFilter === "recommended") {
-      return items;
-    } else if (selectedFilter === "ByLike") {
-      const lowestPriceGoods = items.sort((el1, el2) =>
-        el1.itemLikes.length.localeCompare(el2.itemLikes.length, undefined, {
-          numeric: true,
-        })
-      );
-      console.log(lowestPriceGoods);
-    } else {
-      return items;
-    }
   }
 
   const addLikeItem = itemId => {
@@ -107,117 +114,115 @@ function ItemsContainer({ items, searchText, selectedFilter }) {
       }}
     >
       <div>
-        {items
-          .filter(el => {
-            if (searchText === "") {
-              return el;
-            } else if (
-              el.item_name.toLowerCase().includes(searchText.toLowerCase())
-            ) {
-              return el;
-            }
-          })
-          .map((element, id) => (
-            <Accordion
-              expanded={expanded === `panel_${id}`}
-              onChange={handleChangeExpanded(`panel_${id}`)}
-              sx={{
-                marginTop: "10px",
-                width: { xs: "100%", sm: "60%" },
-                border: "solid 1px #e3e1da",
-              }}
+        {Items.filter(el => {
+          if (searchText === "") {
+            return el;
+          } else if (
+            el.item_name.toLowerCase().includes(searchText.toLowerCase())
+          ) {
+            return el;
+          }
+        }).map((element, id) => (
+          <Accordion
+            expanded={expanded === `panel_${id}`}
+            onChange={handleChangeExpanded(`panel_${id}`)}
+            sx={{
+              marginTop: "10px",
+              width: { xs: "100%", sm: "60%" },
+              border: "solid 1px #e3e1da",
+            }}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls={`panel_${id}d-content`}
+              id={`panel_${id}d-header`}
             >
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls={`panel_${id}d-content`}
-                id={`panel_${id}d-header`}
-              >
-                <Grid container spacing={2}>
-                  <Grid item>
-                    <ButtonBase sx={{ width: 80, height: 80 }}>
-                      <Img
-                        alt="complex"
-                        src={`${global.config.backendUrl}/uploads/${element.image}`}
+              <Grid container spacing={2}>
+                <Grid item>
+                  <ButtonBase sx={{ width: 80, height: 80 }}>
+                    <Img
+                      alt="complex"
+                      src={`${global.config.backendUrl}/uploads/${element.image}`}
+                    />
+                  </ButtonBase>
+                  <Typography variant="subtitle1" component="div" noWrap>
+                    {CheckUserLiked(element.itemLikes) == true ? (
+                      <Checkbox
+                        icon={<Favorite sx={{ color: "red" }} />}
+                        checkedIcon={<FavoriteBorder />}
+                        onClick={() => DisLikeItem(element.Id, element.likes)}
+                        sx={{
+                          marginLeft: "auto",
+                          marginTop: "20px",
+                        }}
                       />
-                    </ButtonBase>
-                    <Typography variant="subtitle1" component="div" noWrap>
-                      {CheckUserLiked(element.itemLikes) == true ? (
-                        <Checkbox
-                          icon={<Favorite sx={{ color: "red" }} />}
-                          checkedIcon={<FavoriteBorder />}
-                          onClick={() => DisLikeItem(element.Id, element.likes)}
-                          sx={{
-                            marginLeft: "auto",
-                            marginTop: "20px",
-                          }}
-                        />
-                      ) : (
-                        <Checkbox
-                          icon={<FavoriteBorder />}
-                          checkedIcon={<Favorite sx={{ color: "red" }} />}
-                          onClick={() => addLikeItem(element.Id, element.likes)}
-                          sx={{
-                            marginLeft: "auto",
-                            marginTop: "20px",
-                          }}
-                        />
-                      )}
-                      <span style={{ position: "relative", top: "10px" }}>
-                        {element.itemLikes.length}
-                      </span>
+                    ) : (
+                      <Checkbox
+                        icon={<FavoriteBorder />}
+                        checkedIcon={<Favorite sx={{ color: "red" }} />}
+                        onClick={() => addLikeItem(element.Id, element.likes)}
+                        sx={{
+                          marginLeft: "auto",
+                          marginTop: "20px",
+                        }}
+                      />
+                    )}
+                    <span style={{ position: "relative", top: "10px" }}>
+                      {element.itemLikes.length}
+                    </span>
 
-                      <Button style={{ marginTop: "20px" }}>
-                        <OpenInNewIcon />
-                      </Button>
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={6} sm container>
-                    <Grid item xs container direction="column" spacing={2}>
-                      <Grid item xs>
-                        <Typography
-                          gutterBottom
-                          variant="subtitle1"
-                          component="div"
-                          sx={{ display: "block", justifyContent: "center" }}
-                        >
-                          <span style={{ fontWeight: "700" }}>
-                            {element.item_name}
-                          </span>
-                          <p>{new Date(element.createdAt).toDateString()}</p>
-                        </Typography>
-                      </Grid>
+                    <Button style={{ marginTop: "20px" }}>
+                      <OpenInNewIcon />
+                    </Button>
+                  </Typography>
+                </Grid>
+                <Grid item xs={6} sm container>
+                  <Grid item xs container direction="column" spacing={2}>
+                    <Grid item xs>
+                      <Typography
+                        gutterBottom
+                        variant="subtitle1"
+                        component="div"
+                        sx={{ display: "block", justifyContent: "center" }}
+                      >
+                        <span style={{ fontWeight: "700" }}>
+                          {element.item_name}
+                        </span>
+                        <p>{new Date(element.createdAt).toDateString()}</p>
+                      </Typography>
                     </Grid>
                   </Grid>
                 </Grid>
-              </AccordionSummary>
-              <AccordionDetails>
-                <div>
-                  <Stack direction="row" spacing={1}>
-                    {element.itemTags.map(tag => (
-                      <div>
-                        <Chip label={tag.tag_name} />
-                      </div>
-                    ))}
-                  </Stack>
-
-                  {element.itemFields.map(field => (
-                    <p style={{ textAlign: "left" }}>
-                      {field.field_value == "" ? (
-                        <></>
-                      ) : (
-                        <p>
-                          <span style={{ color: "#88909e", fontWeight: "700" }}>
-                            {field.field_name}
-                          </span>{" "}
-                          : <span>{field.field_value}</span>
-                        </p>
-                      )}
-                    </p>
+              </Grid>
+            </AccordionSummary>
+            <AccordionDetails>
+              <div>
+                <Stack direction="row" spacing={1}>
+                  {element.itemTags.map(tag => (
+                    <div>
+                      <Chip label={tag.tag_name} />
+                    </div>
                   ))}
-                </div>
-              </AccordionDetails>
-            </Accordion>
-          ))}
+                </Stack>
+
+                {element.itemFields.map(field => (
+                  <p style={{ textAlign: "left" }}>
+                    {field.field_value == "" ? (
+                      <></>
+                    ) : (
+                      <p>
+                        <span style={{ color: "#88909e", fontWeight: "700" }}>
+                          {field.field_name}
+                        </span>{" "}
+                        : <span>{field.field_value}</span>
+                      </p>
+                    )}
+                  </p>
+                ))}
+              </div>
+            </AccordionDetails>
+          </Accordion>
+        ))}
       </div>
     </Box>
   );
