@@ -28,6 +28,7 @@ import CreateItem from "./Components/Create/CreateItem";
 import EditCollection from "./Components/EditPages/EditCollection";
 import EditItem from "./Components/EditPages/EditItem";
 import { Grid } from "@material-ui/core";
+import ItemShow from "./ItemShow/ItemShow";
 function App() {
   const { pathname } = useLocation();
   const [isLoading, setLoading] = useState(true);
@@ -93,6 +94,11 @@ function App() {
           }
         />
         <Route
+          path="/User/:userId/collection/:collectionId/Item/:itemId"
+          element={<ItemShow />}
+        />
+
+        <Route
           path="/admin"
           element={
             <AdminPrivateRoute>
@@ -104,5 +110,4 @@ function App() {
     </Grid>
   );
 }
-
 export default App;

@@ -40,7 +40,7 @@ function CollectionShowPage() {
   const [openDialog, setOpenDialog] = React.useState(false);
   const [selectedFilter, setSelectedFilter] = React.useState("recommended");
   const [searchText, setSearchText] = React.useState("");
-  const [Items,setItems] = React.useState([]);
+  const [Items, setItems] = React.useState([]);
 
   const handleClickOpenDialog = () => {
     setOpenDialog(!openDialog);
@@ -80,11 +80,12 @@ function CollectionShowPage() {
       .post(`${global.config.backendUrl}/collection/addLikeCollection`, info, {
         withCredentials: true,
       })
-      .then(response => {})
+      .then(response => {
+        window.location.reload();
+      })
       .catch(err => {
         console.log(err);
       });
-    window.location.reload();
   };
 
   const DisLikeCollection = collectionId => {
@@ -99,11 +100,12 @@ function CollectionShowPage() {
           withCredentials: true,
         }
       )
-      .then(response => {})
+      .then(response => {
+        window.location.reload();
+      })
       .catch(err => {
         console.log(err);
       });
-    window.location.reload();
   };
 
   const deleteCollection = collectionId => {
@@ -111,11 +113,12 @@ function CollectionShowPage() {
       .delete(`${global.config.backendUrl}/collection/Delete/${collectionId}`, {
         withCredentials: true,
       })
-      .then(response => {})
+      .then(response => {
+        window.location.reload();
+      })
       .catch(err => {
         console.log(err);
       });
-    window.location.reload();
   };
 
   function CheckUserLiked(likes) {
@@ -353,6 +356,7 @@ function CollectionShowPage() {
                       items={collection.items}
                       searchText={searchText}
                       selectedFilter={selectedFilter}
+                      userId={userCol.Id}
                     />
                   </Grid>
                 </Grid>

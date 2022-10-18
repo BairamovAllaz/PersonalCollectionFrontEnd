@@ -345,11 +345,11 @@ function EditCollection() {
                                       cursor: "pointer",
                                       fontSize: "20px",
                                     }}
-                                    // onClick={() =>
-                                    //   navigation(
-                                    //     `/collection/item/${collection.Id}/create`
-                                    //   )
-                                    // }
+                                    onClick={() =>
+                                      navigate(
+                                        `/User/${userId}/collection/${element.collectionId}/Item/${element.Id}`
+                                      )
+                                    }
                                   />
                                 </p>
                               </Typography>

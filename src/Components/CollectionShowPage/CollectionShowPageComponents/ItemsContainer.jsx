@@ -17,6 +17,7 @@ import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import { UserPermisionContext } from "../../../UserContext/Context";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const Img = styled("img")({
   margin: "auto",
   display: "block",
@@ -24,10 +25,11 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 
-function ItemsContainer({ items, searchText, selectedFilter }) {
+function ItemsContainer({ items, searchText, selectedFilter,userId }) {
   const { user } = React.useContext(UserPermisionContext);
   const [Items, setItems] = React.useState([]);
   const [expanded, setExpanded] = React.useState("panel_0");
+  const navigate = useNavigate();
 
   const handleChangeExpanded = panel => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -55,7 +57,6 @@ function ItemsContainer({ items, searchText, selectedFilter }) {
     // }
   }, [selectedFilter]);
 
-
   function CheckUserLiked(likes) {
     return likes.some(el => el.userId === user.Id);
   }
@@ -73,11 +74,12 @@ function ItemsContainer({ items, searchText, selectedFilter }) {
       .post(`${global.config.backendUrl}/items/addLikeItem`, info, {
         withCredentials: true,
       })
-      .then(response => {})
+      .then(response => {
+        window.location.reload();
+      })
       .catch(err => {
         console.log(err);
       });
-    window.location.reload();
   };
 
   const DisLikeItem = itemId => {
@@ -92,11 +94,12 @@ function ItemsContainer({ items, searchText, selectedFilter }) {
           withCredentials: true,
         }
       )
-      .then(response => {})
+      .then(response => {
+        window.location.reload();
+      })
       .catch(err => {
         console.log(err);
       });
-    window.location.reload();
   };
 
   if (items.length <= 0) {
@@ -172,7 +175,13 @@ function ItemsContainer({ items, searchText, selectedFilter }) {
                     </span>
 
                     <Button style={{ marginTop: "20px" }}>
-                      <OpenInNewIcon />
+                      <OpenInNewIcon
+                        onClick={() =>
+                          navigate(
+                            `/User/${userId}/collection/${element.collectionId}/Item/${element.Id}`
+                          )
+                        }
+                      />
                     </Button>
                   </Typography>
                 </Grid>
