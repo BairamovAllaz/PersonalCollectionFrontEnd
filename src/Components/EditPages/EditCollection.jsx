@@ -24,9 +24,11 @@ import EditIcon from "@mui/icons-material/Edit";
 import Grid from "@mui/material/Grid";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import Checkbox from "@mui/material/Checkbox";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserPermisionContext } from "../../UserContext/Context";
 function EditCollection() {
+  const navigate = useNavigate();
   const { collectionId, userId } = useParams();
   const [image, setImage] = React.useState();
   const [name, setName] = React.useState("");
@@ -36,10 +38,8 @@ function EditCollection() {
   const [isLoaded, setIsLoaded] = React.useState(true);
   const [topics, setTopics] = React.useState([]);
   const [selectedTopic, setSelectedTopic] = React.useState("");
-  const [checkedButtons,setCheckedButtons] = React.useState([]);
 
   const { user } = React.useContext(UserPermisionContext);
-
 
   const Img = styled("img")({
     margin: "auto",
@@ -82,7 +82,7 @@ function EditCollection() {
 
   const UpdateCollection = collection => {
     const currentUpdates = removeEmpty(CheckUpdates(collection));
-   
+
     const formdata = new FormData();
     if (image !== undefined) {
       formdata.append("image", URL.createObjectURL(image));
@@ -104,7 +104,6 @@ function EditCollection() {
       .catch(err => {
         alert(err.response.data);
       });
-
   };
 
   function CheckUpdates(collection) {
@@ -133,19 +132,17 @@ function EditCollection() {
     );
   }
 
-  //TODO FIX HANDLE
-  const HandleCheckDeleted = (e,elementId) => { 
-    let checkedArray = []
-    if(e.target.checked == true) {
-      checkedArray.push(elementId);
-    }else{ 
-       if (checkedArray.contains(elementId)) {
-         checkedArray.filter(arrItem => arrItem === elementId);
-       }
-    }
-    setCheckedButtons(checkedArray);
-    console.log(checkedArray);
-  }
+  const DeleteItem = itemId => {
+    axios
+      .delete(`${global.config.backendUrl}/items/DeleteItemById/${itemId}`, {
+        withCredentials: true,
+      })
+      .then(response => {})
+      .catch(err => {
+        console.log(err);
+      });
+    window.location.reload();
+  };
 
   if (isLoaded) {
     return <div>Loading...</div>;
@@ -318,13 +315,6 @@ function EditCollection() {
                                   {element.item_name}
                                 </span>
                                 <p style={{ display: "flex" }}>
-                                  <Checkbox
-                                    sx={{
-                                      fontSize: "10px",
-                                      marginTop: "-10px",
-                                    }}
-                                    onChange={e => HandleCheckDeleted(e,element.Id)}
-                                  />
                                   <DeleteIcon
                                     sx={{
                                       marginLeft: "10px",
@@ -332,9 +322,7 @@ function EditCollection() {
                                       cursor: "pointer",
                                       fontSize: "20px",
                                     }}
-                                    // onClick={() =>
-                                    //   deleteCollection(collection.Id)
-                                    // }
+                                    onClick={() => DeleteItem(element.Id)}
                                   />
                                   <EditIcon
                                     sx={{
@@ -342,11 +330,11 @@ function EditCollection() {
                                       cursor: "pointer",
                                       fontSize: "20px",
                                     }}
-                                    // onClick={() =>
-                                    //   navigation(
-                                    //     `/User/${userCol.Id}/Collection/${collection.Id}/edit`
-                                    //   )
-                                    // }
+                                    onClick={() =>
+                                      navigate(
+                                        `/User/${collection.UserId}/collection/${collection.Id}/Item/${element.Id}/edit`
+                                      )
+                                    }
                                   />
                                   <OpenInNewIcon
                                     sx={{

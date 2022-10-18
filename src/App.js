@@ -25,7 +25,8 @@ import CollectionShowPage from "./Components/CollectionShowPage/CollectionShowPa
 import UserEdit from "./Components/UserProfil/UserProfileComponents/UserEdit";
 import MyPrivate from "./PrivateRoutes/MyPrivate";
 import CreateItem from "./Components/Create/CreateItem";
-import EditCollection from "./Components/CollectionEditPage/EditCollection";
+import EditCollection from "./Components/EditPages/EditCollection";
+import EditItem from "./Components/EditPages/EditItem";
 import { Grid } from "@material-ui/core";
 function App() {
   const { pathname } = useLocation();
@@ -53,17 +54,32 @@ function App() {
           path="/forgot-password/:id/:token"
           element={<ForgotPassword />}
         />
-        <Route path="/collection/:id/create" element={<CreateCollection />} />
-        <Route path="/collection/item/:id/create" element={<CreateItem />} />
-        <Route path="/User/:userId/Collection/:collectionId/edit" element={<EditCollection />} />
+
         <Route path="/user/:userId" element={<UserProfile />} />
         <Route
           path="/User/:userId/collection/:collectionId"
           element={<CollectionShowPage />}
         />
-        <Route element={<MyPrivate />}>
-          <Route path="/User/:userId/edit" element={<UserEdit />} />
-        </Route>
+        {/* TOOD FIX PRIVATE ROUTE */}
+        {/* <Route element={<MyPrivate />}> */}
+        <Route path="/User/:userId/edit" element={<UserEdit />} />
+        <Route
+          path="/User/:userId/Collection/:collectionId/edit"
+          element={<EditCollection />}
+        />
+        <Route
+          path="/User/:userId/collection/item/:id/create"
+          element={<CreateItem />}
+        />
+        <Route
+          path="/User/:userId/collection/:id/create"
+          element={<CreateCollection />}
+        />
+        <Route
+          path="/User/:userId/collection/:collectionId/Item/:itemId/edit"
+          element={<EditItem />}
+        />
+        {/* </Route> */}
         <Route
           path="/admin"
           element={

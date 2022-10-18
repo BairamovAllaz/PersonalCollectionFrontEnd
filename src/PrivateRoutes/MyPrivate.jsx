@@ -8,7 +8,7 @@ function MyPrivate({children}) {
     const [isAuth, setisAuth] = useState(false);
     const {user} = React.useContext(UserPermisionContext);
     React.useEffect( () => {
-        if(user.Id == userId) {
+        if(user.Id == userId || user.userRole === true) {
             setisAuth(true);
         }else{
             setisAuth(false);
@@ -18,8 +18,6 @@ function MyPrivate({children}) {
     if(user === null) {
         return <div>getting</div>
     }
-    return (
-        isAuth ? <UserEdit/> : <NotYou/>
-    );
+    return isAuth ? children : <NotYou />;
 }
 export default MyPrivate;

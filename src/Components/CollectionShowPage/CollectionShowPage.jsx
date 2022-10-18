@@ -244,7 +244,7 @@ function CollectionShowPage() {
                             }}
                             onClick={() =>
                               navigation(
-                                `/collection/item/${collection.Id}/create`
+                                `/User/${userCol.Id}/collection/item/${collection.Id}/create`
                               )
                             }
                           />
