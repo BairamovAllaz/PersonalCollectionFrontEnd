@@ -22,6 +22,8 @@ function CreateItem() {
   const [fields, setFields] = React.useState([]);
   const [values, setValues] = React.useState({});
   const [itemName, setItemName] = React.useState("");
+  const [loadedFields,setLoadedFields]  = React.useState(true);
+  const [loadedTags,setLoadedTags]  = React.useState(true);
   const [selectedTags, setSelectedTags] = React.useState([]);
   const [image, setImage] = React.useState();
 
@@ -30,6 +32,7 @@ function CreateItem() {
       .get(`${global.config.backendUrl}/collection/getTags`)
       .then(response => {
         setTags(response.data);
+        setLoadedTags(false);
       })
       .catch(err => {
         console.log(err);
@@ -41,6 +44,7 @@ function CreateItem() {
       .get(`${global.config.backendUrl}/collection/getFields/${collectionId}`)
       .then(response => {
         setFields(response.data);
+        setLoadedFields(false);
       })
       .catch(err => {
         console.log(err);
@@ -81,7 +85,7 @@ function CreateItem() {
     console.log(values);
   };
 
-  if (tags.length === 0 || fields === null) {
+  if (loadedFields || loadedTags) {
     return <div>Loading...</div>;
   }
 

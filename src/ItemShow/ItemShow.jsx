@@ -156,30 +156,35 @@ function ItemShow() {
                             </span>{" "}
                             : {itemCol.itemLikes.length}
                           </p>
-                          {CheckUserLiked(itemCol.itemLikes) == true ? (
-                            <Checkbox
-                              icon={<Favorite sx={{ color: "red" }} />}
-                              checkedIcon={<FavoriteBorder />}
-                              onClick={() =>
-                                DisLikeItem(itemCol.Id, itemCol.likes)
-                              }
-                              sx={{
-                                marginLeft: "auto",
-                                marginTop: "20px",
-                              }}
-                            />
+
+                          {user.userRole !== "Guest" ? (
+                            CheckUserLiked(itemCol.itemLikes) == true ? (
+                              <Checkbox
+                                icon={<Favorite sx={{ color: "red" }} />}
+                                checkedIcon={<FavoriteBorder />}
+                                onClick={() =>
+                                  DisLikeItem(itemCol.Id, itemCol.likes)
+                                }
+                                sx={{
+                                  marginLeft: "auto",
+                                  marginTop: "20px",
+                                }}
+                              />
+                            ) : (
+                              <Checkbox
+                                icon={<FavoriteBorder />}
+                                checkedIcon={<Favorite sx={{ color: "red" }} />}
+                                onClick={() =>
+                                  addLikeItem(itemCol.Id, itemCol.likes)
+                                }
+                                sx={{
+                                  marginLeft: "auto",
+                                  marginTop: "20px",
+                                }}
+                              />
+                            )
                           ) : (
-                            <Checkbox
-                              icon={<FavoriteBorder />}
-                              checkedIcon={<Favorite sx={{ color: "red" }} />}
-                              onClick={() =>
-                                addLikeItem(itemCol.Id, itemCol.likes)
-                              }
-                              sx={{
-                                marginLeft: "auto",
-                                marginTop: "20px",
-                              }}
-                            />
+                            <></>
                           )}
                         </CardContent>
                       </Grid>
@@ -193,28 +198,35 @@ function ItemShow() {
                               }}
                             >
                               <p style={{ display: "flex" }}>
-                                <DeleteIcon
-                                  sx={{
-                                    marginLeft: "10px",
-                                    color: "red",
-                                    cursor: "pointer",
-                                    fontSize: "20px",
-                                    marginLeft: "30px",
-                                  }}
-                                  onClick={() => DeleteItem(itemCol.Id)}
-                                />
-                                <EditIcon
-                                  sx={{
-                                    paddingLeft: "30px",
-                                    cursor: "pointer",
-                                    fontSize: "20px",
-                                  }}
-                                  onClick={() =>
-                                    navigate(
-                                      `/User/${collectionCol.UserId}/collection/${collectionCol.Id}/Item/${itemCol.Id}/edit`
-                                    )
-                                  }
-                                />
+                                {userId == userCol.Id ||
+                                user.userRole == true ? (
+                                  <div>
+                                    <DeleteIcon
+                                      sx={{
+                                        marginLeft: "10px",
+                                        color: "red",
+                                        cursor: "pointer",
+                                        fontSize: "20px",
+                                        marginLeft: "30px",
+                                      }}
+                                      onClick={() => DeleteItem(itemCol.Id)}
+                                    />
+                                    <EditIcon
+                                      sx={{
+                                        paddingLeft: "30px",
+                                        cursor: "pointer",
+                                        fontSize: "20px",
+                                      }}
+                                      onClick={() =>
+                                        navigate(
+                                          `/User/${collectionCol.userId}/collection/${collectionCol.Id}/Item/${itemCol.Id}/edit`
+                                        )
+                                      }
+                                    />
+                                  </div>
+                                ) : (
+                                  <></>
+                                )}
                                 <OpenInNewIcon
                                   sx={{
                                     paddingLeft: "20px",

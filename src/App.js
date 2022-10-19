@@ -94,7 +94,7 @@ function App() {
           }
         />
         <Route
-          path="/User/:userId/collection/:collectionId/item"
+          path="/User/:userId/collection/:collectionId/item/create"
           element={
             <MyPrivate>
               <CreateItem />

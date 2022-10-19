@@ -10,17 +10,21 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import CollectionList from "./UserProfileComponents/CollectionList";
+import { UserPermisionContext } from "../../UserContext/Context";
 
 function UserProfile() {
   const { userId } = useParams();
   const navigate = useNavigate();
-  const [user, setUser] = React.useState([]);
+  const { user } = React.useContext(UserPermisionContext);
+  const [users, setUsers] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     axios
       .get(`${global.config.backendUrl}/userpage/getCollections/${userId}`)
       .then(response => {
-        setUser(response.data);
+        setUsers(response.data);
+        setLoading(false);
       })
       .catch(err => {
         console.log(err);
@@ -32,13 +36,13 @@ function UserProfile() {
     setValue(newValue);
   };
 
-  if (user.length < 0) {
-    return <div>Loading</div>;
+  if (loading) {
+    return <div>Loading...</div>;
   }
 
   return (
     <div>
-      {user.map(element => (
+      {users.map(element => (
         <Grid container spacing={2}>
           <Grid item xs={12} sm={4}>
             <Paper variant="outlined" elevation="2">
@@ -64,18 +68,22 @@ function UserProfile() {
                 </Typography>
               </Box>
               <Grid item>
-                <Button
-                  style={{
-                    marginTop: "20px",
-                    width: "50%",
-                    marginBottom: "30px",
-                  }}
-                  variant="outlined"
-                  startIcon={<EditIcon />}
-                  onClick={() => navigate(`/User/${element.Id}/edit`)}
-                >
-                  Edit Profile
-                </Button>
+                {user.Id === element.Id || user.userRole === true ? (
+                  <Button
+                    style={{
+                      marginTop: "20px",
+                      width: "50%",
+                      marginBottom: "30px",
+                    }}
+                    variant="outlined"
+                    startIcon={<EditIcon />}
+                    onClick={() => navigate(`/User/${element.Id}/edit`)}
+                  >
+                    Edit Profile
+                  </Button>
+                ) : (
+                  <></>
+                )}
               </Grid>
             </Paper>
           </Grid>
@@ -87,6 +95,8 @@ function UserProfile() {
                   collections={element.collections}
                   value={value}
                   index={0}
+                  currUser = {user}
+                  userId = {userId}
                 >
                   Item One
                 </CollectionList>

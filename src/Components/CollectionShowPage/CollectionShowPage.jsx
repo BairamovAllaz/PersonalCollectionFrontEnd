@@ -5,7 +5,6 @@ import Container from "@mui/material/Container";
 import { Grid, Paper } from "@material-ui/core";
 import Typography from "@mui/material/Typography";
 import { Avatar, ButtonBase, CardMedia, Box } from "@mui/material";
-import { styled } from "@mui/material/styles";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import CardHeader from "@mui/material/CardHeader";
@@ -55,7 +54,8 @@ function CollectionShowPage() {
   React.useEffect(() => {
     axios
       .get(
-        `${global.config.backendUrl}/items/getAllItems/${userId}/${collectionId}`,{withCredentials : true}
+        `${global.config.backendUrl}/items/getAllItems/${userId}/${collectionId}`,
+        { withCredentials: true }
       )
       .then(response => {
         setValues(response.data);
@@ -240,6 +240,7 @@ function CollectionShowPage() {
                               )
                             }
                           />
+
                           <AddIcon
                             sx={{
                               paddingLeft: "20px",
@@ -248,7 +249,7 @@ function CollectionShowPage() {
                             }}
                             onClick={() =>
                               navigation(
-                                `/User/${userCol.Id}/collection/${collection.Id}`
+                                `/User/${userCol.Id}/collection/${collection.Id}/item/create`
                               )
                             }
                           />
@@ -267,30 +268,38 @@ function CollectionShowPage() {
                         }}
                         onClick={handleClickOpenDialog}
                       />
-                      {CheckUserLiked(collection.collectionLikes) == true ? (
-                        <Checkbox
-                          icon={<Favorite sx={{ color: "red" }} />}
-                          checkedIcon={<FavoriteBorder />}
-                          onClick={() => DisLikeCollection(collection.Id)}
-                          sx={{
-                            marginLeft: "auto",
-                            marginTop: "20px",
-                          }}
-                        />
+                      {user.userRole != "Guest" ? (
+                        CheckUserLiked(collection.collectionLikes) == true ? (
+                          <Checkbox
+                            icon={<Favorite sx={{ color: "red" }} />}
+                            checkedIcon={<FavoriteBorder />}
+                            onClick={() => DisLikeCollection(collection.Id)}
+                            sx={{
+                              marginLeft: "auto",
+                              marginTop: "20px",
+                            }}
+                          />
+                        ) : (
+                          <Checkbox
+                            icon={<FavoriteBorder />}
+                            checkedIcon={<Favorite sx={{ color: "red" }} />}
+                            onClick={() => addLikeCollection(collection.Id)}
+                            sx={{
+                              marginLeft: "auto",
+                              marginTop: "20px",
+                            }}
+                          />
+                        )
                       ) : (
-                        <Checkbox
-                          icon={<FavoriteBorder />}
-                          checkedIcon={<Favorite sx={{ color: "red" }} />}
-                          onClick={() => addLikeCollection(collection.Id)}
-                          sx={{
-                            marginLeft: "auto",
-                            marginTop: "20px",
-                          }}
-                        />
+                        <></>
                       )}
-                      <p style={{ paddingTop: "15px" }}>
-                        {collection.collectionLikes.length}
-                      </p>
+                      {user.userRole != "Guest" ? (
+                        <p style={{ paddingTop: "15px" }}>
+                          {collection.collectionLikes.length}
+                        </p>
+                      ) : (
+                        <></>
+                      )}
                     </CardActions>
                     <Box
                       sx={{

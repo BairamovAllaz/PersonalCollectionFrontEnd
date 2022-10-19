@@ -25,7 +25,7 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 
-function ItemsContainer({ items, searchText, selectedFilter,userId }) {
+function ItemsContainer({ items, searchText, selectedFilter, userId }) {
   const { user } = React.useContext(UserPermisionContext);
   const [Items, setItems] = React.useState([]);
   const [expanded, setExpanded] = React.useState("panel_0");
@@ -149,30 +149,39 @@ function ItemsContainer({ items, searchText, selectedFilter,userId }) {
                     />
                   </ButtonBase>
                   <Typography variant="subtitle1" component="div" noWrap>
-                    {CheckUserLiked(element.itemLikes) == true ? (
-                      <Checkbox
-                        icon={<Favorite sx={{ color: "red" }} />}
-                        checkedIcon={<FavoriteBorder />}
-                        onClick={() => DisLikeItem(element.Id, element.likes)}
-                        sx={{
-                          marginLeft: "auto",
-                          marginTop: "20px",
-                        }}
-                      />
+                    {user.userRole != "Guest" ? (
+                      CheckUserLiked(element.itemLikes) == true ? (
+                        <Checkbox
+                          icon={<Favorite sx={{ color: "red" }} />}
+                          checkedIcon={<FavoriteBorder />}
+                          onClick={() => DisLikeItem(element.Id, element.likes)}
+                          sx={{
+                            marginLeft: "auto",
+                            marginTop: "20px",
+                          }}
+                        />
+                      ) : (
+                        <Checkbox
+                          icon={<FavoriteBorder />}
+                          checkedIcon={<Favorite sx={{ color: "red" }} />}
+                          onClick={() => addLikeItem(element.Id, element.likes)}
+                          sx={{
+                            marginLeft: "auto",
+                            marginTop: "20px",
+                          }}
+                        />
+                      )
                     ) : (
-                      <Checkbox
-                        icon={<FavoriteBorder />}
-                        checkedIcon={<Favorite sx={{ color: "red" }} />}
-                        onClick={() => addLikeItem(element.Id, element.likes)}
-                        sx={{
-                          marginLeft: "auto",
-                          marginTop: "20px",
-                        }}
-                      />
+                      <></>
                     )}
-                    <span style={{ position: "relative", top: "10px" }}>
-                      {element.itemLikes.length}
-                    </span>
+
+                    {user.userRole !== "Guest" ? (
+                      <span style={{ position: "relative", top: "10px" }}>
+                        {element.itemLikes.length}
+                      </span>
+                    ) : (
+                      <></>
+                    )}
 
                     <Button style={{ marginTop: "20px" }}>
                       <OpenInNewIcon
