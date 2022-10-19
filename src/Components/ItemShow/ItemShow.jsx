@@ -7,9 +7,7 @@ import Checkbox from "@mui/material/Checkbox";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
 import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import { Avatar, ButtonBase, CardMedia, ListItemText } from "@mui/material";
-import CardHeader from "@mui/material/CardHeader";
+import { Avatar, ButtonBase, CardMedia, ListItemText, Paper } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import EditIcon from "@mui/icons-material/Edit";
@@ -17,7 +15,9 @@ import List from "@mui/material/List";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import ListItem from "@mui/material/ListItem";
-import { UserPermisionContext } from "../UserContext/Context";
+import { UserPermisionContext } from "../../UserContext/Context";
+import CommentBox from "./ItemShowComponents/CommentBox";
+import InfoIcon from "@mui/icons-material/Info";
 function ItemShow() {
   const { userId, collectionId, itemId } = useParams();
   const navigate = useNavigate();
@@ -120,72 +120,79 @@ function ItemShow() {
                             image={`${global.config.backendUrl}/uploads/${itemCol.image}`}
                             alt="Paella dish"
                           />
-                          <p>
-                            <span
-                              style={{
-                                color: "blue",
-                                cursor: "pointer",
-                                fontWeight: "700",
-                              }}
-                            >
-                              Collection :{" "}
-                            </span>
-                            {collectionCol.name}
-                          </p>
-                          <p>
-                            <span
-                              style={{
-                                color: "blue",
-                                cursor: "pointer",
-                                fontWeight: "700",
-                              }}
-                            >
-                              Creator :{" "}
-                            </span>
-                            {userCol.firstName}
-                          </p>
-                          <p>
-                            <span style={{ fontWeight: "700", color: "gray" }}>
-                              Creation Time :{" "}
-                            </span>{" "}
-                            {new Date(itemCol.createdAt).toLocaleDateString()}
-                          </p>
-                          <p>
-                            <span style={{ fontWeight: "700", color: "gray" }}>
-                              Total Likes
-                            </span>{" "}
-                            : {itemCol.itemLikes.length}
-                          </p>
-
-                          {user.userRole !== "Guest" ? (
-                            CheckUserLiked(itemCol.itemLikes) == true ? (
-                              <Checkbox
-                                icon={<Favorite sx={{ color: "red" }} />}
-                                checkedIcon={<FavoriteBorder />}
-                                onClick={() =>
-                                  DisLikeItem(itemCol.Id, itemCol.likes)
-                                }
-                                sx={{
-                                  marginLeft: "auto",
-                                  marginTop: "20px",
+                          <Paper sx={{ padding: "30px" }}>
+                            <p>
+                              <span
+                                style={{
+                                  color: "blue",
+                                  cursor: "pointer",
+                                  fontWeight: "700",
                                 }}
-                              />
+                              >
+                                Collection :{" "}
+                              </span>
+                              {collectionCol.name}
+                            </p>
+                            <p>
+                              <span
+                                style={{
+                                  color: "blue",
+                                  cursor: "pointer",
+                                  fontWeight: "700",
+                                }}
+                              >
+                                Creator :{" "}
+                              </span>
+                              {userCol.firstName}
+                            </p>
+                            <p>
+                              <span
+                                style={{ fontWeight: "700", color: "gray" }}
+                              >
+                                Creation Time :{" "}
+                              </span>{" "}
+                              {new Date(itemCol.createdAt).toLocaleDateString()}
+                            </p>
+                            <p>
+                              <span
+                                style={{ fontWeight: "700", color: "gray" }}
+                              >
+                                Total Likes
+                              </span>{" "}
+                              : {itemCol.itemLikes.length}
+                            </p>
+                            {user.userRole !== "Guest" ? (
+                              CheckUserLiked(itemCol.itemLikes) == true ? (
+                                <Checkbox
+                                  icon={<Favorite sx={{ color: "red" }} />}
+                                  checkedIcon={<FavoriteBorder />}
+                                  onClick={() =>
+                                    DisLikeItem(itemCol.Id, itemCol.likes)
+                                  }
+                                  sx={{
+                                    marginLeft: "auto",
+                                    marginTop: "20px",
+                                  }}
+                                />
+                              ) : (
+                                <Checkbox
+                                  icon={<FavoriteBorder />}
+                                  checkedIcon={
+                                    <Favorite sx={{ color: "red" }} />
+                                  }
+                                  onClick={() =>
+                                    addLikeItem(itemCol.Id, itemCol.likes)
+                                  }
+                                  sx={{
+                                    marginLeft: "auto",
+                                    marginTop: "20px",
+                                  }}
+                                />
+                              )
                             ) : (
-                              <Checkbox
-                                icon={<FavoriteBorder />}
-                                checkedIcon={<Favorite sx={{ color: "red" }} />}
-                                onClick={() =>
-                                  addLikeItem(itemCol.Id, itemCol.likes)
-                                }
-                                sx={{
-                                  marginLeft: "auto",
-                                  marginTop: "20px",
-                                }}
-                              />
-                            )
-                          ) : (
-                            <></>
-                          )}
+                              <></>
+                            )}
+                          </Paper>
                         </CardContent>
                       </Grid>
                       <Grid item xs={12} sm={8}>
@@ -197,7 +204,9 @@ function ItemShow() {
                                 justifyContent: "right",
                               }}
                             >
-                              <p style={{ display: "flex" }}>
+                              <p
+                                style={{ display: "flex", marginRight: "20px" }}
+                              >
                                 {userId == userCol.Id ||
                                 user.userRole == true ? (
                                   <div>
@@ -241,35 +250,30 @@ function ItemShow() {
                                 />
                               </p>
                             </div>
-                            <List>
-                              <ListItem
-                                sx={{
-                                  display: "grid",
-                                  justifyContent: "center",
-                                  marginTop: "-30px",
-                                }}
-                              >
-                                <ListItemText sx={{ marginTop: "20px" }}>
-                                  <Stack
-                                    direction="row"
-                                    sx={{ marginLeft: "-10px" }}
-                                  >
-                                    {itemCol.itemTags.map(tag => (
-                                      <div>
-                                        <Chip label={tag.tag_name} />
-                                      </div>
-                                    ))}
-                                  </Stack>
-                                </ListItemText>
-                                <ListItemText sx={{ marginTop: "20px" }}>
-                                  <span
-                                    style={{ fontWeight: "700", color: "gray" }}
-                                  >
-                                    Name :{" "}
-                                  </span>
-                                  {itemCol.item_name}
-                                </ListItemText>
-                                {itemCol.itemFields.map(fieldCol => (
+                            <Paper sx={{ padding: "10px" }}>
+                              <div style = {{textAlign : "left",fontSize : "20px",paddingTop : "-40px"}}>
+                                <InfoIcon />
+                              </div>
+                              <List>
+                                <ListItem
+                                  sx={{
+                                    display: "grid",
+                                    justifyContent: "center",
+                                    marginTop: "-30px",
+                                  }}
+                                >
+                                  <ListItemText sx={{ marginTop: "20px" }}>
+                                    <Stack
+                                      direction="row"
+                                      sx={{ marginLeft: "-10px" }}
+                                    >
+                                      {itemCol.itemTags.map(tag => (
+                                        <div>
+                                          <Chip label={tag.tag_name} />
+                                        </div>
+                                      ))}
+                                    </Stack>
+                                  </ListItemText>
                                   <ListItemText sx={{ marginTop: "20px" }}>
                                     <span
                                       style={{
@@ -277,15 +281,30 @@ function ItemShow() {
                                         color: "gray",
                                       }}
                                     >
-                                      {fieldCol.field_name}
-                                    </span>{" "}
-                                    : {fieldCol.field_value}
+                                      Name :{" "}
+                                    </span>
+                                    {itemCol.item_name}
                                   </ListItemText>
-                                ))}
-                              </ListItem>
-                            </List>
+                                  {itemCol.itemFields.map(fieldCol => (
+                                    <ListItemText sx={{ marginTop: "20px" }}>
+                                      <span
+                                        style={{
+                                          fontWeight: "700",
+                                          color: "gray",
+                                        }}
+                                      >
+                                        {fieldCol.field_name}
+                                      </span>{" "}
+                                      : {fieldCol.field_value}
+                                    </ListItemText>
+                                  ))}
+                                </ListItem>
+                              </List>
+                            </Paper>
                           </Grid>
-                          <Grid item xs={12}></Grid>
+                          <Grid item xs={12}>
+                            <CommentBox currUser={user} itemId={itemCol.Id} userRole = {userCol.userRole} />
+                          </Grid>
                         </Grid>
                       </Grid>
                     </Grid>

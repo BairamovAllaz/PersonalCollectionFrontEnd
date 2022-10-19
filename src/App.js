@@ -28,7 +28,7 @@ import CreateItem from "./Components/Create/CreateItem";
 import EditCollection from "./Components/EditPages/EditCollection";
 import EditItem from "./Components/EditPages/EditItem";
 import { Grid } from "@material-ui/core";
-import ItemShow from "./ItemShow/ItemShow";
+import ItemShow from "./Components/ItemShow/ItemShow";
 function App() {
   const { pathname } = useLocation();
   const [isLoading, setLoading] = useState(true);
