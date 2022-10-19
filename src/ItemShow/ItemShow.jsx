@@ -14,6 +14,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import EditIcon from "@mui/icons-material/Edit";
 import List from "@mui/material/List";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
 import ListItem from "@mui/material/ListItem";
 import { UserPermisionContext } from "../UserContext/Context";
 function ItemShow() {
@@ -227,24 +229,51 @@ function ItemShow() {
                                 />
                               </p>
                             </div>
-                          </Grid>
-                          <Grid item xs={12}>
                             <List>
                               <ListItem
                                 sx={{
                                   display: "grid",
                                   justifyContent: "center",
-                                  alignItems: "center",
+                                  marginTop: "-30px",
                                 }}
                               >
-                                <ListItemText>{itemCol.item_name}</ListItemText>
-                                <ListItemText>Tags</ListItemText>
-                                {/* {itemCol.itemFields.map(fieldCol => (
-                                  <ListItemText>{fieldCol.field_name} : {fieldCol.field_value}</ListItemText>)
-                                ))} */}
+                                <ListItemText sx={{ marginTop: "20px" }}>
+                                  <Stack
+                                    direction="row"
+                                    sx={{ marginLeft: "-10px" }}
+                                  >
+                                    {itemCol.itemTags.map(tag => (
+                                      <div>
+                                        <Chip label={tag.tag_name} />
+                                      </div>
+                                    ))}
+                                  </Stack>
+                                </ListItemText>
+                                <ListItemText sx={{ marginTop: "20px" }}>
+                                  <span
+                                    style={{ fontWeight: "700", color: "gray" }}
+                                  >
+                                    Name :{" "}
+                                  </span>
+                                  {itemCol.item_name}
+                                </ListItemText>
+                                {itemCol.itemFields.map(fieldCol => (
+                                  <ListItemText sx={{ marginTop: "20px" }}>
+                                    <span
+                                      style={{
+                                        fontWeight: "700",
+                                        color: "gray",
+                                      }}
+                                    >
+                                      {fieldCol.field_name}
+                                    </span>{" "}
+                                    : {fieldCol.field_value}
+                                  </ListItemText>
+                                ))}
                               </ListItem>
                             </List>
                           </Grid>
+                          <Grid item xs={12}></Grid>
                         </Grid>
                       </Grid>
                     </Grid>

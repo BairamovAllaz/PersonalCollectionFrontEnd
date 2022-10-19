@@ -55,7 +55,7 @@ function CollectionShowPage() {
   React.useEffect(() => {
     axios
       .get(
-        `${global.config.backendUrl}/items/getAllItems/${userId}/${collectionId}`
+        `${global.config.backendUrl}/items/getAllItems/${userId}/${collectionId}`,{withCredentials : true}
       )
       .then(response => {
         setValues(response.data);
@@ -248,7 +248,7 @@ function CollectionShowPage() {
                             }}
                             onClick={() =>
                               navigation(
-                                `/User/${userCol.Id}/collection/item/${collection.Id}/create`
+                                `/User/${userCol.Id}/collection/${collection.Id}`
                               )
                             }
                           />

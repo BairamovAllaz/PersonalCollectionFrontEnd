@@ -17,7 +17,7 @@ import axios from "axios";
 import MenuItem from "@mui/material/MenuItem";
 
 function CreateItem() {
-  const { id } = useParams();
+  const { collectionId } = useParams();
   const [tags, setTags] = React.useState([]);
   const [fields, setFields] = React.useState([]);
   const [values, setValues] = React.useState({});
@@ -38,7 +38,7 @@ function CreateItem() {
 
   React.useEffect(() => {
     axios
-      .get(`${global.config.backendUrl}/collection/getFields/${id}`)
+      .get(`${global.config.backendUrl}/collection/getFields/${collectionId}`)
       .then(response => {
         setFields(response.data);
       })
@@ -66,7 +66,7 @@ function CreateItem() {
     formData.append("image", image);
 
     axios
-      .post(`${global.config.backendUrl}/items/addItem/${id}`, formData)
+      .post(`${global.config.backendUrl}/items/addItem/${collectionId}`, formData)
       .then(response => {
         alert("Item Was Created");
         window.location.reload();
