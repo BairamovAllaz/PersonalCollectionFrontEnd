@@ -7,7 +7,13 @@ import Checkbox from "@mui/material/Checkbox";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
 import CardContent from "@mui/material/CardContent";
-import { Avatar, ButtonBase, CardMedia, ListItemText, Paper } from "@mui/material";
+import {
+  Avatar,
+  ButtonBase,
+  CardMedia,
+  ListItemText,
+  Paper,
+} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import EditIcon from "@mui/icons-material/Edit";
@@ -121,7 +127,13 @@ function ItemShow() {
                             alt="Paella dish"
                           />
                           <Paper sx={{ padding: "30px" }}>
-                            <p>
+                            <p
+                              onClick={() =>
+                                navigate(
+                                  `/User/${userId}/collection/${collectionCol.Id}`
+                                )
+                              }
+                            >
                               <span
                                 style={{
                                   color: "blue",
@@ -133,7 +145,7 @@ function ItemShow() {
                               </span>
                               {collectionCol.name}
                             </p>
-                            <p>
+                            <p onClick={() => navigate(`/User/${userId}`)}>
                               <span
                                 style={{
                                   color: "blue",
@@ -207,8 +219,10 @@ function ItemShow() {
                               <p
                                 style={{ display: "flex", marginRight: "20px" }}
                               >
-                                {userId == userCol.Id ||
-                                user.userRole == true ? (
+                                {user.Id != userCol.Id &&
+                                user.userRole != true ? (
+                                  <></>
+                                ) : (
                                   <div>
                                     <DeleteIcon
                                       sx={{
@@ -233,8 +247,6 @@ function ItemShow() {
                                       }
                                     />
                                   </div>
-                                ) : (
-                                  <></>
                                 )}
                                 <OpenInNewIcon
                                   sx={{
@@ -251,10 +263,16 @@ function ItemShow() {
                               </p>
                             </div>
                             <Paper sx={{ padding: "10px" }}>
-                              <div style = {{textAlign : "left",fontSize : "20px",paddingTop : "-40px"}}>
+                              <div
+                                style={{
+                                  textAlign: "left",
+                                  fontSize: "20px",
+                                  paddingTop: "-40px",
+                                }}
+                              >
                                 <InfoIcon />
                               </div>
-                              <List>
+                              <List sx={{ marginBottom: "30px" }}>
                                 <ListItem
                                   sx={{
                                     display: "grid",
@@ -286,6 +304,7 @@ function ItemShow() {
                                     {itemCol.item_name}
                                   </ListItemText>
                                   {itemCol.itemFields.map(fieldCol => (
+                                    <div>
                                     <ListItemText sx={{ marginTop: "20px" }}>
                                       <span
                                         style={{
@@ -297,13 +316,18 @@ function ItemShow() {
                                       </span>{" "}
                                       : {fieldCol.field_value}
                                     </ListItemText>
+                                    </div>
                                   ))}
                                 </ListItem>
                               </List>
                             </Paper>
                           </Grid>
                           <Grid item xs={12}>
-                            <CommentBox currUser={user} itemId={itemCol.Id} userRole = {userCol.userRole} />
+                            <CommentBox
+                              currUser={user}
+                              itemId={itemCol.Id}
+                              userRole={userCol.userRole}
+                            />
                           </Grid>
                         </Grid>
                       </Grid>
