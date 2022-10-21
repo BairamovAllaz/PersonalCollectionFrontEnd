@@ -54,7 +54,7 @@ function ManageContainer() {
         />
         <Tab icon={<AppsIcon />} label="Collections" id="All collections" />
       </Tabs>
-      <AllUsers value={value} index={0} AllUsers = {Users} />
+      <AllUsers value={value} index={0} AllUsers = {Users.filter(data => data.Id != user.Id && data.userRole === false)} />
       <AllAdmins value={value} index={1} AllAdmins = {Users.filter(data => data.userRole === true && data.Id != user.Id)}/>
     </Box>
   );

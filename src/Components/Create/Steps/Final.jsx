@@ -4,12 +4,12 @@ import {Alert} from "@mui/material";
 import {Link} from "react-router-dom";
 
 function Final() {
-    const {id,collectionId} = useContext(InfoContext);
+    const {userId,collectionId} = useContext(InfoContext);
     return(
         <div>
             <Alert severity="success">Collection created successfuly — check it out!</Alert>
             <br/>
-            <Link to={`/User/${id}/collection/${collectionId}`} style = {{paddingTop : "30px"}}>Collection Link</Link>
+            <Link to={`/User/${userId}/collection/${collectionId}`} style = {{paddingTop : "30px"}}>Collection Link</Link>
         </div>
     )
 }

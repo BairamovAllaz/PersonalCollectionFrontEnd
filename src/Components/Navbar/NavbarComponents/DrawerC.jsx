@@ -137,7 +137,7 @@ function DrawerC({ isDrawerOpened, handleCloseDrawer }) {
                   </ListItemButton>
                   <ListItemButton
                     onClick={() => {
-                      navigation(`/collection/${user.Id}/create`);
+                      navigation(`/User/${user.Id}/collection/create`);
                     }}
                     style={{ marginTop: "10px" }}
                   >

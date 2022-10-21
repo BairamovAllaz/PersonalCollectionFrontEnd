@@ -1,5 +1,5 @@
 import React from "react";
-import {Box} from '@material-ui/core'
+import { Box } from "@material-ui/core";
 import UserContainer from "./UserContainer";
 function AllUsers({ value, index, AllUsers }) {
   const [Users, setUsers] = React.useState([]);
@@ -13,16 +13,18 @@ function AllUsers({ value, index, AllUsers }) {
       <Box
         style={{
           width: "100%",
-          height: "100vh",
+          minheight: "500px",
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "center",
           overflowY: "scroll",
         }}
       >
-        {Users.map(user => (
-          <UserContainer userProp={user} />
-        ))}
+        {Users.length <= 0 ? (
+          <p style={{ marginTop: "30px" }}>No User</p>
+        ) : (
+          Users.map(user => <UserContainer userProp={user} />)
+        )}
       </Box>
     </Box>
   );

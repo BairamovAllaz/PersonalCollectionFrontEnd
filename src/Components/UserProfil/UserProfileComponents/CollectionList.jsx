@@ -38,7 +38,7 @@ function CollectionList(props) {
             sx={{ margin: "20px" }}
             startIcon={<AddIcon />}
             onClick={() =>
-              navigate(`/User/${user.Id}/collection/${user.Id}/create`)
+              navigate(`/User/${user.Id}/collection/create`)
             }
           >
             Collection

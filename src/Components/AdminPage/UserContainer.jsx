@@ -1,14 +1,23 @@
-import React from 'react'
-import { Grid, Avatar, Paper, Tooltip, IconButton,Box } from "@mui/material";
+import React from "react";
+import { Grid, Avatar, Paper, Tooltip, IconButton, Box } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import EditIcon from "@mui/icons-material/Edit";
-function UserContainer({userProp}) {
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { DeleteUser, AddUserToAdmin } from "./AdminMethods";
+function UserContainer({ userProp }) {
+  const navigation = useNavigate();
   return (
-    <Box>
-      <Paper sx={{ padding: "20px 20px", margin: { sm: "20px 20px"} }}>
+    <Box style={{ height: { xs: "150px", sm: "200px" }, marginTop: "20px" }}>
+      <Paper
+        sx={{
+          padding: "20px 20px",
+          margin: { sm: "20px 20px" },
+        }}
+      >
         <Grid container wrap="nowrap" spacing={2}>
           <Grid item style={{ display: "flex", alignItems: "center" }}>
             <Avatar
@@ -32,22 +41,22 @@ function UserContainer({userProp}) {
             </h4>
             <div style={{ textAlign: "left", color: "gray", display: "flex" }}>
               <Tooltip title="Delete" sx={{ marginLeft: "10px" }}>
-                <IconButton>
+                <IconButton onClick={() => DeleteUser(userProp.Id)}>
                   <DeleteIcon style={{ marginLeft: "-30px" }} />
                 </IconButton>
               </Tooltip>
               <Tooltip title="Add as Admin">
-                <IconButton>
+                <IconButton onClick={() => AddUserToAdmin(userProp.Id)}>
                   <PlaylistAddIcon />
                 </IconButton>
               </Tooltip>
               <Tooltip title="Edit">
-                <IconButton>
+                <IconButton onClick={() => navigation(`/User/${userProp.Id}/edit`)}>
                   <EditIcon />
                 </IconButton>
               </Tooltip>
               <Tooltip title="Profil">
-                <IconButton>
+                <IconButton onClick = {() => navigation(`/user/${userProp.Id}`)}>
                   <OpenInNewIcon />
                 </IconButton>
               </Tooltip>
@@ -59,4 +68,4 @@ function UserContainer({userProp}) {
   );
 }
 
-export default UserContainer
+export default UserContainer;

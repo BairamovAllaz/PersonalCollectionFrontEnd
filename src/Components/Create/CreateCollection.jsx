@@ -36,7 +36,7 @@ function getStepContent(step) {
 
 export const InfoContext = React.createContext();
 function CreateCollection() {
-  const { id } = useParams();
+  const { userId } = useParams();
   const [collectionId, setCollectionId] = React.useState();
   const [fieldList, setFieldList] = React.useState([
     { field_name: "", field_type: "" },
@@ -80,7 +80,7 @@ function CreateCollection() {
 
     const formData = new FormData();
     formData.append("name", name);
-    formData.append("userId", id);
+    formData.append("userId", userId);
     formData.append("description", markDownInput);
     formData.append("topic", topic);
     formData.append("about", about);
@@ -113,7 +113,7 @@ function CreateCollection() {
           setName,
           topic,
           setTopic,
-          id,
+          userId,
           collectionId,
           about,
           setAbout,
