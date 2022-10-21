@@ -15,6 +15,8 @@ import { Box, Button } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
 import { UserPermisionContext } from "../../../UserContext/Context";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -182,16 +184,18 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
                     ) : (
                       <></>
                     )}
-
-                    <Button style={{ marginTop: "20px" }}>
-                      <OpenInNewIcon
-                        onClick={() =>
-                          navigate(
-                            `/User/${userId}/collection/${element.collectionId}/Item/${element.Id}`
-                          )
-                        }
-                      />
-                    </Button>
+                    {/* TODO ADD COMMENT COUNT */}
+                    <Tooltip title="Open Item">
+                      <IconButton style = {{marginTop : "20px",marginLeft : "20px"}}>
+                          <OpenInNewIcon
+                            onClick={() =>
+                              navigate(
+                                `/User/${userId}/collection/${element.collectionId}/Item/${element.Id}`
+                              )
+                            }
+                          />
+                      </IconButton>
+                    </Tooltip>
                   </Typography>
                 </Grid>
                 <Grid item xs={6} sm container>
@@ -215,9 +219,9 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
             </AccordionSummary>
             <AccordionDetails>
               <div>
-                <Stack direction="row" spacing={1}>
+                <Stack direction="row" spacing={2}>
                   {element.itemTags.map(tag => (
-                    <div>
+                    <div style={{ paddingLeft: "10px" }}>
                       <Chip label={tag.tag_name} />
                     </div>
                   ))}

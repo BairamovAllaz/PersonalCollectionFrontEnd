@@ -6,12 +6,17 @@ import PlaylistRemoveIcon from "@mui/icons-material/PlaylistRemove";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { UserPermisionContext } from "../../UserContext/Context";
 import axios from 'axios';
-import {RemoveFromAdmin} from './AdminMethods';
+import { RemoveFromAdmin, DeleteUser } from "./AdminMethods";
 import { useNavigate } from "react-router-dom";
 function AdminUserContainer({user}) {
   const navigation = useNavigate();
   return (
-    <Box style={{ height: { xs: "150px", sm: "200px" }, marginTop: "20px" }}>
+    <Box
+      sx={{
+        height: { xs: "150px", sm: "200px" },
+        margin: { xs: "10px auto", sm: "20px 0"},
+      }}
+    >
       <Paper style={{ padding: "20px 20px", margin: "20px 0" }}>
         <Grid container wrap="nowrap" spacing={2}>
           <Grid item style={{ display: "flex", alignItems: "center" }}>
@@ -29,7 +34,7 @@ function AdminUserContainer({user}) {
                 }}
               >
                 {user.firstName}
-                <StarIcon />
+                <StarIcon sx = {{paddingRight :"30px"}}/>
                 <p style={{ marginLeft: "auto" }}>
                   {new Date(user.createdAt).toLocaleDateString()}
                 </p>
@@ -37,7 +42,7 @@ function AdminUserContainer({user}) {
             </h4>
             <div style={{ textAlign: "left", color: "gray" }}>
               <Tooltip title="Delete">
-                <IconButton>
+                <IconButton onClick = {() => DeleteUser(user.Id)}>
                   <DeleteIcon style={{ marginLeft: "-10px" }} />
                 </IconButton>
               </Tooltip>
@@ -47,7 +52,7 @@ function AdminUserContainer({user}) {
                 </IconButton>
               </Tooltip>
               <Tooltip title="Profil">
-                <IconButton onClick = {() => navigation(`/user/${user.Id}`)}>
+                <IconButton onClick={() => navigation(`/user/${user.Id}`)}>
                   <OpenInNewIcon />
                 </IconButton>
               </Tooltip>

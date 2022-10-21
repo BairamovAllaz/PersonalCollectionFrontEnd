@@ -33,7 +33,6 @@ function ModalGuestAccount({isDialogOpened, handleCloseDialog}) {
         const GuestAccount = {
             firstName,
             lastName,
-            userRole: "Guest"
         }
         setUser(GuestAccount);
         setStorage(GuestAccount);
@@ -41,8 +40,7 @@ function ModalGuestAccount({isDialogOpened, handleCloseDialog}) {
     }
 
     function setStorage(user) {
-        localStorage.setItem('user', JSON.stringify(user));
-        localStorage.setItem("isLog",true);
+        sessionStorage.setItem('user', JSON.stringify(user));
     }
 
     return (

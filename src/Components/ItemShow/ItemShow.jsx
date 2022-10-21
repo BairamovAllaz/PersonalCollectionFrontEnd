@@ -7,6 +7,10 @@ import Checkbox from "@mui/material/Checkbox";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
 import CardContent from "@mui/material/CardContent";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
+import Divider from "@mui/material/Divider";
+
 import {
   Avatar,
   ButtonBase,
@@ -30,6 +34,12 @@ function ItemShow() {
   const [isLoaded, setIsLoaded] = React.useState(true);
   const { user } = React.useContext(UserPermisionContext);
   const [items, setItems] = React.useState([]);
+  const style = {
+    width: "100%",
+    maxWidth: 360,
+    bgcolor: "background.paper",
+    marginLeft: "20px",
+  };
   React.useEffect(() => {
     axios
       .get(
@@ -127,141 +137,146 @@ function ItemShow() {
                             alt="Paella dish"
                           />
                           <Paper sx={{ padding: "30px" }}>
-                            <p
-                              onClick={() =>
-                                navigate(
-                                  `/User/${userId}/collection/${collectionCol.Id}`
-                                )
-                              }
+                            <List
+                              sx={style}
+                              component="nav"
+                              aria-label="mailbox folders"
                             >
-                              <span
-                                style={{
-                                  color: "blue",
-                                  cursor: "pointer",
-                                  fontWeight: "700",
-                                }}
+                              <ListItem
+                                button
+                                onClick={() =>
+                                  navigate(
+                                    `/User/${userId}/collection/${collectionCol.Id}`
+                                  )
+                                }
                               >
-                                Collection :{" "}
-                              </span>
-                              {collectionCol.name}
-                            </p>
-                            <p onClick={() => navigate(`/User/${userId}`)}>
-                              <span
-                                style={{
-                                  color: "blue",
-                                  cursor: "pointer",
-                                  fontWeight: "700",
-                                }}
-                              >
-                                Creator :{" "}
-                              </span>
-                              {userCol.firstName}
-                            </p>
-                            <p>
-                              <span
-                                style={{ fontWeight: "700", color: "gray" }}
-                              >
-                                Creation Time :{" "}
-                              </span>{" "}
-                              {new Date(itemCol.createdAt).toLocaleDateString()}
-                            </p>
-                            <p>
-                              <span
-                                style={{ fontWeight: "700", color: "gray" }}
-                              >
-                                Total Likes
-                              </span>{" "}
-                              : {itemCol.itemLikes.length}
-                            </p>
-                            {user.userRole !== "Guest" ? (
-                              CheckUserLiked(itemCol.itemLikes) == true ? (
-                                <Checkbox
-                                  icon={<Favorite sx={{ color: "red" }} />}
-                                  checkedIcon={<FavoriteBorder />}
-                                  onClick={() =>
-                                    DisLikeItem(itemCol.Id, itemCol.likes)
-                                  }
-                                  sx={{
-                                    marginLeft: "auto",
-                                    marginTop: "20px",
-                                  }}
+                                <ListItemText
+                                  primary={`Collection : ${collectionCol.name}`}
                                 />
-                              ) : (
-                                <Checkbox
-                                  icon={<FavoriteBorder />}
-                                  checkedIcon={
-                                    <Favorite sx={{ color: "red" }} />
-                                  }
-                                  onClick={() =>
-                                    addLikeItem(itemCol.Id, itemCol.likes)
-                                  }
-                                  sx={{
-                                    marginLeft: "auto",
-                                    marginTop: "20px",
-                                  }}
+                              </ListItem>
+                              <Divider />
+                              <ListItem
+                                divider
+                                button
+                                onClick={() => navigate(`/User/${userId}`)}
+                              >
+                                <ListItemText
+                                  primary={`Creator : ${userCol.firstName}`}
                                 />
-                              )
-                            ) : (
-                              <></>
-                            )}
-                          </Paper>
-                        </CardContent>
-                      </Grid>
-                      <Grid item xs={12} sm={8}>
-                        <Grid container spacing={2}>
-                          <Grid item xs={12}>
+                              </ListItem>
+                              <ListItem>
+                                <ListItemText
+                                  primary={`Creation Time : ${new Date(
+                                    itemCol.createdAt
+                                  ).toLocaleDateString()}`}
+                                />
+                              </ListItem>
+                              <Divider light />
+                              <ListItem>
+                                <ListItemText
+                                  primary={`Total Likes: ${itemCol.itemLikes.length}`}
+                                />
+                              </ListItem>
+                            </List>
                             <div
                               style={{
                                 display: "flex",
-                                justifyContent: "right",
+                                justifyContent: "center",
+                                alignItems: "center",
                               }}
                             >
-                              <p
-                                style={{ display: "flex", marginRight: "20px" }}
-                              >
-                                {user.Id != userCol.Id &&
-                                user.userRole != true ? (
-                                  <></>
+                              {user.userRole !== "Guest" ? (
+                                CheckUserLiked(itemCol.itemLikes) == true ? (
+                                  <Checkbox
+                                    icon={<Favorite sx={{ color: "red" }} />}
+                                    checkedIcon={<FavoriteBorder />}
+                                    onClick={() =>
+                                      DisLikeItem(itemCol.Id, itemCol.likes)
+                                    }
+                                  />
                                 ) : (
-                                  <div>
-                                    <DeleteIcon
+                                  <Checkbox
+                                    icon={<FavoriteBorder />}
+                                    checkedIcon={
+                                      <Favorite sx={{ color: "red" }} />
+                                    }
+                                    onClick={() =>
+                                      addLikeItem(itemCol.Id, itemCol.likes)
+                                    }
+                                  />
+                                )
+                              ) : (
+                                <></>
+                              )}
+
+                              {user.Id != userCol.Id &&
+                              user.userRole != true ? (
+                                <></>
+                              ) : (
+                                <div>
+                                  <Tooltip title="Delete Item">
+                                    <IconButton
                                       sx={{
-                                        marginLeft: "10px",
                                         color: "red",
                                         cursor: "pointer",
                                         fontSize: "20px",
                                         marginLeft: "30px",
                                       }}
-                                      onClick={() => DeleteItem(itemCol.Id)}
-                                    />
-                                    <EditIcon
+                                    >
+                                      <DeleteIcon
+                                        onClick={() => DeleteItem(itemCol.Id)}
+                                      />
+                                    </IconButton>
+                                  </Tooltip>
+                                  <Tooltip title="Edit Item">
+                                    <IconButton
                                       sx={{
-                                        paddingLeft: "30px",
+                                        marginLeft: "30px",
                                         cursor: "pointer",
                                         fontSize: "20px",
                                       }}
-                                      onClick={() =>
-                                        navigate(
-                                          `/User/${collectionCol.userId}/collection/${collectionCol.Id}/Item/${itemCol.Id}/edit`
-                                        )
-                                      }
-                                    />
-                                  </div>
-                                )}
-                                <OpenInNewIcon
+                                    >
+                                      <EditIcon
+                                        onClick={() =>
+                                          navigate(
+                                            `/User/${collectionCol.userId}/collection/${collectionCol.Id}/Item/${itemCol.Id}/edit`
+                                          )
+                                        }
+                                      />
+                                    </IconButton>
+                                  </Tooltip>
+                                </div>
+                              )}
+                              <Tooltip title="Open Collection">
+                                <IconButton
                                   sx={{
-                                    paddingLeft: "20px",
+                                    marginLeft: "20px",
                                     cursor: "pointer",
                                     fontSize: "20px",
                                   }}
-                                  onClick={() =>
-                                    navigate(
-                                      `/User/${userId}/collection/${collectionCol.Id}`
-                                    )
-                                  }
-                                />
-                              </p>
+                                >
+                                  <OpenInNewIcon
+                                    onClick={() =>
+                                      navigate(
+                                        `/User/${userId}/collection/${collectionCol.Id}`
+                                      )
+                                    }
+                                  />
+                                </IconButton>
+                              </Tooltip>
                             </div>
+                          </Paper>
+                        </CardContent>
+                      </Grid>
+                      <Grid item xs={12} sm={8}>
+                        <Grid container spacing={2}>
+                          <Grid item xs={12} style = {{marginTop : "20px"}}>
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "right",
+                              }}
+                            ></div>
                             <Paper sx={{ padding: "10px" }}>
                               <div
                                 style={{
@@ -305,17 +320,17 @@ function ItemShow() {
                                   </ListItemText>
                                   {itemCol.itemFields.map(fieldCol => (
                                     <div>
-                                    <ListItemText sx={{ marginTop: "20px" }}>
-                                      <span
-                                        style={{
-                                          fontWeight: "700",
-                                          color: "gray",
-                                        }}
-                                      >
-                                        {fieldCol.field_name}
-                                      </span>{" "}
-                                      : {fieldCol.field_value}
-                                    </ListItemText>
+                                      <ListItemText sx={{ marginTop: "20px" }}>
+                                        <span
+                                          style={{
+                                            fontWeight: "700",
+                                            color: "gray",
+                                          }}
+                                        >
+                                          {fieldCol.field_name}
+                                        </span>{" "}
+                                        : {fieldCol.field_value}
+                                      </ListItemText>
                                     </div>
                                   ))}
                                 </ListItem>

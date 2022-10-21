@@ -7,6 +7,8 @@ import AddIcon from "@mui/icons-material/Add";
 import { useNavigate, useNavigation } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Stack, Tooltip, IconButton } from "@mui/material";
+import UpgradeIcon from "@mui/icons-material/Upgrade";
 import axios from "axios";
 
 function CollectionList(props) {
@@ -37,9 +39,7 @@ function CollectionList(props) {
             variant="contained"
             sx={{ margin: "20px" }}
             startIcon={<AddIcon />}
-            onClick={() =>
-              navigate(`/User/${user.Id}/collection/create`)
-            }
+            onClick={() => navigate(`/User/${user.Id}/collection/create`)}
           >
             Collection
           </Button>
@@ -82,31 +82,43 @@ function CollectionList(props) {
                 <Typography variant="p">#{element.topic}</Typography>
               </CardContent>
               <CardActions>
-                <Button
-                  size="small"
-                  startIcon={<VisibilityIcon />}
-                  variant="outlined"
-                  color="secondary"
-                  onClick={() =>
-                    navigate(`/User/${user.Id}/collection/${element.Id}`)
-                  }
-                >
-                  Show
-                </Button>
-                {props.currUser.Id != props.userId &&
-                props.currUser.userRole != true ? (
-                  <></>
-                ) : (
-                  <Button
-                    size="small"
-                    startIcon={<DeleteIcon />}
-                    variant="outlined"
-                    color="error"
-                    onClick={() => DeleteCollection(element.Id)}
-                  >
-                    Delete
-                  </Button>
-                )}
+                <Stack direction="row" justifyContent="center" spacing={1}>
+                  <Tooltip title="Show Collection">
+                    <IconButton>
+                      <VisibilityIcon
+                        onClick={() =>
+                          navigate(`/User/${user.Id}/collection/${element.Id}`)
+                        }
+                      />
+                    </IconButton>
+                  </Tooltip>
+
+                  {props.currUser.Id != props.userId &&
+                  props.currUser.userRole != true ? (
+                    <></>
+                  ) : (
+                    <div>
+                      <Tooltip title="Delete Collection">
+                        <IconButton>
+                          <UpgradeIcon
+                            onClick={() =>
+                              navigate(
+                                `/User/${user.Id}/Collection/${element.Id}/edit`
+                              )
+                            }
+                          />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="Edit Collection">
+                        <IconButton sx={{ color: "red" }}>
+                          <DeleteIcon
+                            onClick={() => DeleteCollection(element.Id)}
+                          />
+                        </IconButton>
+                      </Tooltip>
+                    </div>
+                  )}
+                </Stack>
               </CardActions>
             </Card>
           ))

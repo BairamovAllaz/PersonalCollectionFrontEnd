@@ -15,9 +15,10 @@ import Paper from "@mui/material/Paper";
 import SendIcon from "@mui/icons-material/Send";
 import BadgeIcon from "@mui/icons-material/Badge";
 import io from "socket.io-client";
-import { useParams } from "react-router-dom";
+import { useNavigate,  useParams } from "react-router-dom";
 
 function CommentBox({ itemId, currUser, userRole }) {
+  const navigate = useNavigate();
   const [loading, setLoading] = React.useState(true);
   const [comments, setComments] = React.useState([]);
   const [message, setMessage] = React.useState("");
@@ -112,7 +113,13 @@ function CommentBox({ itemId, currUser, userRole }) {
               comments.map(element => (
                 <Paper style={{ padding: "20px 20px", margin: "20px 0" }}>
                   <Grid container wrap="nowrap" spacing={2}>
-                    <Grid item>
+                    <Grid
+                      item
+                      style={{
+                        cursor: "pointer",
+                      }}
+                      onClick={() => navigate(`/User/${element.userId}`)}
+                    >
                       <Avatar
                         src={`${global.config.backendUrl}/uploads/${element.userPhoto}`}
                       />

@@ -1,36 +1,50 @@
 import React from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import GroupIcon from "@mui/icons-material/Group";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
+import FolderDeleteIcon from "@mui/icons-material/FolderDelete";
 import AppsIcon from "@mui/icons-material/Apps";
 import AllUsers from "./AllUsers";
 import AllAdmins from "./AllAdmins";
-import axios from 'axios';
+import axios from "axios";
 import { UserPermisionContext } from "../../UserContext/Context";
+import DeletedUsers from "./DeletedUsers";
 function ManageContainer() {
   const [value, setValue] = React.useState(0);
   const [isLoadedusers, setIsLoadedusers] = React.useState(true);
-  const [Users,setUsers] = React.useState([]);
+  const [Users, setUsers] = React.useState([]);
+  const [searchText, setSearchText] = React.useState("");
 
-  const {user} = React.useContext(UserPermisionContext);
+  const { user } = React.useContext(UserPermisionContext);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-
-  React.useEffect(() => { 
-      axios.get(`${global.config.backendUrl}/admin/getAllUsers`).then(response => {
+  React.useEffect(() => {
+    axios
+      .get(`${global.config.backendUrl}/admin/getAllUsers`)
+      .then(response => {
         setUsers(response.data);
         setIsLoadedusers(false);
-      }).catch(err => { 
-        console.log(err);
       })
-  },[])
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
 
-  if(isLoadedusers) { 
-    return <div>Loading...</div>
+  const filteredData = Users.filter(el => {
+    if (searchText === "") {
+      return el;
+    } else {
+      return el.firstName.toLowerCase().includes(searchText.toLowerCase());
+    }
+  });
+
+  if (isLoadedusers) {
+    return <div>Loading...</div>;
   }
 
   return (
@@ -52,10 +66,29 @@ function ManageContainer() {
           id="All-admins"
           aria-controls="alladmins"
         />
-        <Tab icon={<AppsIcon />} label="Collections" id="All collections" />
+        <Tab
+          icon={<FolderDeleteIcon />}
+          label="Deleted"
+          id="Deleted-Users"
+          aria-controls="deletedUsers"
+        />
       </Tabs>
-      <AllUsers value={value} index={0} AllUsers = {Users.filter(data => data.Id != user.Id && data.userRole === false)} />
-      <AllAdmins value={value} index={1} AllAdmins = {Users.filter(data => data.userRole === true && data.Id != user.Id)}/>
+      <TextField size="small" onChange={e => setSearchText(e.target.value)} />
+      <AllUsers
+        value={value}
+        index={0}
+        AllUsers={filteredData.filter(
+          data => data.Id != user.Id && data.userRole === false
+        )}
+      />
+      <AllAdmins
+        value={value}
+        index={1}
+        AllAdmins={filteredData.filter(
+          data => data.userRole === true && data.Id != user.Id
+        )}
+      />
+      <DeletedUsers value={value} index={2} />
     </Box>
   );
 }

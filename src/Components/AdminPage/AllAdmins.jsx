@@ -15,12 +15,13 @@ function AllAdmins({ value, index, AllAdmins }) {
           height: "100vh",
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "center",
           overflowY: "scroll",
         }}
       >
         {admins.length <= 0 ? (
-          <p style={{ paddingTop: "20px" }}>No admins expect you</p>
+            <p style={{}}>
+              No admins expect you
+            </p>
         ) : (
           admins.map(user => <AdminUserContainer user={user} />)
         )}

@@ -29,6 +29,8 @@ import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import Tooltip from "@mui/material/Tooltip";
 
 function CollectionShowPage() {
   const navigation = useNavigate();
@@ -147,7 +149,7 @@ function CollectionShowPage() {
               </h1>
             </div>
           ) : (
-            <Container maxWidth="lg" style={{ border: "solid 1px black" }}>
+            <Container maxWidth={false}>
               <Paper
                 variant="outlined"
                 sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
@@ -219,40 +221,54 @@ function CollectionShowPage() {
                         <></>
                       ) : (
                         <>
-                          <DeleteIcon
-                            sx={{
-                              marginLeft: "20px",
-                              color: "red",
-                              cursor: "pointer",
-                              fontSize: "30px",
-                            }}
-                            onClick={() => deleteCollection(collection.Id)}
-                          />
-                          <EditIcon
-                            sx={{
-                              paddingLeft: "30px",
-                              cursor: "pointer",
-                              fontSize: "30px",
-                            }}
-                            onClick={() =>
-                              navigation(
-                                `/User/${userCol.Id}/Collection/${collection.Id}/edit`
-                              )
-                            }
-                          />
-
-                          <AddIcon
-                            sx={{
-                              paddingLeft: "20px",
-                              cursor: "pointer",
-                              fontSize: "30px",
-                            }}
-                            onClick={() =>
-                              navigation(
-                                `/User/${userCol.Id}/collection/${collection.Id}/item/create`
-                              )
-                            }
-                          />
+                          <Tooltip title="Delete">
+                            <IconButton
+                              sx={{
+                                marginLeft: "20px",
+                                color: "red",
+                                cursor: "pointer",
+                                fontSize: "30px",
+                              }}
+                            >
+                              <DeleteIcon
+                                onClick={() => deleteCollection(collection.Id)}
+                              />
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip title="Edit Collection">
+                            <IconButton
+                              sx={{
+                                marginLeft: "30px",
+                                cursor: "pointer",
+                                fontSize: "30px",
+                              }}
+                            >
+                              <EditIcon
+                                onClick={() =>
+                                  navigation(
+                                    `/User/${userCol.Id}/Collection/${collection.Id}/edit`
+                                  )
+                                }
+                              />
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip title="Add Item">
+                            <IconButton
+                              sx={{
+                                marginLeft: "30px",
+                                cursor: "pointer",
+                                fontSize: "30px",
+                              }}
+                            >
+                              <AddIcon
+                                onClick={() =>
+                                  navigation(
+                                    `/User/${userCol.Id}/collection/${collection.Id}/item/create`
+                                  )
+                                }
+                              />
+                            </IconButton>
+                          </Tooltip>
                         </>
                       )}
                       <CollectionDescModal
@@ -310,7 +326,7 @@ function CollectionShowPage() {
                     >
                       <FormControl>
                         <FormLabel id="demo-row-radio-buttons-group-label">
-                          Filter
+                          <FilterListIcon />
                         </FormLabel>
                         <TextField
                           id="filled-search"

@@ -25,6 +25,8 @@ import Grid from "@mui/material/Grid";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import Checkbox from "@mui/material/Checkbox";
 import { useNavigate } from "react-router-dom";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
 import axios from "axios";
 import { UserPermisionContext } from "../../UserContext/Context";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
@@ -309,48 +311,64 @@ function EditCollection() {
                                 variant="subtitle1"
                                 component="div"
                                 sx={{
-                                  display: "block",
+                                  display: "flex",
                                   justifyContent: "center",
                                 }}
                               >
+                                {/* TODO ADD TO ANOTHER CONTAINER */}
                                 <span style={{ fontWeight: "700" }}>
                                   {element.item_name}
                                 </span>
                                 <p style={{ display: "flex" }}>
-                                  <DeleteIcon
-                                    sx={{
-                                      marginLeft: "10px",
-                                      color: "red",
-                                      cursor: "pointer",
-                                      fontSize: "20px",
-                                      marginLeft: "30px",
-                                    }}
-                                    onClick={() => DeleteItem(element.Id)}
-                                  />
-                                  <EditIcon
-                                    sx={{
-                                      paddingLeft: "30px",
-                                      cursor: "pointer",
-                                      fontSize: "20px",
-                                    }}
-                                    onClick={() =>
-                                      navigate(
-                                        `/User/${collection.UserId}/collection/${collection.Id}/Item/${element.Id}/edit`
-                                      )
-                                    }
-                                  />
-                                  <OpenInNewIcon
-                                    sx={{
-                                      paddingLeft: "20px",
-                                      cursor: "pointer",
-                                      fontSize: "20px",
-                                    }}
-                                    onClick={() =>
-                                      navigate(
-                                        `/User/${userId}/collection/${element.collectionId}/Item/${element.Id}`
-                                      )
-                                    }
-                                  />
+                                  <Tooltip title="Delete Item">
+                                    <IconButton
+                                      sx={{
+                                        marginLeft: "10px",
+                                        color: "red",
+                                        cursor: "pointer",
+                                        fontSize: "20px",
+                                        marginLeft: "30px",
+                                      }}
+                                    >
+                                      <DeleteIcon
+                                        onClick={() => DeleteItem(element.Id)}
+                                      />
+                                    </IconButton>
+                                  </Tooltip>
+                                  <Tooltip title="Edit Item">
+                                    <IconButton
+                                      sx={{
+                                        paddingLeft: "30px",
+                                        cursor: "pointer",
+                                        fontSize: "20px",
+                                      }}
+                                    >
+                                      <EditIcon
+                                        onClick={() =>
+                                          navigate(
+                                            `/User/${collection.UserId}/collection/${collection.Id}/Item/${element.Id}/edit`
+                                          )
+                                        }
+                                      />
+                                    </IconButton>
+                                  </Tooltip>
+                                  <Tooltip title="Edit Item">
+                                    <IconButton
+                                      sx={{
+                                        paddingLeft: "20px",
+                                        cursor: "pointer",
+                                        fontSize: "20px",
+                                      }}
+                                    >
+                                      <OpenInNewIcon
+                                        onClick={() =>
+                                          navigate(
+                                            `/User/${userId}/collection/${element.collectionId}/Item/${element.Id}`
+                                          )
+                                        }
+                                      />
+                                    </IconButton>
+                                  </Tooltip>
                                 </p>
                               </Typography>
                             </Grid>

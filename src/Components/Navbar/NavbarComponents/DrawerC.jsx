@@ -47,8 +47,9 @@ function DrawerC({ isDrawerOpened, handleCloseDrawer }) {
         },
       })
       .then(response => {
-        console.log(response.data);
-        localStorage.clear();
+        if(sessionStorage.getItem("user")) { 
+          sessionStorage.removeItem("user");
+        }
       })
       .catch(err => {
         console.log(err);

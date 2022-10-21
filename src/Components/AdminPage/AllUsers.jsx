@@ -16,14 +16,13 @@ function AllUsers({ value, index, AllUsers }) {
           minheight: "500px",
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "center",
           overflowY: "scroll",
         }}
       >
         {Users.length <= 0 ? (
           <p style={{ marginTop: "30px" }}>No User</p>
         ) : (
-          Users.map(user => <UserContainer userProp={user} />)
+          Users.map(user => <UserContainer userProp={user} userStatus = "Active" />)
         )}
       </Box>
     </Box>

@@ -8,7 +8,7 @@ function PrivateRoute({ children }) {
   const [isAuth, setisAuth] = useState(false);
   const [isLoading, setisLoading] = useState(true);
   React.useLayoutEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(sessionStorage.getItem("user"));
     if (user !== null) {
       setisAuth(true);
       setisLoading(false);
