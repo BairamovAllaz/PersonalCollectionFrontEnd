@@ -70,7 +70,7 @@ function CollectionShowPage() {
   }, []);
 
   const addLikeCollection = collectionId => {
-    if (user.userRole === "Guest") {
+    if (user.userRole === "Guest" || user.isBlocked) {
       alert("You cant like you are guest please register or sign");
       return;
     }
@@ -91,8 +91,8 @@ function CollectionShowPage() {
   };
 
   const DisLikeCollection = collectionId => {
-    if (user.userRole === "Guest") {
-      alert("You cant like you are guest please register or sign");
+    if (user.userRole === "Guest" || user.isBlocked) {
+      alert("You cant like you are guest OR your account is Blocked By admins please register or sign");
       return;
     }
     axios
@@ -216,7 +216,7 @@ function CollectionShowPage() {
                       </Grid>
                     </CardContent>
                     <CardActions>
-                      {user.userRole === "Guest" ||
+                      {user.userRole === "Guest" || user.isBlocked ||
                       (user.Id != userId && user.userRole !== true) ? (
                         <></>
                       ) : (

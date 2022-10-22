@@ -56,8 +56,8 @@ function ItemShow() {
   }, []);
 
   const addLikeItem = itemId => {
-    if (user.userRole === "Guest") {
-      alert("You cant like you are guest please register or sign");
+    if (user.userRole === "Guest" || user.isBlocked) {
+      alert("You cant like you are guest OR you are blocked please register or sign");
       return;
     }
     const info = {
@@ -77,8 +77,8 @@ function ItemShow() {
   };
 
   const DisLikeItem = itemId => {
-    if (user.userRole === "Guest") {
-      alert("You cant like you are guest please register or sign");
+    if (user.userRole === "Guest" || user.isBlocked) {
+      alert("You cant like you are guest OR you are blocked please register or sign");
       return;
     }
     axios
@@ -185,7 +185,8 @@ function ItemShow() {
                                 alignItems: "center",
                               }}
                             >
-                              {user.userRole !== "Guest" ? (
+                              {user.userRole !== "Guest" &&
+                              user.isBlocked != true ? (
                                 CheckUserLiked(itemCol.itemLikes) == true ? (
                                   <Checkbox
                                     icon={<Favorite sx={{ color: "red" }} />}
@@ -209,8 +210,9 @@ function ItemShow() {
                                 <></>
                               )}
 
-                              {user.Id != userCol.Id &&
-                              user.userRole != true ? (
+                              {(user.Id != userCol.Id &&
+                              user.userRole != true) ||
+                              user.isBlocked == true ? (
                                 <></>
                               ) : (
                                 <div>
@@ -270,7 +272,7 @@ function ItemShow() {
                       </Grid>
                       <Grid item xs={12} sm={8}>
                         <Grid container spacing={2}>
-                          <Grid item xs={12} style = {{marginTop : "20px"}}>
+                          <Grid item xs={12} style={{ marginTop: "20px" }}>
                             <div
                               style={{
                                 display: "flex",

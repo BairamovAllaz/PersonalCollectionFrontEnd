@@ -24,6 +24,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import LockIcon from "@mui/icons-material/Lock";
 import AppsIcon from "@mui/icons-material/Apps";
 import { UserPermisionContext } from "../../UserContext/Context";
 
@@ -76,8 +77,8 @@ function UserProfile() {
   return (
     <div>
       {users.map(element =>
-        element.isDelete || element.isBlocked ? (
-          <div>User deleted OR blocked</div>
+        element.isDelete ? (
+          <div>User deleted</div>
         ) : (
           <Grid container spacing={2}>
             <Grid item xs={12} sm={4}>
@@ -108,6 +109,14 @@ function UserProfile() {
                     >
                       {element.firstName} {element.lastName}
                     </Typography>
+                    {element.isBlocked && (
+                      <Typography>
+                        <p>
+                          <LockIcon />
+                        </p>
+                        Blocked
+                      </Typography>
+                    )}
                     <List
                       sx={style}
                       component="nav"
@@ -149,7 +158,7 @@ function UserProfile() {
                           <AppsIcon />
                         </ListItemIcon>
                         <ListItemText
-                          primary={`Count: ${0}`}
+                          primary={`Count: ${element.collections.length}`}
                           sx={{ textAlign: "center" }}
                         />
                       </ListItem>
@@ -159,10 +168,9 @@ function UserProfile() {
                     {user.Id === element.Id || user.userRole === true ? (
                       <div>
                         <Stack direction="row" justifyContent="center">
-                          <Tooltip title="Edit Item">
+                          <Tooltip title="Edit User">
                             <IconButton
                               sx={{
-                                color: "blue",
                                 cursor: "pointer",
                                 marginLeft: "30px",
                               }}
@@ -174,10 +182,9 @@ function UserProfile() {
                               />
                             </IconButton>
                           </Tooltip>
-                          <Tooltip title="Delete Item">
+                          <Tooltip title="Delete User">
                             <IconButton
                               sx={{
-                                color: "red",
                                 cursor: "pointer",
                                 marginLeft: "30px",
                               }}

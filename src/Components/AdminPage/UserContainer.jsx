@@ -7,20 +7,37 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import EditIcon from "@mui/icons-material/Edit";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import axios from "axios";
+import PlaylistRemoveIcon from "@mui/icons-material/PlaylistRemove";
+import AutorenewIcon from "@mui/icons-material/Autorenew";
+import BlockIcon from "@mui/icons-material/Block";
 import { useNavigate } from "react-router-dom";
-import { DeleteUser, AddUserToAdmin } from "./AdminMethods";
-function UserContainer({ userProp,userStatus }) {
-
-  const ReturnDeletedUser = (userId) => { 
-     axios
-       .put(`${global.config.backendUrl}/admin/ReturnUserById/${userId}`)
-       .then(response => {
-          window.location.reload();
-       })
-       .catch(err => {
-         console.log(err);
-       });
-  }
+import {
+  DeleteUser,
+  AddUserToAdmin,
+  RemoveFromAdmin,
+  BlockUserById,
+} from "./AdminMethods";
+function UserContainer({ userProp, userStatus }) {
+  const ReturnDeletedUser = userId => {
+    axios
+      .put(`${global.config.backendUrl}/admin/ReturnUserById/${userId}`)
+      .then(response => {
+        window.location.reload();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+  const ReturnBlockedUser = userId => {
+    axios
+      .put(`${global.config.backendUrl}/admin/ReturnBlockedUserById/${userId}`)
+      .then(response => {
+        window.location.reload();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   const navigation = useNavigate();
   return (
@@ -39,7 +56,7 @@ function UserContainer({ userProp,userStatus }) {
         <Grid container wrap="nowrap" spacing={2}>
           <Grid
             item
-            style={{ display: "flex", alignItems: "center" ,cursor : "pointer"}}
+            style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
             onClick={() => navigation(`/user/${userProp.Id}`)}
           >
             <Avatar
@@ -55,7 +72,15 @@ function UserContainer({ userProp,userStatus }) {
                   alignItems: "center",
                 }}
               >
-                <p style={{ marginRight: "20px" }}>{userProp.firstName}</p>
+                <p
+                  style={{ marginRight: "20px", cursor: "pointer" }}
+                  onClick={() => navigation(`/user/${userProp.Id}`)}
+                >
+                  {userProp.firstName}
+                </p>
+                {userProp.userRole == true && (
+                  <StarIcon sx={{ paddingRight: "30px" }} />
+                )}
                 <p style={{ marginLeft: "auto" }}>
                   {new Date(userProp.createdAt).toLocaleDateString()}
                 </p>
@@ -69,11 +94,20 @@ function UserContainer({ userProp,userStatus }) {
                       <DeleteIcon style={{ marginLeft: "-30px" }} />
                     </IconButton>
                   </Tooltip>
-                  <Tooltip title="Add as Admin">
-                    <IconButton onClick={() => AddUserToAdmin(userProp.Id)}>
-                      <PlaylistAddIcon />
-                    </IconButton>
-                  </Tooltip>
+                  {userProp.userRole == true ? (
+                    <Tooltip title="Remove From admin">
+                      <IconButton onClick={() => RemoveFromAdmin(userProp.Id)}>
+                        <PlaylistRemoveIcon />
+                      </IconButton>
+                    </Tooltip>
+                  ) : (
+                    <Tooltip title="Add as Admin">
+                      <IconButton onClick={() => AddUserToAdmin(userProp.Id)}>
+                        <PlaylistAddIcon />
+                      </IconButton>
+                    </Tooltip>
+                  )}
+
                   <Tooltip title="Edit">
                     <IconButton
                       onClick={() => navigation(`/User/${userProp.Id}/edit`)}
@@ -81,14 +115,25 @@ function UserContainer({ userProp,userStatus }) {
                       <EditIcon />
                     </IconButton>
                   </Tooltip>
-                  <Tooltip title="Profil">
+                  <Tooltip title="Block">
                     <IconButton
-                      onClick={() => navigation(`/user/${userProp.Id}`)}
+                      onClick={() => {
+                        BlockUserById(userProp.Id);
+                      }}
                     >
-                      <OpenInNewIcon />
+                      <BlockIcon />
                     </IconButton>
                   </Tooltip>
                 </>
+              ) : userStatus == "Blocked" ? (
+                <Tooltip title="UnBlock user">
+                  <IconButton
+                    sx={{ margin: "0 auto" }}
+                    onClick={() => ReturnBlockedUser(userProp.Id)}
+                  >
+                    <AutorenewIcon />
+                  </IconButton>
+                </Tooltip>
               ) : (
                 <Tooltip title="Return user">
                   <IconButton

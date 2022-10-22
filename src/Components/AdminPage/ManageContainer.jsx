@@ -6,12 +6,13 @@ import Box from "@mui/material/Box";
 import GroupIcon from "@mui/icons-material/Group";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import FolderDeleteIcon from "@mui/icons-material/FolderDelete";
-import AppsIcon from "@mui/icons-material/Apps";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import AllUsers from "./AllUsers";
 import AllAdmins from "./AllAdmins";
 import axios from "axios";
 import { UserPermisionContext } from "../../UserContext/Context";
 import DeletedUsers from "./DeletedUsers";
+import BlockedUsers from "./BlockedUsers";
 function ManageContainer() {
   const [value, setValue] = React.useState(0);
   const [isLoadedusers, setIsLoadedusers] = React.useState(true);
@@ -72,8 +73,27 @@ function ManageContainer() {
           id="Deleted-Users"
           aria-controls="deletedUsers"
         />
+        <Tab
+          icon={<RemoveCircleOutlineIcon />}
+          label="Blocked"
+          id="Blocked-Users"
+          aria-controls="blockedUsers"
+        />
       </Tabs>
-      <TextField size="small" onChange={e => setSearchText(e.target.value)} />
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          justifyContent: { xs: "center", sm: "left" },
+        }}
+      >
+        <TextField
+          size="small"
+          onChange={e => setSearchText(e.target.value)}
+          style={{ margin: "20px" }}
+          placeholder="Search"
+        />
+      </Box>
       <AllUsers
         value={value}
         index={0}
@@ -89,6 +109,7 @@ function ManageContainer() {
         )}
       />
       <DeletedUsers value={value} index={2} />
+      <BlockedUsers value = {value} index = {3}/>
     </Box>
   );
 }

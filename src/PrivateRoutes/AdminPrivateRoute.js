@@ -9,7 +9,7 @@ function AdminPrivateRoute({children}) {
     const [isAuth, setisAuth] = useState(false);
     const {user} = React.useContext(UserPermisionContext);
     React.useEffect( () => {
-        if(user.userRole === true) {
+        if(user.userRole === true && user.isBlocked === false) {
             setisAuth(true);
         }else{
             setisAuth(false);

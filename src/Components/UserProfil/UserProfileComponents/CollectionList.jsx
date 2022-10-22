@@ -7,7 +7,11 @@ import AddIcon from "@mui/icons-material/Add";
 import { useNavigate, useNavigation } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import { Stack, Tooltip, IconButton } from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
+import Badge from "@mui/material/Badge";
 import UpgradeIcon from "@mui/icons-material/Upgrade";
 import axios from "axios";
 
@@ -31,8 +35,9 @@ function CollectionList(props) {
   return (
     <div style={{ height: "100vh", overflowY: "auto" }}>
       <div style={{ textAlign: "right" }}>
-        {props.currUser.userRole != true &&
-        props.currUser.Id != props.userId ? (
+        {(props.currUser.userRole != true &&
+          props.currUser.Id != props.userId) ||
+        props.currUser.isBlocked != false ? (
           <></>
         ) : (
           <Button
@@ -75,11 +80,39 @@ function CollectionList(props) {
                   gutterBottom
                   variant="p"
                   component="div"
-                  sx={{ minHeight: "45px" }}
+                  sx={{ minHeight: "30px" }}
                 >
                   {element.about}
                 </Typography>
                 <Typography variant="p">#{element.topic}</Typography>
+                <Typography sx={{ mt: 2 }}>
+                  {new Date(element.createdAt).toLocaleDateString()}
+                </Typography>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <p>
+                    <Badge
+                      badgeContent={element.collectionLikes.length}
+                      color="primary"
+                    >
+                      <FavoriteIcon color="action" />
+                    </Badge>
+                  </p>
+                  <div style={{width : "30px"}}></div>
+                  <p>
+                    <Badge
+                      badgeContent={element.items.length}
+                      color="primary"
+                    >
+                      <FormatListNumberedIcon color="action" />
+                    </Badge>
+                  </p>
+                </div>
               </CardContent>
               <CardActions>
                 <Stack direction="row" justifyContent="center" spacing={1}>
@@ -93,14 +126,15 @@ function CollectionList(props) {
                     </IconButton>
                   </Tooltip>
 
-                  {props.currUser.Id != props.userId &&
-                  props.currUser.userRole != true ? (
+                  {(props.currUser.Id != props.userId &&
+                    props.currUser.userRole != true) ||
+                  props.currUser.isBlocked ? (
                     <></>
                   ) : (
                     <div>
-                      <Tooltip title="Delete Collection">
+                      <Tooltip title="Edit Collection">
                         <IconButton>
-                          <UpgradeIcon
+                          <EditIcon
                             onClick={() =>
                               navigate(
                                 `/User/${user.Id}/Collection/${element.Id}/edit`
@@ -109,8 +143,24 @@ function CollectionList(props) {
                           />
                         </IconButton>
                       </Tooltip>
-                      <Tooltip title="Edit Collection">
-                        <IconButton sx={{ color: "red" }}>
+                      <Tooltip title="Add Item">
+                        <IconButton
+                          sx={{
+                            cursor: "pointer",
+                            fontSize: "30px",
+                          }}
+                        >
+                          <AddIcon
+                            onClick={() =>
+                              navigate(
+                                `/User/${user.Id}/collection/${element.Id}/item/create`
+                              )
+                            }
+                          />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="Delete Collection">
+                        <IconButton>
                           <DeleteIcon
                             onClick={() => DeleteCollection(element.Id)}
                           />

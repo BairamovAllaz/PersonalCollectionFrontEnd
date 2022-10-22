@@ -16,15 +16,15 @@ function Admin() {
         <Grid item sm={3} xs={12}>
           <Grid container>
             <Grid item xs={12}>
-                <AdminUserContainer user = {user}/>
+              <UserContainer userProp={user} userStatus="Active" />
             </Grid>
             <Grid item xs={12}>
-                <InfoContainer/>
+              <InfoContainer />
             </Grid>
           </Grid>
         </Grid>
         <Grid item sm={9} xs={12}>
-          <ManageContainer/>
+          <ManageContainer />
         </Grid>
       </Grid>
     </div>

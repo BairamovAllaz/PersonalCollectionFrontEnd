@@ -1,5 +1,5 @@
 import React from "react";
-import AdminUserContainer from "./AdminUserContainer";
+import UserContainer from "./UserContainer";
 import Box from "@material-ui/core/Box";
 function AllAdmins({ value, index, AllAdmins }) {
   const [admins, setAdmins] = React.useState([]);
@@ -12,18 +12,20 @@ function AllAdmins({ value, index, AllAdmins }) {
       <Box
         style={{
           width: "100%",
-          height: "100vh",
+          minheight: "500px",
           display: "flex",
           flexWrap: "wrap",
           overflowY: "scroll",
         }}
       >
         {admins.length <= 0 ? (
-            <p style={{}}>
-              No admins expect you
-            </p>
+          <div style={{ width: "100%" }}>
+            <p style={{textAlign : "center"}}>No admins expect you</p>
+          </div>
         ) : (
-          admins.map(user => <AdminUserContainer user={user} />)
+          admins.map(user => (
+            <UserContainer userProp={user} userStatus="Active" />
+          ))
         )}
       </Box>
     </div>

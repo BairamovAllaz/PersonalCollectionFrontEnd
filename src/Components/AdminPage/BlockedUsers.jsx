@@ -1,17 +1,17 @@
 import React from "react";
+import Box from '@material-ui/core/Box'
 import UserContainer from "./UserContainer";
 import axios from "axios";
-import { Box } from "@mui/material";
-function DeletedUsers({ value, index }) {
+function BlockedUsers({ value, index }) {
   const [users, setUsers] = React.useState([]);
+
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     axios
-      .get(`${global.config.backendUrl}/admin/GetDeletedUsers`)
+      .get(`${global.config.backendUrl}/admin/GetBlockedUsers`)
       .then(response => {
         setUsers(response.data);
-        console.log(response.data);
         setLoading(false);
       })
       .catch(err => {
@@ -26,8 +26,8 @@ function DeletedUsers({ value, index }) {
   return (
     <div
       hidden={value !== index}
-      id="deletedUsers"
-      aria-labelledby="Deleted-Users"
+      id="blockedUsers"
+      aria-labelledby="Blocked-Users"
     >
       <Box
         style={{
@@ -39,15 +39,17 @@ function DeletedUsers({ value, index }) {
         }}
       >
         {users.length <= 0 ? (
-          <div style={{ width: "100%" }}>
-            <p style={{ textAlign: "center" }}>No Deleted Users</p>
+          <div style = {{width : "100%"}}>
+            <p style={{ textAlign : "center" }}>No blocked Users</p>
           </div>
         ) : (
-          users.map(user => <UserContainer userProp={user} />)
+          users.map(user => (
+            <UserContainer userProp={user} userStatus="Blocked" />
+          ))
         )}
       </Box>
     </div>
   );
 }
 
-export default DeletedUsers;
+export default BlockedUsers;

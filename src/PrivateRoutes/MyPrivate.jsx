@@ -8,7 +8,7 @@ function MyPrivate({children}) {
     const [isAuth, setisAuth] = useState(false);
     const {user} = React.useContext(UserPermisionContext);
     React.useEffect( () => {
-        if(user.Id == userId || user.userRole === true) {
+        if((user.Id == userId || user.userRole === true) && user.isBlocked != true) {
             setisAuth(true);
         }else{
             setisAuth(false);

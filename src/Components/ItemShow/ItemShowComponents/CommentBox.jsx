@@ -42,7 +42,7 @@ function CommentBox({ itemId, currUser, userRole }) {
       setMessage("");
       return;
     }
-    if (currUser.userRole === "Guest") {
+    if (currUser.userRole === "Guest" || currUser.isBlocked) {
       alert("You cant send message!!");
       setMessage("");
       return;

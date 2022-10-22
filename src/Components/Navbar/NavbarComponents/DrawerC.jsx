@@ -19,6 +19,7 @@ import { Avatar } from "@mui/material";
 import { UserPermisionContext } from "../../../UserContext/Context";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import LockIcon from "@mui/icons-material/Lock";
 import HomeIcon from "@mui/icons-material/Home";
 import AddIcon from "@mui/icons-material/Add";
 
@@ -47,7 +48,7 @@ function DrawerC({ isDrawerOpened, handleCloseDrawer }) {
         },
       })
       .then(response => {
-        if(sessionStorage.getItem("user")) { 
+        if (sessionStorage.getItem("user")) {
           sessionStorage.removeItem("user");
         }
       })
@@ -103,7 +104,13 @@ function DrawerC({ isDrawerOpened, handleCloseDrawer }) {
                 {user.firstName} {user.lastName}
               </ListItemText>
               <ListItemIcon>{renderIcon()}</ListItemIcon>
-              {user.userRole === true ? (
+              {user.isBlocked == true && (
+                <p style={{ textAlign: "center" }}>
+                  <LockIcon />
+                  <p>Blocked</p>
+                </p>
+              )}
+              {user.userRole === true && user.isBlocked != true ? (
                 <ListItemText style={{ margin: "0 auto", marginTop: "10px" }}>
                   <Link to="/admin">Admin Page</Link>
                 </ListItemText>

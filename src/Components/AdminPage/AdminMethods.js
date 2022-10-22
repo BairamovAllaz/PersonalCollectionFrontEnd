@@ -30,3 +30,14 @@ export function RemoveFromAdmin(userId) {
         console.log(err);
       });
 }
+
+export function BlockUserById(userId) { 
+  axios
+    .put(`${global.config.backendUrl}/admin/BlockUserById/${userId}`)
+    .then(response => {
+      window.location.reload();
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}

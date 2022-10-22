@@ -64,8 +64,8 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
   }
 
   const addLikeItem = itemId => {
-    if (user.userRole === "Guest") {
-      alert("You cant like you are guest please register or sign");
+    if (user.userRole === "Guest" || user.isBlocked) {
+      alert("You cant like you are guest OR your account BLOCKED please register or sign");
       return;
     }
     const info = {
@@ -85,8 +85,8 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
   };
 
   const DisLikeItem = itemId => {
-    if (user.userRole === "Guest") {
-      alert("You cant like you are guest please register or sign");
+    if (user.userRole === "Guest" || user.isBlocked) {
+      alert("You cant like you are guest OR your account is BLOCKED please register or sign");
       return;
     }
     axios
@@ -151,7 +151,7 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
                     />
                   </ButtonBase>
                   <Typography variant="subtitle1" component="div" noWrap>
-                    {user.userRole != "Guest" ? (
+                    {user.userRole != "Guest" && user.isBlocked != true ? (
                       CheckUserLiked(element.itemLikes) == true ? (
                         <Checkbox
                           icon={<Favorite sx={{ color: "red" }} />}
@@ -177,7 +177,7 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
                       <></>
                     )}
 
-                    {user.userRole !== "Guest" ? (
+                    {user.userRole !== "Guest" && user.isBlocked != true ? (
                       <span style={{ position: "relative", top: "10px" }}>
                         {element.itemLikes.length}
                       </span>
