@@ -39,7 +39,7 @@ function CollectionShowPage() {
   const [values, setValues] = React.useState([]);
   const [isLoaded, setIsLoaded] = React.useState(true);
   const [openDialog, setOpenDialog] = React.useState(false);
-  const [selectedFilter, setSelectedFilter] = React.useState("recommended");
+  const [selectedFilter, setSelectedFilter] = React.useState("Default");
   const [searchText, setSearchText] = React.useState("");
   const [Items, setItems] = React.useState([]);
 
@@ -353,7 +353,7 @@ function CollectionShowPage() {
                           }}
                         >
                           <FormControlLabel
-                            value="ByLike"
+                            value="MostLiked"
                             control={<Radio />}
                             label="Most-Liked"
                           />
@@ -363,14 +363,15 @@ function CollectionShowPage() {
                             label="Most-Comment"
                           />
                           <FormControlLabel
-                            value="latest"
+                            value="Latest"
                             control={<Radio />}
                             label="Latest"
                           />
                           <FormControlLabel
-                            value="recommended"
+                            checked
+                            value="Default"
                             control={<Radio />}
-                            label="recommended"
+                            label="Default"
                           />
                         </RadioGroup>
                       </FormControl>

@@ -41,31 +41,15 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
     setItems(items);
   }, [items]);
 
-  //TODO FIX FILTER AGAIN
-  React.useEffect(() => {
-    // if (selectedFilter === "recommended") {
-    //    setItems(Items);
-    // } else if (selectedFilter === "ByLike") {
-
-    if (selectedFilter === "ByLike") {
-      const lowestPriceGoods = items.sort(
-        (el1, el2) => el2.itemLikes.length - el1.itemLikes.length
-      );
-      setItems(lowestPriceGoods);
-    }
-
-    // } else {
-    //   setItems(items);
-    // }
-  }, [selectedFilter]);
-
   function CheckUserLiked(likes) {
     return likes.some(el => el.userId === user.Id);
   }
 
   const addLikeItem = itemId => {
     if (user.userRole === "Guest" || user.isBlocked) {
-      alert("You cant like you are guest OR your account BLOCKED please register or sign");
+      alert(
+        "You cant like you are guest OR your account BLOCKED please register or sign"
+      );
       return;
     }
     const info = {
@@ -86,7 +70,9 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
 
   const DisLikeItem = itemId => {
     if (user.userRole === "Guest" || user.isBlocked) {
-      alert("You cant like you are guest OR your account is BLOCKED please register or sign");
+      alert(
+        "You cant like you are guest OR your account is BLOCKED please register or sign"
+      );
       return;
     }
     axios
@@ -108,6 +94,26 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
     return <div style={{ marginTop: "30px" }}>No Item yet</div>;
   }
 
+  const SearchedItems = Items.filter(el => {
+    if (searchText === "") {
+      return el;
+    } else {
+      return el.item_name.toLowerCase().includes(searchText.toLowerCase());
+    }
+  });
+
+  const FiteredItems = [...SearchedItems].sort((a, b) => {
+    if (selectedFilter == "Default") {
+      return -1;
+    } else if (selectedFilter == "MostLiked") {
+      return b.itemLikes.length - a.itemLikes.length;
+    }else if(selectedFilter == "ByComment"){
+      return b.itemComments.length - a.itemComments.length;
+    }else { 
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    }
+  });
+
   return (
     <Box
       sx={{
@@ -119,15 +125,7 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
       }}
     >
       <div>
-        {Items.filter(el => {
-          if (searchText === "") {
-            return el;
-          } else if (
-            el.item_name.toLowerCase().includes(searchText.toLowerCase())
-          ) {
-            return el;
-          }
-        }).map((element, id) => (
+        {FiteredItems.map((element, id) => (
           <Accordion
             expanded={expanded === `panel_${id}`}
             onChange={handleChangeExpanded(`panel_${id}`)}
@@ -186,14 +184,16 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
                     )}
                     {/* TODO ADD COMMENT COUNT */}
                     <Tooltip title="Open Item">
-                      <IconButton style = {{marginTop : "20px",marginLeft : "20px"}}>
-                          <OpenInNewIcon
-                            onClick={() =>
-                              navigate(
-                                `/User/${userId}/collection/${element.collectionId}/Item/${element.Id}`
-                              )
-                            }
-                          />
+                      <IconButton
+                        style={{ marginTop: "20px", marginLeft: "20px" }}
+                      >
+                        <OpenInNewIcon
+                          onClick={() =>
+                            navigate(
+                              `/User/${userId}/collection/${element.collectionId}/Item/${element.Id}`
+                            )
+                          }
+                        />
                       </IconButton>
                     </Tooltip>
                   </Typography>
