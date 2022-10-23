@@ -32,7 +32,7 @@ function BlockedUsers({ value, index }) {
       <Box
         style={{
           width: "100%",
-          height: "100vh",
+          maxHeight: "500px",
           display: "flex",
           flexWrap: "wrap",
           overflowY: "scroll",

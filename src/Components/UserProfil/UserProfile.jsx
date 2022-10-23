@@ -91,7 +91,7 @@ function UserProfile() {
               >
                 <Paper variant="outlined" elevation="2">
                   <Avatar
-                    src={`${global.config.backendUrl}/uploads/${element.image}`}
+                    src={element.image}
                     sx={{
                       margin: "10px auto",
                       width: "100px",
@@ -132,7 +132,7 @@ function UserProfile() {
                         />
                       </ListItem>
                       <Divider />
-                      <ListItem divider onClick={() => navigate(`/User/${1}`)}>
+                      <ListItem divider onClick={() => navigate(`/User/${element.Id}`)}>
                         <ListItemIcon>
                           <PermContactCalendarIcon />
                         </ListItemIcon>

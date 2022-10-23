@@ -115,7 +115,7 @@ function UserEdit() {
               <Box sx={{ display: "grid", justifyContent: "center" }}>
                 <Avatar
                   alt="User"
-                  src={`${global.config.backendUrl}/uploads/${user.image}`}
+                  src={user.image}
                   sx={{
                     width: 120,
                     height: 120,

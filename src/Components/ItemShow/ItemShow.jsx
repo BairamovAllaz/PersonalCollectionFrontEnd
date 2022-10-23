@@ -133,7 +133,7 @@ function ItemShow() {
                           <CardMedia
                             component="img"
                             height="170"
-                            image={`${global.config.backendUrl}/uploads/${itemCol.image}`}
+                            image={itemCol.image}
                             alt="Paella dish"
                           />
                           <Paper sx={{ padding: "30px" }}>

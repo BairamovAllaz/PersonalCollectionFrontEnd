@@ -69,7 +69,7 @@ function CollectionList(props) {
                 component="img"
                 sx={{ maxHeight: "170px", minWidth: "280px" }}
                 width="70"
-                image={`${global.config.backendUrl}/uploads/${element.image}`}
+                image={element.image}
                 alt={`${element.name}`}
               />
               <CardContent>

@@ -174,7 +174,7 @@ function EditCollection() {
                     margin: "20px auto",
                   }}
                   justifyContent="center"
-                  src={`${global.config.backendUrl}/uploads/${collection.image}`}
+                  src={collection.image}
                 />
                 <Button
                   startIcon={<UpgradeIcon />}
@@ -293,7 +293,7 @@ function EditCollection() {
                           <ButtonBase sx={{ width: 80, height: 80 }}>
                             <Img
                               alt="complex"
-                              src={`${global.config.backendUrl}/uploads/${element.image}`}
+                              src={element.image}
                             />
                           </ButtonBase>
                         </Grid>

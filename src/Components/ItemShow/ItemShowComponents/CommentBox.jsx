@@ -86,7 +86,7 @@ function CommentBox({ itemId, currUser, userRole }) {
           </p>
           <Box sx={{ display: "flex", alignItems: "flex-end" }}>
             <Avatar
-              src={`${global.config.backendUrl}/uploads/${currUser.image}`}
+              src={currUser.image}
             />
             <TextField
               id="CommentBox"
@@ -121,7 +121,7 @@ function CommentBox({ itemId, currUser, userRole }) {
                       onClick={() => navigate(`/User/${element.userId}`)}
                     >
                       <Avatar
-                        src={`${global.config.backendUrl}/uploads/${element.userPhoto}`}
+                        src={element.userPhoto}
                       />
                       {userId == element.userId ? (
                         <BadgeIcon style={{ marginTop: "30px" }} />

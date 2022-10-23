@@ -179,7 +179,7 @@ function Navbar() {
               ) : (
                 <Avatar
                   alt="image"
-                  src={`${global.config.backendUrl}/uploads/${user.image}`}
+                  src={user.image}
                 />
               )}
             </IconButton>

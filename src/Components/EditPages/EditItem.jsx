@@ -199,7 +199,7 @@ function EditItem() {
                     margin: "20px auto",
                   }}
                   justifyContent="center"
-                  src={`${global.config.backendUrl}/uploads/${item.image}`}
+                  src={item.image}
                 />
                 <Button
                   startIcon={<UpgradeIcon />}

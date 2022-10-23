@@ -96,7 +96,7 @@ function DrawerC({ isDrawerOpened, handleCloseDrawer }) {
               <ListItemIcon sx={{ margin: "0 auto" }}>
                 <Avatar
                   alt="image"
-                  src={`${global.config.backendUrl}/uploads/${user.image}`}
+                  src={user.image}
                   sx={{ width: 56, height: 56 }}
                 />
               </ListItemIcon>

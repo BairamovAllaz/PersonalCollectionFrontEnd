@@ -44,13 +44,13 @@ function UserContainer({ userProp, userStatus }) {
     <Box
       sx={{
         height: { xs: "150px", sm: "200px" },
-        margin: { xs: "10px auto", sm: "20px 0" },
+        margin: { xs: "10px auto" },
       }}
     >
       <Paper
         sx={{
           padding: "20px 20px",
-          margin: { sm: "20px 20px" },
+          margin: { sm: "0px 20px" },
         }}
       >
         <Grid container wrap="nowrap" spacing={2}>
@@ -61,7 +61,7 @@ function UserContainer({ userProp, userStatus }) {
           >
             <Avatar
               style={{ width: "70px", height: "70px" }}
-              src={`${global.config.backendUrl}/uploads/${userProp.image}`}
+              src={userProp.image}
             />
           </Grid>
           <Grid justifyContent="left" item xs zeroMinWidth>

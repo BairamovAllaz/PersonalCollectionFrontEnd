@@ -162,14 +162,14 @@ function CollectionShowPage() {
                           <CardMedia
                             component="img"
                             height="194"
-                            image={`${global.config.backendUrl}/uploads/${collection.image}`}
+                            image={collection.image}
                             alt="Paella dish"
                           />
                           <CardHeader
                             avatar={
                               <Avatar
                                 aria-label="recipe"
-                                src={`${global.config.backendUrl}/uploads/${userCol.image}`}
+                                src={userCol.image}
                               />
                             }
                             action={

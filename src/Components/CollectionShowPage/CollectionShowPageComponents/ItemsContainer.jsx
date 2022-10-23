@@ -145,7 +145,7 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
                   <ButtonBase sx={{ width: 80, height: 80 }}>
                     <Img
                       alt="complex"
-                      src={`${global.config.backendUrl}/uploads/${element.image}`}
+                      src={element.image}
                     />
                   </ButtonBase>
                   <Typography variant="subtitle1" component="div" noWrap>

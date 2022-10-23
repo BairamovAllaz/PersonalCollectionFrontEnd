@@ -12,7 +12,7 @@ function AllAdmins({ value, index, AllAdmins }) {
       <Box
         style={{
           width: "100%",
-          minheight: "500px",
+          maxheight: "500px",
           display: "flex",
           flexWrap: "wrap",
           overflowY: "scroll",

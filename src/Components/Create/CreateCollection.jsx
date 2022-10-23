@@ -69,22 +69,13 @@ function CreateCollection() {
 
   const createCollectionClick = e => {
     e.preventDefault();
-    console.log(image[0]);
-    const obj = {
-      name,
-      description: markDownInput,
-      topic,
-      image,
-      field: fieldList,
-    };
-
     const formData = new FormData();
     formData.append("name", name);
     formData.append("userId", userId);
     formData.append("description", markDownInput);
     formData.append("topic", topic);
     formData.append("about", about);
-    formData.append("image", image[0]);
+    formData.append("image", image[0].preview);
     formData.append("field", JSON.stringify(fieldList));
 
     axios
