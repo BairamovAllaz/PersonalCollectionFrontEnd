@@ -1,34 +1,28 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Badge from "@mui/material/Badge";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Badge,
+  Avatar,
+} from "@mui/material";
+import { Search, SearchIconWrapper, StyledInputBase } from "./navbarStyle";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
+import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import DrawerC from "./NavbarComponents/DrawerC";
-import {
-  Search,
-  SearchIconWrapper,
-  StyledInputBase,
-} from "./Style/navbarStyle";
-import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
-import { useContext, useState } from "react";
-import { Avatar } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import DrawerC from "../Drawer/DrawerC";
 import { UserPermisionContext } from "../../UserContext/Context";
+import RenderMenu from "./NavbarComponents/RenderMenu";
+import RenderMobilMenu from "./NavbarComponents/RenderMobilMenu";
 
 function Navbar() {
-  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const { user } = React.useContext(UserPermisionContext);
-
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -56,73 +50,7 @@ function Navbar() {
   };
 
   const menuId = "primary-search-account-menu";
-
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>
-        <Link to={`/user/${user.Id}`} style={{ color: "black" }}>
-          Profile
-        </Link>
-      </MenuItem>
-    </Menu>
-  );
-
   const mobileMenuId = "primary-search-account-menu-mobile";
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        ></IconButton>
-        <p>{user.firstName}</p>
-      </MenuItem>
-    </Menu>
-  );
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -177,10 +105,7 @@ function Navbar() {
               {user.userRole === "Guest" ? (
                 <AssignmentIndIcon />
               ) : (
-                <Avatar
-                  alt="image"
-                  src={user.image}
-                />
+                <Avatar alt="image" src={user.image} />
               )}
             </IconButton>
           </Box>
@@ -206,8 +131,21 @@ function Navbar() {
         <></>
       ) : (
         <div>
-          {renderMobileMenu}
-          {renderMenu}
+          <RenderMobilMenu
+            mobileMoreAnchorEl={mobileMoreAnchorEl}
+            mobileMenuId={mobileMenuId}
+            isMobileMenuOpen={isMobileMenuOpen}
+            handleMobileMenuClose={handleMobileMenuClose}
+            handleProfileMenuOpen={handleProfileMenuOpen}
+            userFirstname={user.firstName}
+          />
+          <RenderMenu
+            anchorEl={anchorEl}
+            menuId={menuId}
+            isMenuOpen={isMenuOpen}
+            handleMenuClose={handleMenuClose}
+            userId={user.Id}
+          />
         </div>
       )}
       <DrawerC

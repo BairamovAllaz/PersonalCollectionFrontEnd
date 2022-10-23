@@ -1,4 +1,3 @@
-import Navbar from "./Navbar/Navbar";
 import Grid from '@mui/material/Grid';
 
 function Home() {

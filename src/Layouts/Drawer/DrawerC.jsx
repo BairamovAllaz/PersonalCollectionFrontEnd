@@ -1,27 +1,30 @@
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import Drawer from "@mui/material/Drawer";
+import {
+  Box,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+  Drawer,
+  Avatar,
+} from "@mui/material";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import { Link, useNavigate } from "react-router-dom";
-import StarIcon from "@mui/icons-material/Star";
-import BadgeIcon from "@mui/icons-material/Badge";
-import axios from "axios";
-import { Avatar } from "@mui/material";
-import { UserPermisionContext } from "../../../UserContext/Context";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
 import HomeIcon from "@mui/icons-material/Home";
 import AddIcon from "@mui/icons-material/Add";
+import { Link, useNavigate } from "react-router-dom";
+import StarIcon from "@mui/icons-material/Star";
+import BadgeIcon from "@mui/icons-material/Badge";
+import axios from "axios";
+import { UserPermisionContext } from "../../UserContext/Context";
+
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -158,7 +161,6 @@ function DrawerC({ isDrawerOpened, handleCloseDrawer }) {
               ) : (
                 <></>
               )}
-
               <ListItemButton onClick={logout} style={{ marginTop: "10px" }}>
                 <ListItemIcon>
                   <ExitToAppIcon />

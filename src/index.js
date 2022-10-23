@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import './config';
+import './Config/config';
 import {BrowserRouter} from "react-router-dom";
 import Context from "./UserContext/Context";
 

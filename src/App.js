@@ -19,7 +19,7 @@ import React, { useEffect, useState } from "react";
 import Admin from "./Components/AdminPage/Admin";
 import AdminPrivateRoute from "./PrivateRoutes/AdminPrivateRoute";
 import UserProfile from "./Components/UserProfil/UserProfile";
-import Navbar from "./Components/Navbar/Navbar";
+import Navbar from "./Layouts/Navbar/Navbar"
 import Context, { UserPermisionContext } from "./UserContext/Context";
 import CollectionShowPage from "./Components/CollectionShowPage/CollectionShowPage";
 import UserEdit from "./Components/UserProfil/UserProfileComponents/UserEdit";
