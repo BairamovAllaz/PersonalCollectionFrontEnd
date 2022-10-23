@@ -1,18 +1,18 @@
 import React from "react";
-import PrivateRoute from "../PrivateRoutes/PrivateRoute";
-import Auth from "../Components/Auth/Auth";
+import PrivateRoute from "./PrivateRouteComponents/PrivateRoute";
+import Auth from "../Pages/Auth/AuthPage";
 import Home from "../Components/Home";
-import LoginSuccess from "../Components/Auth/AuthComponents/LoginSuccess";
-import ForgotPassword from "../Components/Auth/AuthComponents/ForgotPassword";
+import LoginSuccess from "../Pages/Auth/LoginSuccess";
+import ForgotPassword from "../Pages/Auth/ForgotPassword";
 import CreateCollection from "../Components/Create/CreateCollection";
 import Admin from "../Components/AdminPage/Admin";
-import AdminPrivateRoute from "../PrivateRoutes/AdminPrivateRoute";
-import UserProfile from "../Components/UserProfil/UserProfile";
+import OnlyAdminRoute from "../Routes/PrivateRouteComponents/OnlyAdminRoute";
+import UserPage from "../Pages/UserPage/UserPage";
 import CollectionShowPage from "../Components/CollectionShowPage/CollectionShowPage";
-import UserEdit from "../Components/UserProfil/UserProfileComponents/UserEdit";
-import MyPrivate from "../PrivateRoutes/MyPrivate";
+import UserEdit from "../Pages/EditPages/UserEdit";
+import OwnPageRoute from "./PrivateRouteComponents/OwnPageRoute";
 import CreateItem from "../Components/Create/CreateItem";
-import EditCollection from "../Components/EditPages/EditCollection";
+import EditCollection from "../Pages/EditPages/EditCollection";
 import EditItem from "../Components/EditPages/EditItem";
 import ItemShow from "../Components/ItemShow/ItemShow";
 import { Routes, Route } from "react-router-dom";
@@ -31,7 +31,7 @@ function AuthRoutes() {
       <Route path="/success/google" element={<LoginSuccess />} />
       <Route path="/forgot-password/:id/:token" element={<ForgotPassword />} />
 
-      <Route path="/user/:userId" element={<UserProfile />} />
+      <Route path="/user/:userId" element={<UserPage />} />
       <Route
         path="/User/:userId/collection/:collectionId"
         element={<CollectionShowPage />}
@@ -39,41 +39,41 @@ function AuthRoutes() {
       <Route
         path="/User/:userId/edit"
         element={
-          <MyPrivate>
+          <OwnPageRoute>
             <UserEdit />
-          </MyPrivate>
+          </OwnPageRoute>
         }
       />
       <Route
         path="/User/:userId/Collection/:collectionId/edit"
         element={
-          <MyPrivate>
+          <OwnPageRoute>
             <EditCollection />
-          </MyPrivate>
+          </OwnPageRoute>
         }
       />
       <Route
         path="/User/:userId/collection/create"
         element={
-          <MyPrivate>
+          <OwnPageRoute>
             <CreateCollection />
-          </MyPrivate>
+          </OwnPageRoute>
         }
       />
       <Route
         path="/User/:userId/collection/:collectionId/Item/:itemId/edit"
         element={
-          <MyPrivate>
+          <OwnPageRoute>
             <EditItem />
-          </MyPrivate>
+          </OwnPageRoute>
         }
       />
       <Route
         path="/User/:userId/collection/:collectionId/item/create"
         element={
-          <MyPrivate>
+          <OwnPageRoute>
             <CreateItem />
-          </MyPrivate>
+          </OwnPageRoute>
         }
       />
       <Route
@@ -83,9 +83,9 @@ function AuthRoutes() {
       <Route
         path="/admin"
         element={
-          <AdminPrivateRoute>
+          <OnlyAdminRoute>
             <Admin />
-          </AdminPrivateRoute>
+          </OnlyAdminRoute>
         }
       />
     </Routes>

@@ -1,11 +1,8 @@
-import { Route, Redirect, useNavigate, Navigate } from "react-router-dom";
 import React, {useContext, useEffect, useState} from "react";
-import { UserContext } from "../Middleware/UserContext";
-import Admin from "../Components/AdminPage/Admin";
-import NotAdminPage from "../Components/AdminPage/AdminComponents/NotAdminPage";
-import axios from "axios";
-function AdminPrivateRoute({children}) {
-    const navigate = useNavigate();
+import { UserContext } from "../../Middleware/UserContext";
+import Admin from "../../Components/AdminPage/Admin";
+import NotAdminPage from "../../Components/AdminPage/AdminComponents/NotAdminPage";
+function OnlyAdminRoute({children}) {
     const [isAuth, setisAuth] = useState(false);
     const { user } = React.useContext(UserContext);
     React.useEffect( () => {
@@ -23,4 +20,4 @@ function AdminPrivateRoute({children}) {
         isAuth ? <Admin /> : <NotAdminPage/>
     );
 }
-export default AdminPrivateRoute;
+export default OnlyAdminRoute;

@@ -1,6 +1,6 @@
-import { Route, Redirect, useNavigate, Navigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
-import Home from "../Components/Home";
+import { Navigate } from "react-router-dom";
+import { useState } from "react";
+import Home from "../../Components/Home";
 import * as React from "react";
 import axios from "axios";
 export { PrivateRoute };
@@ -21,7 +21,6 @@ function PrivateRoute({ children }) {
           },
         })
         .then(response => {
-          console.log(response.data);
           setisAuth(response.data);
           setisLoading(false);
         })
@@ -31,10 +30,9 @@ function PrivateRoute({ children }) {
     }
   }, []);
 
-  if (isLoading === true) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
-
   return isAuth ? <Home /> : <Navigate to="/auth" />;
 }
 export default PrivateRoute;
