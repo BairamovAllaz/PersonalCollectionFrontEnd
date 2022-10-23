@@ -28,7 +28,7 @@ import { useNavigate } from "react-router-dom";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import axios from "axios";
-import { UserPermisionContext } from "../../UserContext/Context";
+import { UserContext } from "../../Middleware/UserContext";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 function EditCollection() {
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ function EditCollection() {
   const [topics, setTopics] = React.useState([]);
   const [selectedTopic, setSelectedTopic] = React.useState("");
 
-  const { user } = React.useContext(UserPermisionContext);
+  const { user } = React.useContext(UserContext);
 
   const Img = styled("img")({
     margin: "auto",

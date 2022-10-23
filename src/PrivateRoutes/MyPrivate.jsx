@@ -1,12 +1,12 @@
 import {Route, Redirect, useNavigate, Navigate, useParams} from "react-router-dom";
 import React, {useContext, useEffect, useState} from "react";
-import {UserPermisionContext} from "../UserContext/Context";
+import { UserContext } from "../Middleware/UserContext";
 import NotYou from "./NotYou";
 import UserEdit from "../Components/UserProfil/UserProfileComponents/UserEdit";
 function MyPrivate({children}) {
     const {userId} = useParams();
     const [isAuth, setisAuth] = useState(false);
-    const {user} = React.useContext(UserPermisionContext);
+    const { user } = React.useContext(UserContext);
     React.useEffect( () => {
         if((user.Id == userId || user.userRole === true) && user.isBlocked != true) {
             setisAuth(true);

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { UserPermisionContext } from "../../UserContext/Context";
+import { UserContext } from "../../Middleware/UserContext";
 import UserContainer from "./UserContainer";
 import InfoContainer from "./InfoContainer"
 import ManageContainer from './ManageContainer'
@@ -9,7 +9,7 @@ import { Grid, Avatar, Paper, Tooltip,IconButton } from "@mui/material";
 import AdminUserContainer from "./AdminUserContainer";
 
 function Admin() {
-    const { user } = React.useContext(UserPermisionContext);
+    const { user } = React.useContext(UserContext);
   return (
     <div>
       <Grid container spacing={2}>

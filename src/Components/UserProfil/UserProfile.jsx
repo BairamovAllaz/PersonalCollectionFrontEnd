@@ -26,7 +26,7 @@ import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import LockIcon from "@mui/icons-material/Lock";
 import AppsIcon from "@mui/icons-material/Apps";
-import { UserPermisionContext } from "../../UserContext/Context";
+import { UserContext } from "../../Middleware/UserContext";
 
 function UserProfile() {
   const style = {
@@ -38,7 +38,7 @@ function UserProfile() {
   };
   const { userId } = useParams();
   const navigate = useNavigate();
-  const { user } = React.useContext(UserPermisionContext);
+  const { user } = React.useContext(UserContext);
   const [users, setUsers] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
 

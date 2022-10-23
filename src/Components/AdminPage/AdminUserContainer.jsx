@@ -4,7 +4,6 @@ import StarIcon from "@mui/icons-material/Star";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PlaylistRemoveIcon from "@mui/icons-material/PlaylistRemove";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import { UserPermisionContext } from "../../UserContext/Context";
 import axios from 'axios';
 import { RemoveFromAdmin, DeleteUser } from "./AdminMethods";
 import { useNavigate } from "react-router-dom";

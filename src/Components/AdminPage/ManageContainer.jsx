@@ -10,7 +10,7 @@ import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import AllUsers from "./AllUsers";
 import AllAdmins from "./AllAdmins";
 import axios from "axios";
-import { UserPermisionContext } from "../../UserContext/Context";
+import { UserContext } from "../../Middleware/UserContext";
 import DeletedUsers from "./DeletedUsers";
 import BlockedUsers from "./BlockedUsers";
 function ManageContainer() {
@@ -19,7 +19,7 @@ function ManageContainer() {
   const [Users, setUsers] = React.useState([]);
   const [searchText, setSearchText] = React.useState("");
 
-  const { user } = React.useContext(UserPermisionContext);
+  const { user } = React.useContext(UserContext);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

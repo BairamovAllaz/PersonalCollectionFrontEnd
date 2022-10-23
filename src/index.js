@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './Config/config';
 import {BrowserRouter} from "react-router-dom";
-import Context from "./UserContext/Context";
+import Context from "./Middleware/UserContext";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,7 +15,6 @@ root.render(
           <App />
       </BrowserRouter>
       </Context>
-
   </React.StrictMode>
 );
 

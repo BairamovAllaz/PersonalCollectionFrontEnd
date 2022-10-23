@@ -25,14 +25,14 @@ import List from "@mui/material/List";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import ListItem from "@mui/material/ListItem";
-import { UserPermisionContext } from "../../UserContext/Context";
+import { UserContext } from "../../Middleware/UserContext";
 import CommentBox from "./ItemShowComponents/CommentBox";
 import InfoIcon from "@mui/icons-material/Info";
 function ItemShow() {
   const { userId, collectionId, itemId } = useParams();
   const navigate = useNavigate();
   const [isLoaded, setIsLoaded] = React.useState(true);
-  const { user } = React.useContext(UserPermisionContext);
+  const { user } = React.useContext(UserContext);
   const [items, setItems] = React.useState([]);
   const style = {
     width: "100%",

@@ -13,7 +13,7 @@ import AppsIcon from "@mui/icons-material/Apps";
 import InfoIcon from "@mui/icons-material/Info";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { UserPermisionContext } from "../../UserContext/Context";
+import { UserContext } from "../../Middleware/UserContext";
 import DescriptionIcon from "@mui/icons-material/Description";
 import CollectionDescModal from "./CollectionShowPageComponents/CollectionDescModal";
 import ItemsContainer from "./CollectionShowPageComponents/ItemsContainer";
@@ -34,7 +34,7 @@ import Tooltip from "@mui/material/Tooltip";
 
 function CollectionShowPage() {
   const navigation = useNavigate();
-  const { user } = React.useContext(UserPermisionContext);
+  const { user } = React.useContext(UserContext);
   const { userId, collectionId } = useParams();
   const [values, setValues] = React.useState([]);
   const [isLoaded, setIsLoaded] = React.useState(true);

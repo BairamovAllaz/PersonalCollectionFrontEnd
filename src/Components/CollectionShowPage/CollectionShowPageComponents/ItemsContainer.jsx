@@ -17,7 +17,7 @@ import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
-import { UserPermisionContext } from "../../../UserContext/Context";
+import { UserContext } from "../../../Middleware/UserContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const Img = styled("img")({
@@ -28,7 +28,7 @@ const Img = styled("img")({
 });
 
 function ItemsContainer({ items, searchText, selectedFilter, userId }) {
-  const { user } = React.useContext(UserPermisionContext);
+  const { user } = React.useContext(UserContext);
   const [Items, setItems] = React.useState([]);
   const [expanded, setExpanded] = React.useState("panel_0");
   const navigate = useNavigate();

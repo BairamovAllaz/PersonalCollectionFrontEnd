@@ -15,14 +15,14 @@ import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import DrawerC from "../Drawer/DrawerC";
-import { UserPermisionContext } from "../../UserContext/Context";
+import { UserContext } from "../../Middleware/UserContext";
 import RenderMenu from "./NavbarComponents/RenderMenu";
 import RenderMobilMenu from "./NavbarComponents/RenderMobilMenu";
 
 function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const { user } = React.useContext(UserPermisionContext);
+  const { user } = React.useContext(UserContext);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 

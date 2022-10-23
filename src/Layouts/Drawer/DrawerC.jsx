@@ -23,7 +23,7 @@ import { Link, useNavigate } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
 import BadgeIcon from "@mui/icons-material/Badge";
 import axios from "axios";
-import { UserPermisionContext } from "../../UserContext/Context";
+import { UserContext } from "../../Middleware/UserContext";
 
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -36,7 +36,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 function DrawerC({ isDrawerOpened, handleCloseDrawer }) {
   const navigation = useNavigate();
-  const { user } = React.useContext(UserPermisionContext);
+  const { user } = React.useContext(UserContext);
 
   const handleClose = () => {
     handleCloseDrawer(false);

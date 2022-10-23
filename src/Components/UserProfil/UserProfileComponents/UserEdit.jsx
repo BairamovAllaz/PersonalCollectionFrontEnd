@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import React from "react";
-import { UserPermisionContext } from "../../../UserContext/Context";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
