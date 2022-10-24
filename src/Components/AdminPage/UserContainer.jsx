@@ -43,7 +43,8 @@ function UserContainer({ userProp, userStatus }) {
   return (
     <Box
       sx={{
-        height: { xs: "150px", sm: "200px" },
+        height: { xs: "150px", sm: "200px"},
+        minWidth : "300px",
         margin: { xs: "10px auto" },
       }}
     >
@@ -79,7 +80,7 @@ function UserContainer({ userProp, userStatus }) {
                   {userProp.firstName}
                 </p>
                 {userProp.userRole == true && (
-                  <StarIcon sx={{ paddingRight: "30px" }} />
+                  <StarIcon sx={{ paddingRight: "20px" }} />
                 )}
                 <p style={{ marginLeft: "auto" }}>
                   {new Date(userProp.createdAt).toLocaleDateString()}

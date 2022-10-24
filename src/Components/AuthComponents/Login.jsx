@@ -1,5 +1,4 @@
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+import {TextField,Box,Button} from "@mui/material";
 import LoginIcon from "@mui/icons-material/Login";
 import React, { useState } from "react";
 import axios from "axios";
@@ -46,7 +45,7 @@ function Login() {
   }
 
   return (
-    <div>
+    <Box>
       <TextField
         className="outlined-basic"
         label="Email*"
@@ -77,7 +76,7 @@ function Login() {
       >
         Login
       </Button>
-    </div>
+    </Box>
   );
 }
 

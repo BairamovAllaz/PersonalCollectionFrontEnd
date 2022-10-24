@@ -9,7 +9,7 @@ function Sign() {
   const [lastName, setlastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState();
 
   const RegisterClick = () => {
     if (isBlankInputsRegister()) {

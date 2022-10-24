@@ -75,7 +75,7 @@ function CreateCollection() {
     formData.append("description", markDownInput);
     formData.append("topic", topic);
     formData.append("about", about);
-    formData.append("image", image[0].preview);
+    formData.append("image", image[0]);
     formData.append("field", JSON.stringify(fieldList));
 
     axios

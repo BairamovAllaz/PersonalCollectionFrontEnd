@@ -37,7 +37,7 @@ function AuthFotter() {
         style={{
           margin: "0 auto",
           width: "70%",
-          marginTop: "10px",
+          marginTop: "20px",
         }}
       />
       <Button
@@ -46,19 +46,19 @@ function AuthFotter() {
         style={{
           width: "70%",
           height: "50px",
-          margin: "10px auto",
+          margin: "20px auto",
         }}
         onClick={handleClickOpenGuest}
       >
         <b>Guest account</b>
       </Button>
       <div style={{ marginBottom: "20px" }}>
-        <a
+        <p
           onClick={handleClickOpenForgot}
-          style={{ cursor: "hover", color: "blue" }}
+          style={{ cursor: "pointer", color: "blue" }}
         >
           Forgot Password?
-        </a>
+        </p>
       </div>
       <ModalForgotPassword
         isDialogOpened={openForgot}

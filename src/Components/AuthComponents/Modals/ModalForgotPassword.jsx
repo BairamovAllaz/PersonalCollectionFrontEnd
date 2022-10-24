@@ -24,36 +24,39 @@ function ModalForgotPassword({isDialogOpened, handleCloseDialog}) {
     }
 
     return (
-        <div>
-            <Dialog open={isDialogOpened} onClose={handleClose}>
-                <DialogTitle>Forgot Password</DialogTitle>
-                <DialogContent>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="Email*"
-                        type="email"
-                        fullWidth
-                        variant="standard"
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={() => {
-                        if (email !== "") {
-                            ForgotPassword();
-                            handleClose();
-                        } else {
-                            alert("Please fill email field");
-                        }
-                    }}>Send</Button>
-                </DialogActions>
-            </Dialog>
-
-        </div>
-    )
+      <div>
+        <Dialog open={isDialogOpened} onClose={handleClose}>
+          <DialogTitle>Forgot Password</DialogTitle>
+          <DialogContent>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Email*"
+              type="email"
+              fullWidth
+              variant="outlined"
+              onChange={e => setEmail(e.target.value)}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button
+              onClick={() => {
+                if (email !== "") {
+                  ForgotPassword();
+                  handleClose();
+                } else {
+                  alert("Please fill email field");
+                }
+              }}
+            >
+              Send
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    );
 }
 
 export default ModalForgotPassword;

@@ -3,21 +3,25 @@ import Button from "@mui/material/Button";
 import Login from "../../Components/AuthComponents/Login";
 import Sign from "../../Components/AuthComponents/Sign";
 import AuthFotter from "../../Components/AuthComponents/AuthFotter";
+import { Container, Paper, Typography ,Box,Stack} from "@mui/material";
 import "./styles/Auth.scss";
 function AuthPage() {
   const [isLog, setisLog] = useState(true);
   //TODO MOVE TO MUI COMPONENTS
   return (
-    <div className="RegisterMain">
-      <div className="Main">
-        <h3 className="header">{isLog ? "Login" : "Sign"}</h3>
-        <div className="ToggleContainer">
-          <div className="LoginToggle">
+    <Container component="main" maxWidth="xs" sx={{ mb: 4,textAlign : "center"}}>
+      <Paper
+        variant="outlined"
+        sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
+      >
+        <Typography component="h1" variant="h4" align="center">
+          {isLog ? "Login" : "Sign"}
+        </Typography>
+        <Box style = {{display :"flex",justifyContent : "center",marginTop :"20px"}}>
+          <Stack direction = "row" spacing = {1}>
             <Button
               variant="contained"
               style={{
-                width: "100%",
-                height: "100%",
                 background: `${
                   isLog
                     ? "linear-gradient(to bottom,#cb42f5,#f542ec)"
@@ -29,13 +33,9 @@ function AuthPage() {
             >
               Login
             </Button>
-          </div>
-          <div className="SignUpToggle">
             <Button
               variant="contained"
               style={{
-                width: "100%",
-                height: "100%",
                 background: `${
                   !isLog
                     ? "linear-gradient(to bottom,#cb42f5,#f542ec)"
@@ -47,14 +47,14 @@ function AuthPage() {
             >
               Sign
             </Button>
-          </div>
-        </div>
+          </Stack>
+        </Box>
         <form className="Form">
-          {isLog ? <Login /> : <Sign />}
-          <AuthFotter />
+            {isLog ? <Login /> : <Sign />}
+            <AuthFotter />
         </form>
-      </div>
-    </div>
+      </Paper>
+    </Container>
   );
 }
 

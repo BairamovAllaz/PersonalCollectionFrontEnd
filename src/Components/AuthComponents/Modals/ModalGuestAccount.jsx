@@ -44,45 +44,47 @@ function ModalGuestAccount({isDialogOpened, handleCloseDialog}) {
     }
 
     return (
-        <div>
-            <Dialog open={isDialogOpened} onClose={handleClose}>
-                <DialogTitle>Guest</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Sign up as guest:)
-                    </DialogContentText>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="FirstName*"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                        onChange={(e) => setfirstName(e.target.value)}
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="LastName*"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                        onChange={(e) => setlastName(e.target.value)}
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={() => {
-                        if (!isBlankFieldGuest()) {
-                            authGuesstAccount();
-                            handleClose();
-                        }
-                    }}>Create</Button>
-                </DialogActions>
-            </Dialog>
-        </div>
+      <div>
+        <Dialog open={isDialogOpened} onClose={handleClose}>
+          <DialogTitle>Guest</DialogTitle>
+          <DialogContent>
+            <DialogContentText>Sign up as guest:)</DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="FirstName*"
+              type="text"
+              fullWidth
+              variant="outlined"
+              onChange={e => setfirstName(e.target.value)}
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="LastName*"
+              type="text"
+              fullWidth
+              variant="outlined"
+              onChange={e => setlastName(e.target.value)}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button
+              onClick={() => {
+                if (!isBlankFieldGuest()) {
+                  authGuesstAccount();
+                  handleClose();
+                }
+              }}
+            >
+              Create
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
     );
 }
 

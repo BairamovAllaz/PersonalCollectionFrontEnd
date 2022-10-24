@@ -187,7 +187,7 @@ function CollectionShowPage() {
                             ).toLocaleDateString("en-US")}`}
                           />
                         </Grid>
-                        <Grid item xs={6} md={12} style={{ marginTop: "30px" }}>
+                        <Grid item xs={6} md={12} style={{ marginTop: "30px", textAlign : "center" }}>
                           <Typography
                             sx={{ mb: 1.5 }}
                             color="text.secondary"

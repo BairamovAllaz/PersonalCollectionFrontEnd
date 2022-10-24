@@ -12,7 +12,6 @@ import { Stack, Tooltip, IconButton } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import Badge from "@mui/material/Badge";
-import UpgradeIcon from "@mui/icons-material/Upgrade";
 import axios from "axios";
 
 function CollectionList(props) {
@@ -31,6 +30,7 @@ function CollectionList(props) {
         console.log(err);
       });
   };
+
 
   return (
     <div style={{ height: "100vh", overflowY: "auto" }}>
@@ -72,7 +72,7 @@ function CollectionList(props) {
                 image={element.image}
                 alt={`${element.name}`}
               />
-              <CardContent>
+              <CardContent sx = {{textAlign :"center"}}>
                 <Typography gutterBottom variant="h5" component="div">
                   {element.name}
                 </Typography>
@@ -97,7 +97,7 @@ function CollectionList(props) {
                 >
                   <p>
                     <Badge
-                      badgeContent={element.collectionLikes.length}
+                      badgeContent={element.collectionLikes.length > 0 ? element.collectionLikes.length : "0"}
                       color="primary"
                     >
                       <FavoriteIcon color="action" />
@@ -106,7 +106,7 @@ function CollectionList(props) {
                   <div style={{width : "30px"}}></div>
                   <p>
                     <Badge
-                      badgeContent={element.items.length}
+                      badgeContent={element.items.length > 0 ? element.items.length : "0"}
                       color="primary"
                     >
                       <FormatListNumberedIcon color="action" />

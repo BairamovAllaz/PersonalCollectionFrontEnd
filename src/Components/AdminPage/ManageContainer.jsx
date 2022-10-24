@@ -83,8 +83,6 @@ function ManageContainer() {
       <Box
         sx={{
           width: "100%",
-          display: "flex",
-          justifyContent: { xs: "center", sm: "left" },
         }}
       >
         <TextField
@@ -94,6 +92,8 @@ function ManageContainer() {
           placeholder="Search"
         />
       </Box>
+      <div style = {{wdith :"100%",maxHeight : "100vh",overflowY : "scroll"}}>
+        
       <AllUsers
         value={value}
         index={0}
@@ -110,6 +110,8 @@ function ManageContainer() {
       />
       <DeletedUsers value={value} index={2} />
       <BlockedUsers value = {value} index = {3}/>
+      </div>
+
     </Box>
   );
 }
