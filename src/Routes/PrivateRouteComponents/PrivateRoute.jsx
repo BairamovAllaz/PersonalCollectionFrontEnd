@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
-import Home from "../../Components/Home";
+import Home from "../../Pages/HomePages/Home";
 import * as React from "react";
 import axios from "axios";
 export { PrivateRoute };

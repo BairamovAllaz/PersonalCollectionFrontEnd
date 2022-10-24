@@ -17,9 +17,6 @@ function OwnPageRoute({ children }) {
     }
   }, []);
 
-  if (user === null) {
-    return <div>getting...</div>;
-  }
   return isAuth ? children : <NotYou />;
 }
 export default OwnPageRoute;

@@ -7,7 +7,6 @@ import { Container, Paper, Typography ,Box,Stack} from "@mui/material";
 import "./styles/Auth.scss";
 function AuthPage() {
   const [isLog, setisLog] = useState(true);
-  //TODO MOVE TO MUI COMPONENTS
   return (
     <Container component="main" maxWidth="xs" sx={{ mb: 4,textAlign : "center"}}>
       <Paper

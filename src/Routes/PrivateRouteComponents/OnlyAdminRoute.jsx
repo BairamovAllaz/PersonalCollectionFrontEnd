@@ -12,10 +12,6 @@ function OnlyAdminRoute({children}) {
             setisAuth(false);
         }
     },[])
-
-    if(user === null) {
-        return <div>getting</div>
-    }
     return (
         isAuth ? <Admin /> : <NotAdminPage/>
     );
