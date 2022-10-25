@@ -11,7 +11,8 @@ function Sign() {
   const [password, setPassword] = useState("");
   const [image, setImage] = useState();
 
-  const RegisterClick = () => {
+  const RegisterClick = (e) => {
+    e.preventDefault();
     if (isBlankInputsRegister()) {
       alert("Please fill all the input fileds");
       return;
@@ -25,9 +26,7 @@ function Sign() {
     axios
       .post(`${global.config.backendUrl}/v1/register`, UserData, {
         withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "multipart/form-data" },
       })
       .then(response => {
         alert("User register successfuly");
