@@ -13,7 +13,6 @@ export const ColorModeContext = React.createContext({
 
 function App() {
   const { pathname } = useLocation();
-  const currtheme = useTheme();
   const [mode, setMode] = React.useState("light");
 
   React.useEffect(() => {

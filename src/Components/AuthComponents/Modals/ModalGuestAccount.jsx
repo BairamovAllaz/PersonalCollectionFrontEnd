@@ -37,10 +37,11 @@ function ModalGuestAccount({isDialogOpened, handleCloseDialog}) {
         setUser(GuestAccount);
         setStorage(GuestAccount);
         navigation("/");
+        window.location.reload();
     }
 
     function setStorage(user) {
-        sessionStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('user', JSON.stringify(user));
     }
 
     return (

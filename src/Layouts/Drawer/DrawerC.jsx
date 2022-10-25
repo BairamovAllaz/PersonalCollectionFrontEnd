@@ -55,8 +55,8 @@ function DrawerC({ isDrawerOpened, handleCloseDrawer }) {
         },
       })
       .then(response => {
-        if (sessionStorage.getItem("user")) {
-          sessionStorage.removeItem("user");
+        if (localStorage.getItem("user")) {
+          localStorage.removeItem("user");
         }
       })
       .catch(err => {

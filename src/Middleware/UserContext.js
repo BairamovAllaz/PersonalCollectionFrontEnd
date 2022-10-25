@@ -5,11 +5,12 @@ export default function Context(props) {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = React.useState(true);
   React.useLayoutEffect(() => {
-    const user = JSON.parse(sessionStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("user"));
     if (user !== null) {
       user.userRole = "Guest";
       setUser(user);
       setIsLoading(false);
+      console.log(user);
     } else {
       axios
         .get(`${global.config.backendUrl}/v1/getuser`, {
