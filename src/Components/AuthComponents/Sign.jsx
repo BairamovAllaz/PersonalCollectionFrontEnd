@@ -25,6 +25,9 @@ function Sign() {
     axios
       .post(`${global.config.backendUrl}/v1/register`, UserData, {
         withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
       .then(response => {
         alert("User register successfuly");
