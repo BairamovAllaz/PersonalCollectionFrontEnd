@@ -31,9 +31,9 @@ export default function Context(props) {
     }
   }, []);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
   return (
     <UserContext.Provider value={{ user, setUser }}>
       {props.children}
