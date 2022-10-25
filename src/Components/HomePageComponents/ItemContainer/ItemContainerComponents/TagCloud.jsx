@@ -1,10 +1,9 @@
 import React from "react";
 import { Box, Stack, Chip } from "@mui/material";
 import axios from "axios";
-function TagCloud() {
+function TagCloud({selectedTags,handleClick}) {
   const [tags, setTags] = React.useState([]);
   const [loaded, setLoaded] = React.useState(true);
-  const [selectedTags, setSelectedTags] = React.useState([]);
   React.useEffect(() => {
     axios
       .get(`${global.config.backendUrl}/collection/getTags`)
@@ -21,16 +20,6 @@ function TagCloud() {
     return <div>Loading...</div>;
   }
 
-  const handleClick = (tagName, id) => {
-    if (selectedTags.includes(tagName)) {
-      const indexToRemove = selectedTags.indexOf(tagName);
-      selectedTags.splice(indexToRemove, 1);
-      setSelectedTags([...selectedTags]);
-    } else {
-      setSelectedTags([...selectedTags, tagName]);
-    }
-    console.log(selectedTags);
-  };
 
   return (
     <Box
@@ -42,6 +31,7 @@ function TagCloud() {
         justifyContent: "center",
         aligntItems: "center",
         gap: "10px",
+        marginTop : "30px"
       }}
     >
       {tags.map((tag, id) => (

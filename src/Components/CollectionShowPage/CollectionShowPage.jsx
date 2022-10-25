@@ -240,7 +240,6 @@ function CollectionShowPage() {
                               <IconButton
                                 sx={{
                                   marginLeft: "20px",
-                                  color: "red",
                                   cursor: "pointer",
                                   fontSize: "30px",
                                 }}

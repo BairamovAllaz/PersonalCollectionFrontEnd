@@ -1,5 +1,4 @@
 import React from "react";
-import FilterRadioGroup from "../ItemContainerComponents/FilterRadioGroup";
 import CollectionBox from "./CollectionContainerComponents/CollectionBox";
 import Carousel from "react-material-ui-carousel";
 import axios from "axios";

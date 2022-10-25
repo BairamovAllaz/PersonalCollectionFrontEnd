@@ -1,7 +1,5 @@
 import {Grid,Container} from '@mui/material';
 import CollectionContainer from '../../Components/HomePageComponents/ItemContainer/CollectionContainer/CollectionContainer';
-import FilterRadioGroup from '../../Components/HomePageComponents/ItemContainer/ItemContainerComponents/FilterRadioGroup'
-import TagCloud from '../../Components/HomePageComponents/ItemContainer/ItemContainerComponents/TagCloud';
 import ItemContainers from '../../Components/HomePageComponents/ItemContainer/ItemContainers';
 function Home() {
 

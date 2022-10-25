@@ -1,5 +1,6 @@
 import {alpha, styled} from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
+import { Autocomplete } from "@mui/material";
 
 export const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -27,7 +28,7 @@ export const SearchIconWrapper = styled('div')(({ theme }) => ({
     justifyContent: 'center',
 }));
 
-export const StyledInputBase = styled(InputBase)(({ theme }) => ({
+export const StyledInputBase = styled(Autocomplete)(({ theme }) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),

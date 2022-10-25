@@ -8,9 +8,8 @@ import {
   Badge,
   Avatar,
 } from "@mui/material";
-import { Search, SearchIconWrapper, StyledInputBase } from "./navbarStyle";
+
 import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
@@ -18,6 +17,7 @@ import DrawerC from "../Drawer/DrawerC";
 import { UserContext } from "../../Middleware/UserContext";
 import RenderMenu from "./NavbarComponents/RenderMenu";
 import RenderMobilMenu from "./NavbarComponents/RenderMobilMenu";
+import FullTextInput from "./NavbarComponents/FullTextInput";
 
 function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -73,15 +73,7 @@ function Navbar() {
           >
             Collection
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
+          <FullTextInput/>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
