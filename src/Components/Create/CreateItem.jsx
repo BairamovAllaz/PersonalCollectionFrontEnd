@@ -12,7 +12,7 @@ import {
   Select,
 } from "@mui/material";
 import Button from "@mui/material/Button";
-import { TextField } from "@material-ui/core";
+import { TextField } from "@mui/material";
 import axios from "axios";
 import MenuItem from "@mui/material/MenuItem";
 
@@ -58,7 +58,6 @@ function CreateItem() {
     obj.field_value = e.target.value;
     cl[idx] = obj;
     setFields([...cl]);
-    console.log(fields);
   };
 
   const Create = () => {

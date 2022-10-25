@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled } from "@mui/material/styles";
+import { styled,useTheme } from "@mui/material/styles";
 import {
   Box,
   IconButton,
@@ -19,12 +19,14 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
 import HomeIcon from "@mui/icons-material/Home";
 import AddIcon from "@mui/icons-material/Add";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 import { Link, useNavigate } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
 import BadgeIcon from "@mui/icons-material/Badge";
+import {ColorModeContext} from '../../App'
 import axios from "axios";
 import { UserContext } from "../../Middleware/UserContext";
-
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -37,6 +39,8 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 function DrawerC({ isDrawerOpened, handleCloseDrawer }) {
   const navigation = useNavigate();
   const { user } = React.useContext(UserContext);
+  const value = React.useContext(ColorModeContext);
+  const theme = useTheme();
 
   const handleClose = () => {
     handleCloseDrawer(false);
@@ -161,6 +165,20 @@ function DrawerC({ isDrawerOpened, handleCloseDrawer }) {
               ) : (
                 <></>
               )}
+              <ListItemButton
+                style={{ marginTop: "10px" }}
+                onClick={value.toggleColorMode}
+              >
+                <ListItemIcon color="inherit">
+                  {theme.palette.mode === "dark" ? (
+                    <Brightness7Icon />
+                  ) : (
+                    <Brightness4Icon />
+                  )}
+                </ListItemIcon>
+                <ListItemText primary={theme.palette.mode} />
+              </ListItemButton>
+
               <ListItemButton onClick={logout} style={{ marginTop: "10px" }}>
                 <ListItemIcon>
                   <ExitToAppIcon />

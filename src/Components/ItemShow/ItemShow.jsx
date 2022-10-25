@@ -34,12 +34,7 @@ function ItemShow() {
   const [isLoaded, setIsLoaded] = React.useState(true);
   const { user } = React.useContext(UserContext);
   const [items, setItems] = React.useState([]);
-  const style = {
-    width: "100%",
-    maxWidth: 360,
-    bgcolor: "background.paper",
-    marginLeft: "20px",
-  };
+
   React.useEffect(() => {
     axios
       .get(
@@ -138,7 +133,11 @@ function ItemShow() {
                           />
                           <Paper sx={{ padding: "30px" }}>
                             <List
-                              sx={style}
+                              sx={{
+                                width: "100%",
+                                bgcolor: "background.paper",
+                                margin : "0 auto"                                
+                              }}
                               component="nav"
                               aria-label="mailbox folders"
                             >
@@ -183,6 +182,7 @@ function ItemShow() {
                                 display: "flex",
                                 justifyContent: "center",
                                 alignItems: "center",
+                                marginTop : "30px"
                               }}
                             >
                               {user.userRole !== "Guest" &&
@@ -211,7 +211,7 @@ function ItemShow() {
                               )}
 
                               {(user.Id != userCol.Id &&
-                              user.userRole != true) ||
+                                user.userRole != true) ||
                               user.isBlocked == true ? (
                                 <></>
                               ) : (
@@ -219,7 +219,6 @@ function ItemShow() {
                                   <Tooltip title="Delete Item">
                                     <IconButton
                                       sx={{
-                                        color: "red",
                                         cursor: "pointer",
                                         fontSize: "20px",
                                         marginLeft: "30px",
