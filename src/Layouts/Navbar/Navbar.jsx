@@ -18,6 +18,7 @@ import { UserContext } from "../../Middleware/UserContext";
 import RenderMenu from "./NavbarComponents/RenderMenu";
 import RenderMobilMenu from "./NavbarComponents/RenderMobilMenu";
 import FullTextInput from "./NavbarComponents/FullTextInput";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -25,7 +26,7 @@ function Navbar() {
   const { user } = React.useContext(UserContext);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
+  const navigate = useNavigate();
   const handleProfileMenuOpen = event => {
     setAnchorEl(event.currentTarget);
   };
@@ -71,9 +72,17 @@ function Navbar() {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            Collection
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <img
+                width="30"
+                height="30"
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate("/")}
+                src="https://media-exp1.licdn.com/dms/image/C4D0BAQFvejl3pZ83Tg/company-logo_200_200/0/1626164565627?e=2147483647&v=beta&t=A7L98IKkJqfq7VmcknAVhQmPLuKDeezQclOH2Sk7vnc"
+              />
+            </div>
           </Typography>
-          <FullTextInput/>
+          <FullTextInput />
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
