@@ -12,7 +12,7 @@ import UpgradeIcon from "@mui/icons-material/Upgrade";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import axios from "axios";
 //TODO FIX IMAGE UPDATE
-function EditUserTextInputs({ user,userId }) {
+function EditUserTextInputs({ user, userId }) {
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -139,14 +139,17 @@ function EditUserTextInputs({ user,userId }) {
               style={{ marginTop: "30px" }}
             />
             <br />
-            <TextField
-              id="outlined"
-              label="Email"
-              variant="outlined"
-              defaultValue={`${user.email}`}
-              onChange={e => setEmail(e.target.value)}
-              style={{ marginTop: "30px" }}
-            />
+            {user.authType !== "google" && (
+              <TextField
+                id="outlined"
+                label="Email"
+                variant="outlined"
+                defaultValue={`${user.email}`}
+                onChange={e => setEmail(e.target.value)}
+                style={{ marginTop: "30px" }}
+              />
+            )}
+
             <br />
             <Button
               sx={{ width: "300px" }}
