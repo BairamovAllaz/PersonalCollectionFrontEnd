@@ -8,7 +8,6 @@ import {
   Badge,
   Avatar,
 } from "@mui/material";
-
 import MenuIcon from "@mui/icons-material/Menu";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -17,16 +16,24 @@ import DrawerC from "../Drawer/DrawerC";
 import { UserContext } from "../../Middleware/UserContext";
 import RenderMenu from "./NavbarComponents/RenderMenu";
 import RenderMobilMenu from "./NavbarComponents/RenderMobilMenu";
-import FullTextInput from "./NavbarComponents/FullTextInput";
+
+import { Button, MenuItem } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import SearchModal from './NavbarComponents/SearchModal'
 
 function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+   const [openSearchModal, setOpenSearchModal] = React.useState(false);
   const { user } = React.useContext(UserContext);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const navigate = useNavigate();
+
+  const handleClickOpenSearchModal = () => {
+    setOpenSearchModal(!openSearchModal);
+  };
+
   const handleProfileMenuOpen = event => {
     setAnchorEl(event.currentTarget);
   };
@@ -82,7 +89,7 @@ function Navbar() {
               />
             </div>
           </Typography>
-          <FullTextInput />
+        <SearchModal/>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton

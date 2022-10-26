@@ -36,7 +36,7 @@ function UserInfoContainer({ element, user, DeleteUser }) {
         <Avatar
           src={element.image}
           sx={{
-            margin: "10px auto",
+            margin: "30px auto",
             width: "100px",
             height: "100px",
           }}
@@ -47,7 +47,7 @@ function UserInfoContainer({ element, user, DeleteUser }) {
               fontSize: "20px",
               fontWeight: "600",
               color: "gray",
-              paddingTop: "10px",
+              padding : "20px",
               textAlign : "center"
             }}
           >

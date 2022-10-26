@@ -37,6 +37,7 @@ import {
   Container,
   Box,
 } from "@mui/material";
+import { Stack } from "@mui/system";
 
 function CollectionShowPage() {
   const navigation = useNavigate();
@@ -182,8 +183,8 @@ function CollectionShowPage() {
                                   src={userCol.image}
                                 />
                               }
-                              style = {{cursor : "pointer"}}
-                              title={`${userCol.firstName} ${userCol.lastName}`}
+                              style={{ cursor: "pointer",marginLeft : "-15px" }}
+                              title={`${userCol.firstName}`}
                               subheader={`${new Date(
                                 collection.createdAt
                               ).toLocaleDateString("en-US")}`}
@@ -198,9 +199,8 @@ function CollectionShowPage() {
                             <Typography
                               sx={{ mb: 1.5 }}
                               color="text.secondary"
-                              variant="h4"
+                              variant="h3"
                             >
-                              <AppsIcon />
                               {collection.name}
                             </Typography>
                             <p>#{collection.topic}</p>
@@ -213,7 +213,7 @@ function CollectionShowPage() {
                               >
                                 <span style={{ padding: "2px" }}>
                                   <InfoIcon sx={{ fontSize: "20px" }} />
-                                  <p style={{ marginTop: "-1px" }}>
+                                  <p style={{ marginTop: "10px" }}>
                                     {collection.about}
                                   </p>
                                 </span>
@@ -222,62 +222,72 @@ function CollectionShowPage() {
                           </Grid>
                         </Grid>
                       </CardContent>
-                      <CardActions sx = {{padding : "20px"}}>
+                      <CardActions sx={{ padding: "20px" }}>
                         {user.userRole === "Guest" ||
                         user.isBlocked ||
                         (user.Id != userId && user.userRole !== true) ? (
                           <></>
                         ) : (
                           <>
-                            <Tooltip title="Delete">
-                              <IconButton
-                                sx={{
-                                  marginLeft: "20px",
-                                  cursor: "pointer",
-                                  fontSize: "30px",
-                                }}
-                              >
-                                <DeleteIcon
-                                  onClick={() =>
-                                    deleteCollection(collection.Id)
-                                  }
-                                />
-                              </IconButton>
-                            </Tooltip>
-                            <Tooltip title="Edit Collection">
-                              <IconButton
-                                sx={{
-                                  marginLeft: "30px",
-                                  cursor: "pointer",
-                                  fontSize: "30px",
-                                }}
-                              >
-                                <EditIcon
-                                  onClick={() =>
-                                    navigation(
-                                      `/User/${userCol.Id}/Collection/${collection.Id}/edit`
-                                    )
-                                  }
-                                />
-                              </IconButton>
-                            </Tooltip>
-                            <Tooltip title="Add Item">
-                              <IconButton
-                                sx={{
-                                  marginLeft: "30px",
-                                  cursor: "pointer",
-                                  fontSize: "30px",
-                                }}
-                              >
-                                <AddIcon
-                                  onClick={() =>
-                                    navigation(
-                                      `/User/${userCol.Id}/collection/${collection.Id}/item/create`
-                                    )
-                                  }
-                                />
-                              </IconButton>
-                            </Tooltip>
+                            <Stack direction="row" spacing={2}>
+                              <Tooltip title="Delete">
+                                <IconButton
+                                  sx={{
+                                    cursor: "pointer",
+                                    fontSize: "30px",
+                                  }}
+                                >
+                                  <DeleteIcon
+                                    onClick={() =>
+                                      deleteCollection(collection.Id)
+                                    }
+                                  />
+                                </IconButton>
+                              </Tooltip>
+                              <Tooltip title="Edit Collection">
+                                <IconButton
+                                  sx={{
+                                    cursor: "pointer",
+                                    fontSize: "30px",
+                                  }}
+                                >
+                                  <EditIcon
+                                    onClick={() =>
+                                      navigation(
+                                        `/User/${userCol.Id}/Collection/${collection.Id}/edit`
+                                      )
+                                    }
+                                  />
+                                </IconButton>
+                              </Tooltip>
+                              <Tooltip title="Add Item">
+                                <IconButton
+                                  sx={{
+                                    cursor: "pointer",
+                                    fontSize: "30px",
+                                  }}
+                                >
+                                  <AddIcon
+                                    onClick={() =>
+                                      navigation(
+                                        `/User/${userCol.Id}/collection/${collection.Id}/item/create`
+                                      )
+                                    }
+                                  />
+                                </IconButton>
+                              </Tooltip>
+                              <Tooltip title="Open Description">
+                                <IconButton
+                                  sx={{
+                                    cursor: "pointer",
+                                    fontSize: "30px",
+                                  }}
+                                  onClick={handleClickOpenDialog}
+                                >
+                                  <DescriptionIcon />
+                                </IconButton>
+                              </Tooltip>
+                            </Stack>
                           </>
                         )}
                         <CollectionDescModal
@@ -285,115 +295,116 @@ function CollectionShowPage() {
                           handleCloseDialog={() => setOpenDialog(false)}
                           descText={collection.description}
                         />
-                        <DescriptionIcon
-                          sx={{
-                            fontSize: "30px",
-                            marginLeft: "30px",
-                            cursor: "pointer",
-                          }}
-                          onClick={handleClickOpenDialog}
-                        />
-                        {user.userRole != "Guest" ? (
-                          CheckUserLiked(collection.collectionLikes) == true ? (
-                            <Checkbox
-                              icon={<Favorite sx={{ color: "red" }} />}
-                              checkedIcon={<FavoriteBorder />}
-                              onClick={() => DisLikeCollection(collection.Id)}
-                              sx={{
-                                marginLeft: "auto",
-                                marginTop: "20px",
-                              }}
-                            />
+                        <Stack direction="row" style={{ marginLeft: "auto" }}>
+                          {user.userRole != "Guest" ? (
+                            CheckUserLiked(collection.collectionLikes) ==
+                            true ? (
+                              <Checkbox
+                                icon={<Favorite sx={{ color: "red" }} />}
+                                checkedIcon={<FavoriteBorder />}
+                                onClick={() => DisLikeCollection(collection.Id)}
+                              />
+                            ) : (
+                              <Checkbox
+                                icon={<FavoriteBorder />}
+                                checkedIcon={<Favorite sx={{ color: "red" }} />}
+                                onClick={() => addLikeCollection(collection.Id)}
+                              />
+                            )
                           ) : (
-                            <Checkbox
-                              icon={<FavoriteBorder />}
-                              checkedIcon={<Favorite sx={{ color: "red" }} />}
-                              onClick={() => addLikeCollection(collection.Id)}
-                              sx={{
-                                marginLeft: "auto",
-                                marginTop: "20px",
-                              }}
-                            />
-                          )
-                        ) : (
-                          <></>
-                        )}
-                        {user.userRole != "Guest" ? (
-                          <p style={{ paddingTop: "15px" }}>
-                            {collection.collectionLikes.length}
-                          </p>
-                        ) : (
-                          <></>
-                        )}
+                            <></>
+                          )}
+                          {user.userRole != "Guest" ? (
+                            <p>{collection.collectionLikes.length}</p>
+                          ) : (
+                            <></>
+                          )}
+                        </Stack>
                       </CardActions>
                     </Card>
+                  </Grid>
+                  <Grid item md={8} xs={12}>
                     <Box
                       sx={{
-                        width: "100%",
-                        height: "200px",
-                        marginTop: "20px",
+                        maxWidth: "100%",
+                        height: "auto",
+                        marginLeft: { sm: "140px" },
                       }}
                     >
                       <FormControl>
                         <FormLabel id="demo-row-radio-buttons-group-label">
-                          <FilterListIcon />
+                          <h2
+                            style={{ textAlign: "center", paddingTop: "20px" }}
+                          >
+                            Items
+                          </h2>
                         </FormLabel>
-                        <TextField
-                          id="filled-search"
-                          label="Search field"
-                          type="search"
-                          variant="outlined"
-                          onChange={e => {
-                            setSearchText(e.target.value);
-                          }}
+                        <Box
                           sx={{
-                            marginTop: "20px",
-                          }}
-                        />
-                        <RadioGroup
-                          row
-                          aria-labelledby="demo-row-radio-buttons-group-label"
-                          name="row-radio-buttons-group"
-                          checked={selectedFilter === "recommended"}
-                          onChange={e => handleFilterChange(e)}
-                          sx={{
-                            marginTop: "20px",
-                            display: "flex",
-                            justifyContent: "center",
+                            width: "100%",
+                            display: { xs: "block", sm: "flex" },
+                            textAlign: "center",
                           }}
                         >
-                          <FormControlLabel
-                            value="MostLiked"
-                            control={<Radio />}
-                            label="Most-Liked"
+                          <TextField
+                            id="filled-search"
+                            label="Search field"
+                            type="search"
+                            size="small"
+                            variant="outlined"
+                            onChange={e => {
+                              setSearchText(e.target.value);
+                            }}
+                            sx={{
+                              marginTop: "20px",
+                            }}
                           />
-                          <FormControlLabel
-                            value="ByComment"
-                            control={<Radio />}
-                            label="Most-Comment"
-                          />
-                          <FormControlLabel
-                            value="Latest"
-                            control={<Radio />}
-                            label="Latest"
-                          />
-                          <FormControlLabel
-                            checked
-                            value="Default"
-                            control={<Radio />}
-                            label="Default"
-                          />
-                        </RadioGroup>
+                          <RadioGroup
+                            row
+                            aria-labelledby="demo-row-radio-buttons-group-label"
+                            name="row-radio-buttons-group"
+                            checked={selectedFilter === "recommended"}
+                            onChange={e => handleFilterChange(e)}
+                            sx={{
+                              marginTop: "20px",
+                              display: "flex",
+                              justifyContent: "center",
+                              marginLeft: "20px",
+                            }}
+                          >
+                            <FormControlLabel
+                              value="MostLiked"
+                              control={<Radio />}
+                              label="Most-Liked"
+                            />
+                            <FormControlLabel
+                              value="ByComment"
+                              control={<Radio />}
+                              label="Most-Comment"
+                            />
+                            <FormControlLabel
+                              value="Latest"
+                              control={<Radio />}
+                              label="Latest"
+                            />
+                          </RadioGroup>
+                        </Box>
                       </FormControl>
                     </Box>
-                  </Grid>
-                  <Grid item md={8} xs={12}>
-                    <ItemsContainer
-                      items={collection.items}
-                      searchText={searchText}
-                      selectedFilter={selectedFilter}
-                      userId={userCol.Id}
-                    />
+                    <Box
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        textAlign: "center",
+                      }}
+                    >
+                      <ItemsContainer
+                        items={collection.items}
+                        searchText={searchText}
+                        selectedFilter={selectedFilter}
+                        userId={userCol.Id}
+                      />
+                    </Box>
                   </Grid>
                 </Grid>
               </Paper>

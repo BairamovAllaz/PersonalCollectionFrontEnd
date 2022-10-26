@@ -13,6 +13,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Box, Button } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import EditIcon from "@mui/icons-material/Edit";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Tooltip from "@mui/material/Tooltip";
@@ -107,9 +108,9 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
       return -1;
     } else if (selectedFilter == "MostLiked") {
       return b.itemLikes.length - a.itemLikes.length;
-    }else if(selectedFilter == "ByComment"){
+    } else if (selectedFilter == "ByComment") {
       return b.itemComments.length - a.itemComments.length;
-    }else { 
+    } else {
       return new Date(b.createdAt) - new Date(a.createdAt);
     }
   });
@@ -118,9 +119,8 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
     <Box
       sx={{
         marginTop: "20px",
-        width: "100%",
-        height: "100%",
         overflowY: "auto",
+        textAlign: "center",
         marginLeft: { sm: "140px" },
       }}
     >
@@ -130,7 +130,7 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
             expanded={expanded === `panel_${id}`}
             onChange={handleChangeExpanded(`panel_${id}`)}
             sx={{
-              marginTop: "10px",
+              marginTop: "20px",
               width: { xs: "100%", sm: "60%" },
               border: "solid 1px #e3e1da",
             }}
@@ -142,11 +142,15 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
             >
               <Grid container spacing={2}>
                 <Grid item>
-                  <ButtonBase sx={{ width: 80, height: 80 }}>
-                    <Img
-                      alt="complex"
-                      src={element.image}
-                    />
+                  <ButtonBase
+                    sx={{ width: 80, height: 80 }}
+                    onClick={() =>
+                      navigate(
+                        `/User/${userId}/collection/${element.collectionId}/Item/${element.Id}`
+                      )
+                    }
+                  >
+                    <Img alt="complex" src={element.image} />
                   </ButtonBase>
                   <Typography variant="subtitle1" component="div" noWrap>
                     {user.userRole != "Guest" && user.isBlocked != true ? (
@@ -156,7 +160,6 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
                           checkedIcon={<FavoriteBorder />}
                           onClick={() => DisLikeItem(element.Id, element.likes)}
                           sx={{
-                            marginLeft: "auto",
                             marginTop: "20px",
                           }}
                         />
@@ -166,7 +169,6 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
                           checkedIcon={<Favorite sx={{ color: "red" }} />}
                           onClick={() => addLikeItem(element.Id, element.likes)}
                           sx={{
-                            marginLeft: "auto",
                             marginTop: "20px",
                           }}
                         />
@@ -182,20 +184,21 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
                     ) : (
                       <></>
                     )}
-                    {/* TODO ADD COMMENT COUNT */}
-                    <Tooltip title="Open Item">
-                      <IconButton
-                        style={{ marginTop: "20px", marginLeft: "20px" }}
-                      >
-                        <OpenInNewIcon
-                          onClick={() =>
-                            navigate(
-                              `/User/${userId}/collection/${element.collectionId}/Item/${element.Id}`
-                            )
-                          }
-                        />
-                      </IconButton>
-                    </Tooltip>
+                    {(userId == user.Id || user.userRole == "admin") &&
+                      user.isBlocked == false && (
+                        <Tooltip title="Edit Item">
+                          <IconButton
+                            style={{ marginTop: "20px", marginLeft: "10px" }}
+                            onClick={() =>
+                              navigate(
+                                `/User/${userId}/collection/${element.collectionId}/Item/${element.Id}/edit`
+                              )
+                            }
+                          >
+                            <EditIcon />
+                          </IconButton>
+                        </Tooltip>
+                      )}
                   </Typography>
                 </Grid>
                 <Grid item xs={6} sm container>
@@ -205,7 +208,11 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
                         gutterBottom
                         variant="subtitle1"
                         component="div"
-                        sx={{ display: "block", justifyContent: "center" }}
+                        sx={{
+                          display: "block",
+                          justifyContent: "center",
+                          marginTop: "10px",
+                        }}
                       >
                         <span style={{ fontWeight: "700" }}>
                           {element.item_name}
@@ -219,28 +226,29 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
             </AccordionSummary>
             <AccordionDetails>
               <div>
-                <Stack direction="row" spacing={2}>
+                <Stack direction="row" spacing={1}>
                   {element.itemTags.map(tag => (
-                    <div style={{ paddingLeft: "10px" }}>
+                    <div>
                       <Chip label={tag.tag_name} />
                     </div>
                   ))}
                 </Stack>
-
-                {element.itemFields.map(field => (
-                  <p style={{ textAlign: "left" }}>
-                    {field.field_value == "" ? (
-                      <></>
-                    ) : (
-                      <p>
-                        <span style={{ color: "#88909e", fontWeight: "700" }}>
-                          {field.field_name}
-                        </span>{" "}
-                        : <span>{field.field_value}</span>
-                      </p>
-                    )}
-                  </p>
-                ))}
+                <div style={{ marginTop: "20px" }}>
+                  {element.itemFields.map(field => (
+                    <p style={{ textAlign: "left", paddingLeft: "3px" }}>
+                      {field.field_value == "" ? (
+                        <></>
+                      ) : (
+                        <p>
+                          <span style={{ color: "#88909e", fontWeight: "700" }}>
+                            {field.field_name}
+                          </span>{" "}
+                          : <span>{field.field_value}</span>
+                        </p>
+                      )}
+                    </p>
+                  ))}
+                </div>
               </div>
             </AccordionDetails>
           </Accordion>

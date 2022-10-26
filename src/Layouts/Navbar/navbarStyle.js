@@ -28,7 +28,7 @@ export const SearchIconWrapper = styled('div')(({ theme }) => ({
     justifyContent: 'center',
 }));
 
-export const StyledInputBase = styled(Autocomplete)(({ theme }) => ({
+export const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),

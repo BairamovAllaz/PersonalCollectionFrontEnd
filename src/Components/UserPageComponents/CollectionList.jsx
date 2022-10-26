@@ -63,7 +63,7 @@ function CollectionList(props) {
         ) : (
           collections.map(element => (
             <Card
-              sx={{ maxWidth: { xs: "320px", sm: "250px", margin: "20px" } }}
+              sx={{ width: { xs: "100%", sm: "30%",margin : "30px 10px" } }}
             >
               <CardMedia
                 component="img"

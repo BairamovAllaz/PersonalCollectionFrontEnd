@@ -52,7 +52,9 @@ function ItemShow() {
 
   const addLikeItem = itemId => {
     if (user.userRole === "Guest" || user.isBlocked) {
-      alert("You cant like you are guest OR you are blocked please register or sign");
+      alert(
+        "You cant like you are guest OR you are blocked please register or sign"
+      );
       return;
     }
     const info = {
@@ -73,7 +75,9 @@ function ItemShow() {
 
   const DisLikeItem = itemId => {
     if (user.userRole === "Guest" || user.isBlocked) {
-      alert("You cant like you are guest OR you are blocked please register or sign");
+      alert(
+        "You cant like you are guest OR you are blocked please register or sign"
+      );
       return;
     }
     axios
@@ -136,7 +140,7 @@ function ItemShow() {
                               sx={{
                                 width: "100%",
                                 bgcolor: "background.paper",
-                                margin : "0 auto"                                
+                                margin: "0 auto",
                               }}
                               component="nav"
                               aria-label="mailbox folders"
@@ -182,7 +186,7 @@ function ItemShow() {
                                 display: "flex",
                                 justifyContent: "center",
                                 alignItems: "center",
-                                marginTop : "30px"
+                                marginTop: "30px",
                               }}
                             >
                               {user.userRole !== "Guest" &&
@@ -300,10 +304,11 @@ function ItemShow() {
                                     <Stack
                                       direction="row"
                                       sx={{ marginLeft: "-10px" }}
+                                      spacing = {1}
                                     >
                                       {itemCol.itemTags.map(tag => (
                                         <div>
-                                          <Chip label={tag.tag_name} />
+                                          <Chip label={tag.tag_name}/>
                                         </div>
                                       ))}
                                     </Stack>
