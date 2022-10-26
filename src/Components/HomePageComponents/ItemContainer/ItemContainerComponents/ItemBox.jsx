@@ -4,7 +4,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import Badge from "@mui/material/Badge";
 import { useNavigate } from "react-router-dom";
-import {Grid,Paper,Typography,ButtonBase} from "@mui/material";
+import {Grid,Paper,Typography,ButtonBase,Chip} from "@mui/material";
 
 const Img = styled("img")({
   margin: "auto",
@@ -19,10 +19,10 @@ function ItemBox({item}) {
       sx={{
         p: 2,
         margin: "auto",
-        maxWidth: "400px",
+        maxWidth: { xs: "100%", sm: "30%" },
         flexGrow: 1,
         marginTop: "60px",
-        marginLeft: "10px",
+        justifyContent: "center",
         backgroundColor: theme =>
           theme.palette.mode === "dark" ? "#1A2027" : "#fff",
       }}
@@ -40,7 +40,7 @@ function ItemBox({item}) {
                 gutterBottom
                 variant="subtitle1"
                 component="div"
-                sx={{ cursor: "pointer" }}
+                sx={{ cursor: "pointer", fontSize: "25px" }}
                 onClick={() =>
                   navigate(
                     `/User/${item.collection.user.Id}/collection/${item.collection.Id}/Item/${item.Id}`
@@ -54,7 +54,9 @@ function ItemBox({item}) {
                 gutterBottom
                 sx={{ pt: 1, cursor: "pointer" }}
                 onClick={() =>
-                  navigate(`/User/${item.collection.user.Id}/collection/${item.collectionId}`)
+                  navigate(
+                    `/User/${item.collection.user.Id}/collection/${item.collectionId}`
+                  )
                 }
               >
                 {item.collection.name}
@@ -70,6 +72,11 @@ function ItemBox({item}) {
               <Typography variant="body2" color="text.secondary" sx={{ pt: 1 }}>
                 {new Date(item.createdAt).toLocaleDateString()}
               </Typography>
+              <div style = {{width : "100%",display : "flex",justifyContent : "center"}}>
+                {item.itemTags.map(tag => (
+                  <Chip label={`${tag.tag_name}`} sx={{ marginLeft: "5px",marginTop :"10px" }} />
+                ))}
+              </div>
             </Grid>
             <Grid item>
               <div

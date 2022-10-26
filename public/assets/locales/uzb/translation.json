@@ -9,7 +9,7 @@
     "lastname" : "familiya",
     "profile_image_text" : "profil rasmi",
     "top_5_largest_collection" : "Top 5 eng katta kolleksiya",
-       "name" : "nomi", 
+    "name" : "nomi", 
      "about" : "haqida",
      "topic" : "mavzu", 
      "createdAt" : "yaratilgan", 
@@ -20,5 +20,8 @@
      "create_collection" : "kolleksiya yaratish",
      "log_out" : "chiqish",
      "theme_dark" : "qorong'i", 
-     "theme_light" : "yorug'lik"
+     "theme_light" : "yorug'lik",
+     "latest_items" : "Eng so'nggi narsalar",
+     "show_less" : "Kamroq ko'rsatish",
+     "created_by" : "Tomonidan yaratilgan"
 }

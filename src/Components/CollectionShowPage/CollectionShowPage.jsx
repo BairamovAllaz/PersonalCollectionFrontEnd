@@ -15,7 +15,7 @@ import Favorite from "@mui/icons-material/Favorite";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import DescriptionIcon from '@mui/icons-material/Description';
+import DescriptionIcon from "@mui/icons-material/Description";
 import {
   Tooltip,
   Checkbox,
@@ -35,7 +35,7 @@ import {
   Paper,
   Grid,
   Container,
-  Box
+  Box,
 } from "@mui/material";
 
 function CollectionShowPage() {
@@ -167,7 +167,7 @@ function CollectionShowPage() {
                     <Card>
                       <CardContent>
                         <Grid container>
-                          <Grid item xs={6} md={12}>
+                          <Grid item xs={4} md={12}>
                             <CardMedia
                               component="img"
                               height="194"
@@ -175,21 +175,14 @@ function CollectionShowPage() {
                               alt="Paella dish"
                             />
                             <CardHeader
+                              onClick={() => navigation(`/user/${userCol.Id}`)}
                               avatar={
                                 <Avatar
                                   aria-label="recipe"
                                   src={userCol.image}
                                 />
                               }
-                              action={
-                                <IconButton aria-label="settings">
-                                  <RemoveRedEyeIcon
-                                    onClick={() =>
-                                      navigation(`/user/${userCol.Id}`)
-                                    }
-                                  />
-                                </IconButton>
-                              }
+                              style = {{cursor : "pointer"}}
                               title={`${userCol.firstName} ${userCol.lastName}`}
                               subheader={`${new Date(
                                 collection.createdAt
@@ -198,7 +191,7 @@ function CollectionShowPage() {
                           </Grid>
                           <Grid
                             item
-                            xs={6}
+                            xs={8}
                             md={12}
                             sx={{ marginTop: "30px", textAlign: "center" }}
                           >
@@ -229,7 +222,7 @@ function CollectionShowPage() {
                           </Grid>
                         </Grid>
                       </CardContent>
-                      <CardActions>
+                      <CardActions sx = {{padding : "20px"}}>
                         {user.userRole === "Guest" ||
                         user.isBlocked ||
                         (user.Id != userId && user.userRole !== true) ? (

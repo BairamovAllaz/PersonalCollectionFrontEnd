@@ -18,5 +18,8 @@
      "create_collection" : "utwórz kolekcję",
      "log_out" : "Wyloguj",
         "theme_dark" : "ciemny", 
-     "theme_light" : "Światło"
+     "theme_light" : "Światło",
+     "latest_items" : "Najnowsze przedmioty",
+     "show_less" : "Pokaż mniej",
+     "created_by" : "Stworzone przez"
 }

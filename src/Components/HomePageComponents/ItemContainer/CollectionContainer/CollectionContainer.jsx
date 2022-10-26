@@ -28,7 +28,7 @@ function CollectionContainer() {
   }
   return (
     <div style={{ width: "100%" }}>
-      <h3>{t("top_5_largest_collection")}</h3>
+      <h2 style={{ margin: "20px" }}>{t("top_5_largest_collection")}</h2>
       <Carousel style={{ width: "100%" }}>
         {collections.map((item, i) => (
           <CollectionBox item={item} key={i} />

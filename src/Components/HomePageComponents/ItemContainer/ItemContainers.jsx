@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 
 function ItemContainers() {
   const [data, setData] = React.useState([]);
-  const [load, setLoad] = React.useState(3);
+  const [load, setLoad] = React.useState(6);
   const [loading, setLoading] = React.useState(true);
   const [selectedTags, setSelectedTags] = React.useState([]);
     const { t } = useTranslation();
@@ -27,10 +27,10 @@ function ItemContainers() {
   }, []);
 
   const loadMore = () => {
-    setLoad(prev => prev + 3);
+    setLoad(prev => prev + 6);
   };
   const ShowLess = () => {
-    setLoad(3);
+    setLoad(6);
   };
 
   const handleClick = (tagName, id) => {
@@ -44,26 +44,34 @@ function ItemContainers() {
     console.log(selectedTags);
   };
 
-
-  ///TODO FIX FILTER
-  //TODO ADD TAGS TO ITEM CONTAINER
   const filteredData = data.filter(item => {
-    item.itemTags.forEach(sl => selectedTags.includes(sl.tag_name));
+    if(selectedTags.length <= 0) { 
+      return data;
+    }
+    return selectedTags.some(it => { 
+      return item.itemTags.some(dat => dat.tag_name == it);
+    })
   });
-
-  React.useEffect(() => {
-    console.log(filteredData);
-  }, [filteredData]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div>
+    <div style = {{marginTop : "30px"}}>
+      <div>
+        <h2>{t("latest_items")}</h2>
+      </div>
       <TagCloud handleClick={handleClick} selectedTags={selectedTags} />
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {data.slice(0, load).map(item => (
+      <div
+        style={{
+          display: "inline-flex",
+          flexWrap: "wrap",
+          width: "100%",
+          margin: "auto",
+        }}
+      >
+        {filteredData.slice(0, load).map(item => (
           <ItemBox item={item} />
         ))}
         <div
@@ -75,7 +83,7 @@ function ItemContainers() {
           }}
         >
           {load > data.length ? (
-            <Button onClick={ShowLess}>Show Less</Button>
+            <Button onClick={ShowLess}>{t("show_less")}</Button>
           ) : (
             <Button onClick={loadMore}>{t("load_more")}</Button>
           )}

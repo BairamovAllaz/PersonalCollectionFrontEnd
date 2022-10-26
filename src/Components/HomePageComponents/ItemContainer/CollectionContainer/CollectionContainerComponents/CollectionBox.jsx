@@ -61,19 +61,28 @@ function CollectionBox({ item }) {
             </ListItem>
             <ListItem>
               <ListItemIcon>
-                <p>{t("createdAt")}</p>
+                <p>{t("item_count")}</p>
               </ListItemIcon>
               <ListItemText
-                primary={new Date(item.createdAt).toLocaleDateString()}
+                primary={item.ItemCount}
                 sx={{ textAlign: "center" }}
               />
             </ListItem>
             <ListItem>
               <ListItemIcon>
-                <p>{t("item_count")}</p>
+                <p>{t("created_by")}</p>
               </ListItemIcon>
               <ListItemText
-                primary={item.ItemCount}
+                primary={`${item.user.firstName} ${item.user.lastName}`}
+                sx={{ textAlign: "center" }}
+              />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <p>{t("createdAt")}</p>
+              </ListItemIcon>
+              <ListItemText
+                primary={new Date(item.createdAt).toLocaleDateString()}
                 sx={{ textAlign: "center" }}
               />
             </ListItem>

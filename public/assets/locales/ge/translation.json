@@ -20,5 +20,8 @@
      "create_collection" : "კოლექციის შექმნა",
      "log_out" : "გამოსვლა",
      "theme_dark" : "ბნელი", 
-     "theme_light" : "სინათლე"
+     "theme_light" : "სინათლე",
+     "latest_items" : "უახლესი ნივთები",
+      "show_less" : "ნაკლების ჩვენება",
+      "created_by" : "Შექმნილია მიერ"
 }
