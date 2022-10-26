@@ -1,0 +1,21 @@
+{
+    "login_text" : "Login", 
+    "sign_text" : "Sign Up",
+    "email" : "email",
+    "guest_account" : "Guest account",
+    "forgot_password" : "forgot_password",
+    "password" : "password",
+     "profile_image_text" : "Profil image",
+     "top_5_largest_collection" : "Top 5 largest collection",
+     "name" : "name", 
+     "about" : "about",
+     "topic" : "topic", 
+     "createdAt" : "createdAt", 
+     "item_count" : "load more",
+         "home" : "home",
+     "profile" : "profile",
+     "create_collection" : "create collection",
+     "log_out" : "log out",
+     "theme_dark" : "dark", 
+     "theme_light" : "light"
+}

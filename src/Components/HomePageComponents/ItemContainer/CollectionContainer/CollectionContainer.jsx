@@ -1,10 +1,12 @@
 import React from "react";
 import CollectionBox from "./CollectionContainerComponents/CollectionBox";
 import Carousel from "react-material-ui-carousel";
+import { useTranslation } from "react-i18next";
 import axios from "axios";
 function CollectionContainer() {
   const [collections, setCollections] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
+  const { t } = useTranslation();
 
   React.useEffect(() => {
     axios
@@ -26,7 +28,7 @@ function CollectionContainer() {
   }
   return (
     <div style={{ width: "100%" }}>
-      <h3>Top 5 largest collection</h3>
+      <h3>{t("top_5_largest_collection")}</h3>
       <Carousel style={{ width: "100%" }}>
         {collections.map((item, i) => (
           <CollectionBox item={item} key={i} />

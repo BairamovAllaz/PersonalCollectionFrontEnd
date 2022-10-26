@@ -3,12 +3,14 @@ import TagCloud from "./ItemContainerComponents/TagCloud";
 import axios from "axios";
 import ItemBox from "./ItemContainerComponents/ItemBox";
 import Button from "@mui/material/Button";
+import { useTranslation } from "react-i18next";
 
 function ItemContainers() {
   const [data, setData] = React.useState([]);
   const [load, setLoad] = React.useState(3);
   const [loading, setLoading] = React.useState(true);
   const [selectedTags, setSelectedTags] = React.useState([]);
+    const { t } = useTranslation();
   React.useEffect(() => {
     axios
       .get(`${global.config.backendUrl}/home/GetItemsByDate`, {
@@ -75,7 +77,7 @@ function ItemContainers() {
           {load > data.length ? (
             <Button onClick={ShowLess}>Show Less</Button>
           ) : (
-            <Button onClick={loadMore}>Load more</Button>
+            <Button onClick={loadMore}>{t("load_more")}</Button>
           )}
         </div>
       </div>

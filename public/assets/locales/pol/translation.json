@@ -1,0 +1,22 @@
+{
+    "login_text" : "Zaloguj sie", 
+    "sign_text" : "Zapisz się",
+    "email" : "e-mail",
+    "guest_account" : "konto gościa",
+    "forgot_password" : "Zapomniałeś hasła",
+    "password" : "hasło",
+    "profile_image_text" : "zdjęcie profilowe",
+    "top_5_largest_collection" : "Top 5 największych kolekcji",
+     "name" : "Nazwa", 
+     "about" : "o",
+     "topic" : "temat", 
+     "createdAt" : "utworzono w", 
+     "item_count" : "Ilość szt",
+     "load_more" : "Załaduj więcej",
+      "home" : "Dom",
+     "profile" : "profil",
+     "create_collection" : "utwórz kolekcję",
+     "log_out" : "Wyloguj",
+        "theme_dark" : "ciemny", 
+     "theme_light" : "Światło"
+}

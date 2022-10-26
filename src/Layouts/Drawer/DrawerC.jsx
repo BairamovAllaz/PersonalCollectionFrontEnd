@@ -12,6 +12,10 @@ import {
   Drawer,
   Avatar,
 } from "@mui/material";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
@@ -23,11 +27,13 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import { Link, useNavigate } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
+import LanguageIcon from "@mui/icons-material/Language";
 import BadgeIcon from "@mui/icons-material/Badge";
+import { useTranslation } from "react-i18next";
 import {ColorModeContext} from '../../App'
 import axios from "axios";
 import { UserContext } from "../../Middleware/UserContext";
-
+import i18next from "i18next";
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
@@ -41,6 +47,7 @@ function DrawerC({ isDrawerOpened, handleCloseDrawer }) {
   const { user } = React.useContext(UserContext);
   const value = React.useContext(ColorModeContext);
   const theme = useTheme();
+    const { t } = useTranslation();
 
   const handleClose = () => {
     handleCloseDrawer(false);
@@ -74,6 +81,11 @@ function DrawerC({ isDrawerOpened, handleCloseDrawer }) {
       return <BadgeIcon sx={{ margin: "5px auto" }} />;
     }
   };
+
+
+  const handleLangChange = (e) => {
+    i18next.changeLanguage(e.target.value);
+  }
 
   return (
     <div>
@@ -135,7 +147,7 @@ function DrawerC({ isDrawerOpened, handleCloseDrawer }) {
                 <ListItemIcon>
                   <HomeIcon />
                 </ListItemIcon>
-                <ListItemText primary={"Home"} />
+                <ListItemText primary={t("home")} />
               </ListItemButton>
               {user.userRole !== "Guest" ? (
                 <>
@@ -148,7 +160,7 @@ function DrawerC({ isDrawerOpened, handleCloseDrawer }) {
                     <ListItemIcon>
                       <AccountCircleIcon />
                     </ListItemIcon>
-                    <ListItemText primary={"Profil"} />
+                    <ListItemText primary={t("profile")} />
                   </ListItemButton>
                   <ListItemButton
                     onClick={() => {
@@ -159,7 +171,7 @@ function DrawerC({ isDrawerOpened, handleCloseDrawer }) {
                     <ListItemIcon>
                       <AddIcon />
                     </ListItemIcon>
-                    <ListItemText primary={"Create Collection"} />
+                    <ListItemText primary={t("create_collection")} />
                   </ListItemButton>
                 </>
               ) : (
@@ -176,15 +188,44 @@ function DrawerC({ isDrawerOpened, handleCloseDrawer }) {
                     <Brightness4Icon />
                   )}
                 </ListItemIcon>
-                <ListItemText primary={theme.palette.mode} />
+                <ListItemText
+                  primary={
+                    theme.palette.mode === "light"
+                      ? t("theme_light")
+                      : t("theme_dark")
+                  }
+                />
               </ListItemButton>
-
               <ListItemButton onClick={logout} style={{ marginTop: "10px" }}>
                 <ListItemIcon>
                   <ExitToAppIcon />
                 </ListItemIcon>
-                <ListItemText primary={"LogOut"} />
+                <ListItemText primary={t("log_out")} />
               </ListItemButton>
+
+              <ListItem>
+                <div style={{ width: "100%",display : "flex",justifyContent : "center"}}>
+                  <FormControl sx={{ m: 1, minWidth: 80,mt : 2 }} size="small">
+                    <InputLabel id="demo-simple-select-autowidth-label">
+                      <LanguageIcon />
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-autowidth-label"
+                      id="demo-simple-select-autowidth"
+                      value={i18next.language}
+                      onChange={handleLangChange}
+                      autoWidth
+                      label="Age"
+                    >
+                      <MenuItem value=""></MenuItem>
+                      <MenuItem value={"en"}>en</MenuItem>
+                      <MenuItem value={"ge"}>ge</MenuItem>
+                      <MenuItem value={"pol"}>pol</MenuItem>
+                      <MenuItem value={"uzb"}>uzb</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
+              </ListItem>
             </ListItem>
           </List>
           <Divider />

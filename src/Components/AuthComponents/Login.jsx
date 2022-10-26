@@ -1,10 +1,13 @@
 import {TextField,Box,Button} from "@mui/material";
 import LoginIcon from "@mui/icons-material/Login";
+import { useTranslation } from "react-i18next";
 import React, { useState } from "react";
 import axios from "axios";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+    const { t } = useTranslation();
+    
 
   const LoginClick = () => {
     if (isBlankInputsLogin()) {
@@ -48,7 +51,7 @@ function Login() {
     <Box>
       <TextField
         className="outlined-basic"
-        label="Email*"
+        label={`${t("email")}*`}
         variant="outlined"
         style={{ marginTop: "20px" }}
         onChange={e => setEmail(e.target.value)}
@@ -56,7 +59,7 @@ function Login() {
       />
       <TextField
         className="outlined-basic"
-        label="Password*"
+        label={`${t("password")}*`}
         variant="outlined"
         type="password"
         style={{ marginTop: "20px" }}
@@ -74,7 +77,7 @@ function Login() {
         }}
         onClick={LoginClick}
       >
-        Login
+        {t("login_text")}
       </Button>
     </Box>
   );

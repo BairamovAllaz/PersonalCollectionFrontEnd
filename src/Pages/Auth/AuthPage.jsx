@@ -4,20 +4,32 @@ import Login from "../../Components/AuthComponents/Login";
 import Sign from "../../Components/AuthComponents/Sign";
 import AuthFotter from "../../Components/AuthComponents/AuthFotter";
 import { Container, Paper, Typography ,Box,Stack} from "@mui/material";
+import { useTranslation } from "react-i18next";
 import "./styles/Auth.scss";
 function AuthPage() {
   const [isLog, setisLog] = useState(true);
+    const { t } = useTranslation();
   return (
-    <Container component="main" maxWidth="xs" sx={{ mb: 4,textAlign : "center"}}>
+    <Container
+      component="main"
+      maxWidth="xs"
+      sx={{ mb: 4, textAlign: "center" }}
+    >
       <Paper
         variant="outlined"
         sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
       >
         <Typography component="h1" variant="h4" align="center">
-          {isLog ? "Login" : "Sign"}
+          {isLog ? t("login_text") : t("sign_text")}
         </Typography>
-        <Box style = {{display :"flex",justifyContent : "center",marginTop :"20px"}}>
-          <Stack direction = "row" spacing = {1}>
+        <Box
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "20px",
+          }}
+        >
+          <Stack direction="row" spacing={1}>
             <Button
               variant="contained"
               style={{
@@ -30,7 +42,7 @@ function AuthPage() {
               }}
               onClick={() => setisLog(true)}
             >
-              Login
+              {t("login_text")}
             </Button>
             <Button
               variant="contained"
@@ -44,13 +56,13 @@ function AuthPage() {
               }}
               onClick={() => setisLog(false)}
             >
-              Sign
+              {t("sign_text")}
             </Button>
           </Stack>
         </Box>
         <form className="Form">
-            {isLog ? <Login /> : <Sign />}
-            <AuthFotter />
+          {isLog ? <Login /> : <Sign />}
+          <AuthFotter />
         </form>
       </Paper>
     </Container>

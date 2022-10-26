@@ -3,12 +3,14 @@ import Button from "@mui/material/Button";
 import ModalForgotPassword from "./Modals/ModalForgotPassword";
 import ModalGuestAccount from "./Modals/ModalGuestAccount";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
+import { useTranslation } from "react-i18next";
 import { useState } from "react";
 
 function AuthFotter() {
   //MODAL STATES
   const [openGuest, setOpenGuest] = useState(false);
   const [openForgot, setOpenForgot] = useState(false);
+    const { t } = useTranslation();
 
   const handleClickOpenGuest = () => {
     setOpenGuest(!openGuest);
@@ -50,14 +52,14 @@ function AuthFotter() {
         }}
         onClick={handleClickOpenGuest}
       >
-        <b>Guest account</b>
+        <b>{t("guest_account")}</b>
       </Button>
       <div style={{ marginBottom: "20px" }}>
         <p
           onClick={handleClickOpenForgot}
           style={{ cursor: "pointer", color: "blue" }}
         >
-          Forgot Password?
+          {t("forgot_password")}
         </p>
       </div>
       <ModalForgotPassword

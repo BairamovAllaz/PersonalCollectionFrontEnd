@@ -15,9 +15,11 @@ import {
 } from "@mui/material";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 function CollectionBox({ item }) {
   const navigate = useNavigate();
+    const { t } = useTranslation();
   return (
     <Paper style={{ width: "100%" }}>
       <Card sx={{ width: "100%" }}>
@@ -40,26 +42,26 @@ function CollectionBox({ item }) {
             <Divider />
             <ListItem divider>
               <ListItemIcon>
-                <p>Name: </p>
+                <p>{t("name")}</p>
               </ListItemIcon>
               <ListItemText primary={item.name} sx={{ textAlign: "center" }} />
             </ListItem>
             <ListItem>
               <ListItemIcon>
-                <p>About: </p>
+                <p>{t("about")}</p>
               </ListItemIcon>
               <ListItemText primary={item.about} sx={{ textAlign: "center" }} />
             </ListItem>
             <Divider light />
             <ListItem>
               <ListItemIcon>
-                <p>Topic: </p>
+                <p>{t("topic")}</p>
               </ListItemIcon>
               <ListItemText primary={item.topic} sx={{ textAlign: "center" }} />
             </ListItem>
             <ListItem>
               <ListItemIcon>
-                <p>Created At: </p>
+                <p>{t("createdAt")}</p>
               </ListItemIcon>
               <ListItemText
                 primary={new Date(item.createdAt).toLocaleDateString()}
@@ -68,7 +70,7 @@ function CollectionBox({ item }) {
             </ListItem>
             <ListItem>
               <ListItemIcon>
-                <p>Item Count: </p>
+                <p>{t("item_count")}</p>
               </ListItemIcon>
               <ListItemText
                 primary={item.ItemCount}
@@ -97,9 +99,7 @@ function CollectionBox({ item }) {
                   cursor: "pointer",
                   fontSize: "30px",
                 }}
-                onClick={() =>
-                  navigate(`/User/${item.userId}`)
-                }
+                onClick={() => navigate(`/User/${item.userId}`)}
               >
                 <AccountCircleIcon />
               </IconButton>

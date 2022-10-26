@@ -1,6 +1,7 @@
 import { TextField, Button } from "@mui/material";
 import { BiImageAdd } from "react-icons/bi";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
+import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import axios from "axios";
 
@@ -10,8 +11,9 @@ function Sign() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [image, setImage] = useState();
+  const { t } = useTranslation();
 
-  const RegisterClick = (e) => {
+  const RegisterClick = e => {
     e.preventDefault();
     if (isBlankInputsRegister()) {
       alert("Please fill all the input fileds");
@@ -63,7 +65,7 @@ function Sign() {
     <div>
       <TextField
         className="outlined-basic"
-        label="FirstName*"
+        label={`${t("firstname")}*`}
         variant="outlined"
         style={{ marginTop: "20px" }}
         onChange={e => setfirstName(e.target.value)}
@@ -71,7 +73,7 @@ function Sign() {
       />
       <TextField
         className="outlined-basic"
-        label="LastName*"
+        label={`${t("lastname")}*`}
         variant="outlined"
         style={{ marginTop: "20px" }}
         onChange={e => setlastName(e.target.value)}
@@ -79,7 +81,7 @@ function Sign() {
       />
       <TextField
         className="outlined-basic"
-        label="Email*"
+        label={`${t("email")}*`}
         variant="outlined"
         style={{ marginTop: "20px" }}
         onChange={e => setEmail(e.target.value)}
@@ -87,7 +89,7 @@ function Sign() {
       />
       <TextField
         className="outlined-basic"
-        label="Password*"
+        label={`${t("password")}*`}
         variant="outlined"
         type="password"
         style={{ marginTop: "20px" }}
@@ -109,7 +111,7 @@ function Sign() {
             fontSize: "20px",
           }}
         />
-        <b>Profile Image</b>
+        <b>{t("profile_image_text")}</b>
         <input
           type="file"
           hidden
@@ -129,7 +131,7 @@ function Sign() {
         }}
         onClick={RegisterClick}
       >
-        Sign
+        {t("sign_text")}
       </Button>
     </div>
   );
