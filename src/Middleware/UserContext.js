@@ -20,7 +20,9 @@ export default function Context(props) {
           },
         })
         .then(response => {
-          console.log(response.data);
+          if (response.data == undefined) {
+            window.location.href("/auth");
+          }
           setUser(response.data);
           setIsLoading(false);
         })
@@ -33,9 +35,7 @@ export default function Context(props) {
   if (isLoading) {
     return <div>Loading...</div>;
   }
-  if (user == undefined) {
-    window.location.href("/auth")
-  }
+
   return (
     <UserContext.Provider value={{ user, setUser }}>
       {props.children}
