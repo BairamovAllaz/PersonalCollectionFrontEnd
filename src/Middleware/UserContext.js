@@ -20,9 +20,6 @@ export default function Context(props) {
           },
         })
         .then(response => {
-          if (response.data === undefined) {
-            window.location.href("/auth");
-          }
           setUser(response.data);
           setIsLoading(false);
         })
