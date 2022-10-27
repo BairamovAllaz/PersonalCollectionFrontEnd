@@ -304,11 +304,11 @@ function ItemShow() {
                                     <Stack
                                       direction="row"
                                       sx={{ marginLeft: "-10px" }}
-                                      spacing = {1}
+                                      spacing={1}
                                     >
                                       {itemCol.itemTags.map(tag => (
                                         <div>
-                                          <Chip label={tag.tag_name}/>
+                                          <Chip label={tag.tag_name} />
                                         </div>
                                       ))}
                                     </Stack>
