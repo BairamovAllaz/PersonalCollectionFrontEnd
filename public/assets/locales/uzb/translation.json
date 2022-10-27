@@ -23,5 +23,8 @@
      "theme_light" : "yorug'lik",
      "latest_items" : "Eng so'nggi narsalar",
      "show_less" : "Kamroq ko'rsatish",
-     "created_by" : "Tomonidan yaratilgan"
+     "created_by" : "Tomonidan yaratilgan",
+    "collection" : "kolleksiya", 
+    "Creator" : "Yaratuvchi",
+    "total_likes" : "Jami yoqtirishlar"
 }

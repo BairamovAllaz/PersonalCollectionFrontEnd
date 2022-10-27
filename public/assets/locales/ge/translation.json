@@ -23,5 +23,8 @@
      "theme_light" : "სინათლე",
      "latest_items" : "უახლესი ნივთები",
       "show_less" : "ნაკლების ჩვენება",
-      "created_by" : "Შექმნილია მიერ"
+      "created_by" : "Შექმნილია მიერ",
+      "collection" : "კოლექცია", 
+    "Creator" : "შემოქმედი",
+    "total_likes" : "სულ მოწონებები"
 }

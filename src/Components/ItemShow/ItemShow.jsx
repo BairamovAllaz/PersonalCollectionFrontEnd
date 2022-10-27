@@ -28,12 +28,14 @@ import ListItem from "@mui/material/ListItem";
 import { UserContext } from "../../Middleware/UserContext";
 import CommentBox from "./ItemShowComponents/CommentBox";
 import InfoIcon from "@mui/icons-material/Info";
+import { useTranslation } from "react-i18next";
 function ItemShow() {
   const { userId, collectionId, itemId } = useParams();
   const navigate = useNavigate();
   const [isLoaded, setIsLoaded] = React.useState(true);
   const { user } = React.useContext(UserContext);
   const [items, setItems] = React.useState([]);
+  const {t} = useTranslation();
 
   React.useEffect(() => {
     axios
@@ -154,7 +156,9 @@ function ItemShow() {
                                 }
                               >
                                 <ListItemText
-                                  primary={`Collection : ${collectionCol.name}`}
+                                  primary={`${t("collection")} : ${
+                                    collectionCol.name
+                                  }`}
                                 />
                               </ListItem>
                               <Divider />
@@ -164,12 +168,14 @@ function ItemShow() {
                                 onClick={() => navigate(`/User/${userId}`)}
                               >
                                 <ListItemText
-                                  primary={`Creator : ${userCol.firstName}`}
+                                  primary={`${t("Creator")} : ${
+                                    userCol.firstName
+                                  }`}
                                 />
                               </ListItem>
                               <ListItem>
                                 <ListItemText
-                                  primary={`Creation Time : ${new Date(
+                                  primary={`${t("createdAt")} : ${new Date(
                                     itemCol.createdAt
                                   ).toLocaleDateString()}`}
                                 />
@@ -177,7 +183,9 @@ function ItemShow() {
                               <Divider light />
                               <ListItem>
                                 <ListItemText
-                                  primary={`Total Likes: ${itemCol.itemLikes.length}`}
+                                  primary={`${t("total_likes")}: ${
+                                    itemCol.itemLikes.length
+                                  }`}
                                 />
                               </ListItem>
                             </List>

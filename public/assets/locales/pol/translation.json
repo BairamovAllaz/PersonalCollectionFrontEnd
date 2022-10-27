@@ -21,5 +21,8 @@
      "theme_light" : "Światło",
      "latest_items" : "Najnowsze przedmioty",
      "show_less" : "Pokaż mniej",
-     "created_by" : "Stworzone przez"
+     "created_by" : "Stworzone przez",
+         "collection" : "kolekcja", 
+    "Creator" : "Twórca",
+    "total_likes" : "całkowita liczba polubień"
 }
