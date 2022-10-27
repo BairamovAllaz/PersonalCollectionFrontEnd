@@ -53,7 +53,8 @@ function Sign() {
       firstName === "" ||
       lastName === "" ||
       email === "" ||
-      password === ""
+      password === "" ||
+      image == undefined
     ) {
       clearInputs();
       return true;
@@ -111,6 +112,7 @@ function Sign() {
             fontSize: "20px",
           }}
         />
+         
         <b>{t("profile_image_text")}</b>
         <input
           type="file"
@@ -120,7 +122,13 @@ function Sign() {
           }}
         />
       </Button>
+      <div style = {{textAlign : "center"}}>
+      {
+        image != null &&<img width = "60" height = "60" style = {{marginTop : "30px"}} src = {URL.createObjectURL(image)}/>
+      }
+      </div>
       <Button
+      
         variant="contained"
         startIcon={<AppRegistrationIcon />}
         style={{

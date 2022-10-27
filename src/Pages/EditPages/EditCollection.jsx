@@ -136,6 +136,11 @@ function EditCollection() {
                 >
                   Image
                 </Button>
+                 <div style = {{textAlign : "center"}}>
+      {
+        image != null &&<img width = "60" height = "60" style = {{marginTop : "30px"}} src = {URL.createObjectURL(image)}/>
+      }
+      </div>
                 <input
                   ref={ref}
                   type="file"

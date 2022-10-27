@@ -1,13 +1,17 @@
 import React from "react";
-
 import axios from "axios";
 import { Button } from "@mui/material";
 import { Search, SearchIconWrapper, StyledInputBase } from "../navbarStyle";
 import SearchIcon from "@mui/icons-material/Search";
+import SearchResultModal from "./SearchResultModal";
 function FullTextInput({}) {
-  const [searchText,setSearchText] = React.useState("");
+  const [searchText, setSearchText] = React.useState("");
   const [TextResult, setTextResult] = React.useState([]);
+  const [openSearchResult, setOpenSearchResult] = React.useState(false);
 
+  const handleClickSearchResult = () => {
+    setOpenSearchResult(!openSearchResult);
+  };
   const TextSearch = () => {
     axios
       .get(`${global.config.backendUrl}/home/FullTextSearch/${searchText}`, {
@@ -25,8 +29,12 @@ function FullTextInput({}) {
       });
   };
 
+  const ClearSearchText = () => {
+    setSearchText("");
+  };
+
   return (
-    <div>
+    <div style={{ display: "flex" }}>
       <Search>
         <SearchIconWrapper>
           <SearchIcon />
@@ -34,19 +42,30 @@ function FullTextInput({}) {
         <StyledInputBase
           placeholder="Search…"
           inputProps={{ "aria-label": "search" }}
-          //onChange={e => setSearchText(e.target.value)}
+          onChange={e => setSearchText(e.target.value)}
+          value={searchText}
         />
-        {/* <div
-          style={{
-            width: "100%",
-            height: "300px",
-            position: "absolute",
-            zIndex: "2",
-            backgroundColor: "red",
-          }}
-        ></div>
-        <Button variant = "contained">Search</Button> */}
       </Search>
+      <Button
+        onClick={async () => {
+          if (searchText == "") {
+            alert("Please fill search box");
+            return;
+          } else {
+            await TextSearch();
+            handleClickSearchResult();
+          }
+        }}
+      >
+        <SearchIcon />
+      </Button>
+      <SearchResultModal
+        isDialogOpened={openSearchResult}
+        handleCloseDialog={() => setOpenSearchResult(false)}
+        searchResult={TextResult}
+        ClearSearchText={ClearSearchText}
+        SearchText={searchText}
+      />
     </div>
   );
 }
