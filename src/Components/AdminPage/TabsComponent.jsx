@@ -7,13 +7,13 @@ import GroupIcon from "@mui/icons-material/Group";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import FolderDeleteIcon from "@mui/icons-material/FolderDelete";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import AllUsers from "./TabsComponents/AllUsers";
-import AllAdmins from "./TabsComponents/AllAdmins";
+import NormalUsers from "./TabsComponents/NormalUsers";
+import AdminUsers from "./TabsComponents/AdminUsers"
 import axios from "axios";
 import { UserContext } from "../../Middleware/UserContext";
 import DeletedUsers from "./TabsComponents/DeletedUsers";
 import BlockedUsers from "./TabsComponents/BlockedUsers";
-function ManageContainer() {
+function TabsComponents() {
   const [value, setValue] = React.useState(0);
   const [isLoadedusers, setIsLoadedusers] = React.useState(true);
   const [Users, setUsers] = React.useState([]);
@@ -93,14 +93,14 @@ function ManageContainer() {
         />
       </Box>
       <div style={{ wdith: "100%", maxHeight: "100vh", overflowY: "scroll" }}>
-        <AllUsers
+        <NormalUsers
           value={value}
           index={0}
           AllUsers={filteredData.filter(
             data => data.Id != user.Id && data.userRole === false
           )}
         />
-        <AllAdmins
+        <AdminUsers
           value={value}
           index={1}
           AllAdmins={filteredData.filter(
@@ -114,4 +114,4 @@ function ManageContainer() {
   );
 }
 
-export default ManageContainer;
+export default TabsComponents;

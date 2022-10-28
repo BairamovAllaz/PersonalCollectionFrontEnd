@@ -120,6 +120,7 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
       sx={{
         marginTop: "20px",
         overflowY: "scroll",
+        maxHeight : "500px",
         marginLeft: { sm: "140px" }
       }}
     >

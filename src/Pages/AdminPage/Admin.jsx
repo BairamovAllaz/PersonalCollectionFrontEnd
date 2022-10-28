@@ -2,7 +2,7 @@ import React from "react";
 import { UserContext } from "../../Middleware/UserContext";
 import UserContainer from "../../Components/AdminPage/Containers/UserContainer";
 import InfoContainer from "../../Components/AdminPage/Containers/InfoContainer";
-import Tabs from "../../Components/AdminPage/Tabs";
+import TabsComponents from "../../Components/AdminPage/TabsComponent";
 import { Grid } from "@mui/material";
 function Admin() {
   const { user } = React.useContext(UserContext);
@@ -20,7 +20,7 @@ function Admin() {
           </Grid>
         </Grid>
         <Grid item sm={8} xs={12}>
-          <Tabs />
+          <TabsComponents />
         </Grid>
       </Grid>
     </div>

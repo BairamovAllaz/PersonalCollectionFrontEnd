@@ -12,10 +12,10 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
-import CollectionForm from "./Steps/CollectionForm";
-import FieldsForm from "./Steps/FieldsForm";
-import ImageForm from "./Steps/ImageForm";
-import Final from "./Steps/Final";
+import CollectionForm from "../../Components/Create/CreateCollectionPageComponents/CollectionForm";
+import FieldsForm from "../../Components/Create/CreateCollectionPageComponents/FieldsForm";
+import ImageForm from "../../Components/Create/CreateCollectionPageComponents/ImageForm";
+import Final from "../../Components/Create/CreateCollectionPageComponents/Final";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
