@@ -10,7 +10,7 @@ function ItemContainers() {
   const [load, setLoad] = React.useState(6);
   const [loading, setLoading] = React.useState(true);
   const [selectedTags, setSelectedTags] = React.useState([]);
-    const { t } = useTranslation();
+  const { t } = useTranslation();
   React.useEffect(() => {
     axios
       .get(`${global.config.backendUrl}/home/GetItemsByDate`, {
@@ -45,12 +45,12 @@ function ItemContainers() {
   };
 
   const filteredData = data.filter(item => {
-    if(selectedTags.length <= 0) { 
+    if (selectedTags.length <= 0) {
       return data;
     }
-    return selectedTags.some(it => { 
+    return selectedTags.some(it => {
       return item.itemTags.some(dat => dat.tag_name == it);
-    })
+    });
   });
 
   if (loading) {
@@ -58,7 +58,7 @@ function ItemContainers() {
   }
 
   return (
-    <div style = {{marginTop : "30px"}}>
+    <div style={{ marginTop: "30px" }}>
       <div>
         <h2>{t("latest_items")}</h2>
       </div>

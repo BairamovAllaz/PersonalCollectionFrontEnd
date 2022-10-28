@@ -16,7 +16,7 @@ import {
   AddUserToAdmin,
   RemoveFromAdmin,
   BlockUserById,
-} from "./AdminMethods";
+} from "../AdminMethods/AdminMethods";
 function UserContainer({ userProp, userStatus }) {
   const ReturnDeletedUser = userId => {
     axios
@@ -43,8 +43,8 @@ function UserContainer({ userProp, userStatus }) {
   return (
     <Box
       sx={{
-        height: { xs: "150px", sm: "200px"},
-        minWidth : "300px",
+        height: { xs: "150px", sm: "200px" },
+        minWidth: "300px",
         margin: { xs: "10px auto" },
       }}
     >

@@ -5,16 +5,16 @@ import Home from "../Pages/HomePages/Home";
 import LoginSuccess from "../Pages/Auth/LoginSuccess";
 import ForgotPassword from "../Pages/Auth/ForgotPassword";
 import CreateCollection from "../Components/Create/CreateCollection";
-import Admin from "../Components/AdminPage/Admin";
+import Admin from "../Pages/AdminPage/Admin";
 import OnlyAdminRoute from "../Routes/PrivateRouteComponents/OnlyAdminRoute";
 import UserPage from "../Pages/UserPage/UserPage";
-import CollectionShowPage from "../Components/CollectionShowPage/CollectionShowPage";
+import CollectionShowPage from "../Pages/CollectionShowPage/CollectionShowPage";
 import UserEdit from "../Pages/EditPages/UserEdit";
 import OwnPageRoute from "./PrivateRouteComponents/OwnPageRoute";
 import CreateItem from "../Components/Create/CreateItem";
 import EditCollection from "../Pages/EditPages/EditCollection";
-import EditItem from "../Components/EditPages/EditItem";
-import ItemShow from "../Components/ItemShow/ItemShow";
+import EditItem from "../Pages/EditPages/EditItem";
+import ItemPage from "../Pages/ItemPage/ItemPage";
 import { Routes, Route } from "react-router-dom";
 function AuthRoutes() {
   return (
@@ -78,7 +78,7 @@ function AuthRoutes() {
       />
       <Route
         path="/User/:userId/collection/:collectionId/Item/:itemId"
-        element={<ItemShow />}
+        element={<ItemPage />}
       />
       <Route
         path="/admin"

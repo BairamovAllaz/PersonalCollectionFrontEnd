@@ -7,12 +7,12 @@ import GroupIcon from "@mui/icons-material/Group";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import FolderDeleteIcon from "@mui/icons-material/FolderDelete";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import AllUsers from "./AllUsers";
-import AllAdmins from "./AllAdmins";
+import AllUsers from "./TabsComponents/AllUsers";
+import AllAdmins from "./TabsComponents/AllAdmins";
 import axios from "axios";
 import { UserContext } from "../../Middleware/UserContext";
-import DeletedUsers from "./DeletedUsers";
-import BlockedUsers from "./BlockedUsers";
+import DeletedUsers from "./TabsComponents/DeletedUsers";
+import BlockedUsers from "./TabsComponents/BlockedUsers";
 function ManageContainer() {
   const [value, setValue] = React.useState(0);
   const [isLoadedusers, setIsLoadedusers] = React.useState(true);
@@ -92,26 +92,24 @@ function ManageContainer() {
           placeholder="Search"
         />
       </Box>
-      <div style = {{wdith :"100%",maxHeight : "100vh",overflowY : "scroll"}}>
-        
-      <AllUsers
-        value={value}
-        index={0}
-        AllUsers={filteredData.filter(
-          data => data.Id != user.Id && data.userRole === false
-        )}
-      />
-      <AllAdmins
-        value={value}
-        index={1}
-        AllAdmins={filteredData.filter(
-          data => data.userRole === true && data.Id != user.Id
-        )}
-      />
-      <DeletedUsers value={value} index={2} />
-      <BlockedUsers value = {value} index = {3}/>
+      <div style={{ wdith: "100%", maxHeight: "100vh", overflowY: "scroll" }}>
+        <AllUsers
+          value={value}
+          index={0}
+          AllUsers={filteredData.filter(
+            data => data.Id != user.Id && data.userRole === false
+          )}
+        />
+        <AllAdmins
+          value={value}
+          index={1}
+          AllAdmins={filteredData.filter(
+            data => data.userRole === true && data.Id != user.Id
+          )}
+        />
+        <DeletedUsers value={value} index={2} />
+        <BlockedUsers value={value} index={3} />
       </div>
-
     </Box>
   );
 }

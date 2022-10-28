@@ -8,15 +8,7 @@ import Button from "@mui/material/Button";
 import UpgradeIcon from "@mui/icons-material/Upgrade";
 import Container from "@mui/material/Container";
 import { TextField } from "@mui/material";
-import {
-  Autocomplete,
-  Avatar,
-  FormControl,
-  InputLabel,
-  Select,
-} from "@mui/material";
-import MenuItem from "@mui/material/MenuItem";
-import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
+import { render } from "../../Utils/RenderField";
 function EditItem() {
   const [items, setItems] = React.useState([]);
   const [isLoadedItem, setIsLoadedItem] = React.useState(true);
@@ -24,7 +16,6 @@ function EditItem() {
   const [isLoadedField, setIsLoadedField] = React.useState(true);
   const [image, setImage] = React.useState();
   const [fields, setFields] = React.useState([]);
-
   const { itemId } = useParams();
   React.useEffect(() => {
     axios
@@ -64,88 +55,6 @@ function EditItem() {
     cl[idx] = obj;
     setFields([...cl]);
     console.log(fields);
-  };
-
-  const render = (element, i) => {
-    if (element.field_type === "Text") {
-      return (
-        <TextField
-          id="outlined-basic"
-          variant="outlined"
-          style={{ marginTop: "40px" }}
-          label={`${element.field_name}`}
-          defaultValue={`${element.field_value}`}
-          name={`${element.field_name}`}
-          onChange={e => handleChange(e, i)}
-        />
-      );
-    } else if (element.field_type === "Number") {
-      return (
-        <TextField
-          id="outlined-number"
-          type="number"
-          InputLabelProps={{ shrink: true }}
-          style={{ marginTop: "40px" }}
-          label={`${element.field_name}`}
-          defaultValue={`${element.field_value}`}
-          name={`${element.field_name}`}
-          onChange={e => handleChange(e, i)}
-        />
-      );
-    } else if (element.field_type === "BigText") {
-      return (
-        <TextField
-          id="filled-multiline-flexible"
-          multiline
-          maxRows={4}
-          variant="outlined"
-          style={{ marginTop: "40px" }}
-          label={`${element.field_name}`}
-          defaultValue={`${element.field_value}`}
-          name={`${element.field_name}`}
-          onChange={e => handleChange(e, i)}
-        />
-      );
-    } else if (element.field_type === "Boolean") {
-      return (
-        <FormControl fullWidth>
-          <InputLabel
-            id="demo-simple-select-label"
-            style={{ marginTop: "40px" }}
-          >
-            {element.field_value}
-          </InputLabel>
-          <Select
-            label={`${element.field_name}`}
-            style={{ marginTop: "40px" }}
-            InputLabelProps={{ shrink: true }}
-            defaultValue={`${element.field_value}`}
-            name={`${element.field_name}`}
-            onChange={e => handleChange(e, i)}
-          >
-            <MenuItem value={true}>True</MenuItem>
-            <MenuItem value={false}>False</MenuItem>
-          </Select>
-        </FormControl>
-      );
-    } else if (element.field_type === "Date") {
-      return (
-        <div>
-          <TextField
-            type="date"
-            InputProps={{
-              inputProps: { min: "1500-05-01", max: "2020-05-04" },
-            }}
-            style={{ marginTop: "40px", width: "100%" }}
-            InputLabelProps={{ shrink: true }}
-            label={`${element.field_name}`}
-            defaultValue={`${element.field_value}`}
-            name={`${element.field_name}`}
-            onChange={e => handleChange(e, i)}
-          />
-        </div>
-      );
-    }
   };
 
   const UpdateItem = () => {
@@ -209,6 +118,16 @@ function EditItem() {
                 >
                   Image
                 </Button>
+                <div style={{ textAlign: "center" }}>
+                  {image != null && (
+                    <img
+                      width="60"
+                      height="60"
+                      style={{ marginTop: "30px" }}
+                      src={URL.createObjectURL(image)}
+                    />
+                  )}
+                </div>
                 <input
                   ref={ref}
                   type="file"
@@ -224,7 +143,7 @@ function EditItem() {
                   defaultValue={`${item.item_name}`}
                   onChange={e => setItemName(e.target.value)}
                 />
-                {fields.map((field, i) => render(field, i))}
+                {fields.map((field, i) => render(field, i, handleChange))}
                 <br />
                 <Button
                   variant="contained"

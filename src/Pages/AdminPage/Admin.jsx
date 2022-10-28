@@ -1,15 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import { UserContext } from "../../Middleware/UserContext";
-import UserContainer from "./UserContainer";
-import InfoContainer from "./InfoContainer"
-import ManageContainer from './ManageContainer'
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { Grid, Avatar, Paper, Tooltip,IconButton } from "@mui/material";
-import AdminUserContainer from "./AdminUserContainer";
-
+import UserContainer from "../../Components/AdminPage/Containers/UserContainer";
+import InfoContainer from "../../Components/AdminPage/Containers/InfoContainer";
+import Tabs from "../../Components/AdminPage/Tabs";
+import { Grid } from "@mui/material";
 function Admin() {
-    const { user } = React.useContext(UserContext);
+  const { user } = React.useContext(UserContext);
   return (
     <div>
       <Grid container spacing={2}>
@@ -24,7 +20,7 @@ function Admin() {
           </Grid>
         </Grid>
         <Grid item sm={9} xs={12}>
-          <ManageContainer />
+          <Tabs />
         </Grid>
       </Grid>
     </div>

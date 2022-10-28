@@ -18,7 +18,7 @@ import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
-import { UserContext } from "../../../Middleware/UserContext";
+import { UserContext } from "../../Middleware/UserContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const Img = styled("img")({

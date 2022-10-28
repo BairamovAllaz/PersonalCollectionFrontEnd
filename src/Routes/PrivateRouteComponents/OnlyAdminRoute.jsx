@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import { UserContext } from "../../Middleware/UserContext";
-import Admin from "../../Components/AdminPage/Admin";
-import NotAdminPage from "../../Components/AdminPage/AdminComponents/NotAdminPage";
+import Admin from "../../Pages/AdminPage/Admin";
+import NotAdminPage from "../../Pages/InfoPages/NotAdminPage";
 function OnlyAdminRoute({children}) {
     const [isAuth, setisAuth] = useState(false);
     const { user } = React.useContext(UserContext);

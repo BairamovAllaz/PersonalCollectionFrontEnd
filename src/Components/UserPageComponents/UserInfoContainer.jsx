@@ -47,8 +47,8 @@ function UserInfoContainer({ element, user, DeleteUser }) {
               fontSize: "20px",
               fontWeight: "600",
               color: "gray",
-              padding : "20px",
-              textAlign : "center"
+              padding: "20px",
+              textAlign: "center",
             }}
           >
             {element.firstName} {element.lastName}

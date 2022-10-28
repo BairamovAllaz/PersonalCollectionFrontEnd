@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@material-ui/core";
-import UserContainer from "./UserContainer";
+import UserContainer from "../Containers/UserContainer";
 function AllUsers({ value, index, AllUsers }) {
   const [Users, setUsers] = React.useState([]);
 
@@ -11,15 +11,14 @@ function AllUsers({ value, index, AllUsers }) {
   return (
     <Box hidden={value !== index} id="allusers" aria-labelledby="All-users">
       <div
-        style=
-        {{
+        style={{
           width: "100%",
           maxheight: "500px",
           display: "flex",
           flexWrap: "wrap",
           overflowY: "scroll",
         }}
-        >
+      >
         {Users.length <= 0 ? (
           <p style={{ marginTop: "30px" }}>No User</p>
         ) : (

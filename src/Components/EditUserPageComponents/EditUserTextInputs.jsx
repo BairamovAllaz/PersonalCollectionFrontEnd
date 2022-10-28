@@ -11,7 +11,6 @@ import {
 import UpgradeIcon from "@mui/icons-material/Upgrade";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import axios from "axios";
-//TODO FIX IMAGE UPDATE
 function EditUserTextInputs({ user, userId }) {
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
@@ -114,11 +113,16 @@ function EditUserTextInputs({ user, userId }) {
             >
               Image
             </Button>
-             <div style = {{textAlign : "center"}}>
-      {
-        image != null &&<img width = "60" height = "60" style = {{marginTop : "30px"}} src = {URL.createObjectURL(image)}/>
-      }
-      </div>
+            <div style={{ textAlign: "center" }}>
+              {image != null && (
+                <img
+                  width="60"
+                  height="60"
+                  style={{ marginTop: "30px" }}
+                  src={URL.createObjectURL(image)}
+                />
+              )}
+            </div>
             <input
               ref={ref}
               type="file"
