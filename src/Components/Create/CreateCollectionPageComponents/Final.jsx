@@ -1,5 +1,5 @@
 import {useContext} from "react";
-import {InfoContext} from "../CreateCollection";
+import { InfoContext } from "../../../Pages/CreateCollectionPage/CreateCollection";
 import {Alert} from "@mui/material";
 import {Link} from "react-router-dom";
 

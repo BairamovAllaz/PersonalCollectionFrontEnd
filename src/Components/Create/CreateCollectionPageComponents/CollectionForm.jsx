@@ -7,7 +7,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import React, { useContext } from "react";
 import ReactMarkdown from "react-markdown";
-import { InfoContext } from "../CreateCollection";
+import { InfoContext } from "../../../Pages/CreateCollectionPage/CreateCollection";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";

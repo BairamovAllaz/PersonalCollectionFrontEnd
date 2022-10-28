@@ -6,7 +6,7 @@ import {Alert, FormControl, InputLabel, Select} from "@mui/material";
 import { makeStyles } from '@mui/styles';
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
-import {InfoContext} from '../CreateCollection'
+import { InfoContext } from "../../../Pages/CreateCollectionPage/CreateCollection";
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
