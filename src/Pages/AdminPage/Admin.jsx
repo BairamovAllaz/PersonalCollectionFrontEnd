@@ -9,7 +9,7 @@ function Admin() {
   return (
     <div>
       <Grid container spacing={2}>
-        <Grid item sm={3} xs={12}>
+        <Grid item sm={4} xs={12}>
           <Grid container>
             <Grid item xs={12}>
               <UserContainer userProp={user} userStatus="Active" />
@@ -19,7 +19,7 @@ function Admin() {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item sm={9} xs={12}>
+        <Grid item sm={8} xs={12}>
           <Tabs />
         </Grid>
       </Grid>

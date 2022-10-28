@@ -20,7 +20,7 @@ function RenderMenu({anchorEl,menuId,isMenuOpen,handleMenuClose,userId}) {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>
-        <Link to={`/user/${userId}`} style={{ color: "black" }}>
+        <Link to={`/user/${userId}`} style={{ color: "#47c3e6" }}>
           Profile
         </Link>
       </MenuItem>

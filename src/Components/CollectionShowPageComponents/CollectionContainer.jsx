@@ -101,7 +101,7 @@ function CollectionContainer({ collection, userCol, user, userId }) {
     <Card>
       <CardContent>
         <Grid container>
-          <Grid item xs={4} md={12}>
+          <Grid item xs={12} md={12}>
             <CardMedia
               component="img"
               height="194"
@@ -120,7 +120,7 @@ function CollectionContainer({ collection, userCol, user, userId }) {
           </Grid>
           <Grid
             item
-            xs={8}
+            xs={12}
             md={12}
             sx={{ marginTop: "30px", textAlign: "center" }}
           >

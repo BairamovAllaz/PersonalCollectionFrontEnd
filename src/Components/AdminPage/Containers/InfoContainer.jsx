@@ -31,7 +31,7 @@ function InfoContainer() {
     return <div>Loading...</div>;
   }
   return (
-    <List sx={style} component="nav" aria-label="mailbox folders">
+    <List sx={style} component="nav" aria-label="mailbox folders" style = {{marginTop : "25px"}}>
       <ListItem>
         <ListItemText primary={`Total Users : ${infos.userCount}`} />
       </ListItem>

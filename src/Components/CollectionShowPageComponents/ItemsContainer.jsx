@@ -119,9 +119,8 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
     <Box
       sx={{
         marginTop: "20px",
-        overflowY: "auto",
-        textAlign: "center",
-        marginLeft: { sm: "140px" },
+        overflowY: "scroll",
+        marginLeft: { sm: "140px" }
       }}
     >
       <div>

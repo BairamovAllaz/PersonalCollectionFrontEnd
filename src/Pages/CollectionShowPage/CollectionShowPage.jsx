@@ -74,7 +74,12 @@ function CollectionShowPage() {
               >
                 <Grid container>
                   <Grid item md={4} xs={12}>
-                   <CollectionContainer collection = {collection} userCol = {userCol} user = {user} userId = {userId}/>
+                    <CollectionContainer
+                      collection={collection}
+                      userCol={userCol}
+                      user={user}
+                      userId={userId}
+                    />
                   </Grid>
                   <Grid item md={8} xs={12}>
                     <Box
@@ -98,20 +103,21 @@ function CollectionShowPage() {
                         />
                       </FormControl>
                     </Box>
-                    <Box
+                    <div
                       style={{
                         width: "100%",
-                        height: "auto",
-                        textAlign: "center",
+                        maxHeight: "500px",
                       }}
                     >
-                      <ItemsContainer
-                        items={collection.items}
-                        searchText={searchText}
-                        selectedFilter={selectedFilter}
-                        userId={userCol.Id}
-                      />
-                    </Box>
+                      <div style = {{textAlign: "center"}}>
+                        <ItemsContainer
+                          items={collection.items}
+                          searchText={searchText}
+                          selectedFilter={selectedFilter}
+                          userId={userCol.Id}
+                        />
+                      </div>
+                    </div>
                   </Grid>
                 </Grid>
               </Paper>

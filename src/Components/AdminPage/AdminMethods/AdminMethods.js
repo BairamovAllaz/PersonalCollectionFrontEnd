@@ -41,3 +41,25 @@ export function BlockUserById(userId) {
       console.log(err);
     });
 }
+
+export function ReturnDeletedUser(userId){
+  axios
+    .put(`${global.config.backendUrl}/admin/ReturnUserById/${userId}`)
+    .then(response => {
+      window.location.reload();
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+export function ReturnBlockedUser(userId){
+  axios
+    .put(`${global.config.backendUrl}/admin/ReturnBlockedUserById/${userId}`)
+    .then(response => {
+      window.location.reload();
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};

@@ -131,7 +131,9 @@ function DrawerC({ isDrawerOpened, handleCloseDrawer }) {
               )}
               {user.userRole === true && user.isBlocked != true ? (
                 <ListItemText style={{ margin: "0 auto", marginTop: "10px" }}>
-                  <Link to="/admin">Admin Page</Link>
+                  <Link to="/admin" style={{ color: "#47c3e6" }}>
+                    Admin Page
+                  </Link>
                 </ListItemText>
               ) : (
                 <></>
@@ -204,8 +206,14 @@ function DrawerC({ isDrawerOpened, handleCloseDrawer }) {
               </ListItemButton>
 
               <ListItem>
-                <div style={{ width: "100%",display : "flex",justifyContent : "center"}}>
-                  <FormControl sx={{ m: 1, minWidth: 80,mt : 2 }} size="small">
+                <div
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  <FormControl sx={{ m: 1, minWidth: 80, mt: 2 }} size="small">
                     <InputLabel id="demo-simple-select-autowidth-label">
                       <LanguageIcon />
                     </InputLabel>

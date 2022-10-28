@@ -87,7 +87,7 @@ function CollectionBox({ item }) {
               />
             </ListItem>
           </List>
-          <Stack direction="row" spacing={2}>
+          <Stack direction="row" spacing={2} sx = {{mt : 2}}>
             <Tooltip title="Open Collection">
               <IconButton
                 sx={{

@@ -16,35 +16,16 @@ import {
   AddUserToAdmin,
   RemoveFromAdmin,
   BlockUserById,
+  ReturnDeletedUser,
+  ReturnBlockedUser
 } from "../AdminMethods/AdminMethods";
 function UserContainer({ userProp, userStatus }) {
-  const ReturnDeletedUser = userId => {
-    axios
-      .put(`${global.config.backendUrl}/admin/ReturnUserById/${userId}`)
-      .then(response => {
-        window.location.reload();
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-  const ReturnBlockedUser = userId => {
-    axios
-      .put(`${global.config.backendUrl}/admin/ReturnBlockedUserById/${userId}`)
-      .then(response => {
-        window.location.reload();
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
   const navigation = useNavigate();
   return (
     <Box
       sx={{
         height: { xs: "150px", sm: "200px" },
-        minWidth: "300px",
+        minWidth: '100%',
         margin: { xs: "10px auto" },
       }}
     >
@@ -80,12 +61,13 @@ function UserContainer({ userProp, userStatus }) {
                   {userProp.firstName}
                 </p>
                 {userProp.userRole == true && (
-                  <StarIcon sx={{ paddingRight: "20px" }} />
+                  <StarIcon sx = {{fontSize : "20px"}}/>
                 )}
                 <p style={{ marginLeft: "auto" }}>
                   {new Date(userProp.createdAt).toLocaleDateString()}
                 </p>
               </div>
+              <p style={{ fontSize: "13px" }}>{userProp.email}</p>
             </h4>
             <div style={{ textAlign: "left", color: "gray", display: "flex" }}>
               {userStatus === "Active" ? (
