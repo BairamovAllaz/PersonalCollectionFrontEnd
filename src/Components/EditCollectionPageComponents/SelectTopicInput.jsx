@@ -1,5 +1,6 @@
 import React from "react";
 import {FormControl,Typography,Select,MenuItem} from '@mui/material'
+import LoadingPage from "../../Utils/LoadingPage";
 import axios from 'axios';
 function SelectTopicInput({ handleSelectedInput,defaultTopic }) {
   const [isLoaded, setIsLoaded] = React.useState(true);
@@ -17,7 +18,7 @@ function SelectTopicInput({ handleSelectedInput,defaultTopic }) {
   }, []);
 
   if (isLoaded) {
-    return <div>Loading...</div>;
+    return <LoadingPage/>;
   }
   return (
     <FormControl fullWidth>

@@ -3,6 +3,7 @@ import TagCloud from "./ItemContainerComponents/TagCloud";
 import axios from "axios";
 import ItemBox from "./ItemContainerComponents/ItemBox";
 import Button from "@mui/material/Button";
+import LoadingPage from "../../../Utils/LoadingPage";
 import { useTranslation } from "react-i18next";
 
 function ItemContainers() {
@@ -54,7 +55,7 @@ function ItemContainers() {
   });
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingPage/>;
   }
 
   return (

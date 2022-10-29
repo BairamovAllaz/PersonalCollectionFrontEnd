@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import LoadingPage from "../Utils/LoadingPage";
 export const UserContext = React.createContext({});
 export default function Context(props) {
   const [user, setUser] = useState(null);
@@ -30,7 +31,7 @@ export default function Context(props) {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingPage/>;
   }
 
   return (

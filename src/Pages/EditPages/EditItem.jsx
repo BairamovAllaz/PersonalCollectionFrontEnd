@@ -9,6 +9,7 @@ import UpgradeIcon from "@mui/icons-material/Upgrade";
 import Container from "@mui/material/Container";
 import { TextField } from "@mui/material";
 import { render } from "../../Utils/RenderField";
+import LoadingPage from "../../Utils/LoadingPage";
 function EditItem() {
   const [items, setItems] = React.useState([]);
   const [isLoadedItem, setIsLoadedItem] = React.useState(true);
@@ -83,7 +84,7 @@ function EditItem() {
   };
 
   if (isLoadedItem || isLoadedField) {
-    return <div>Loading...</div>;
+    return <LoadingPage/>;
   }
   return (
     <div>

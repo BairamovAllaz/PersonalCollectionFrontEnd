@@ -15,6 +15,7 @@ import Paper from "@mui/material/Paper";
 import SendIcon from "@mui/icons-material/Send";
 import BadgeIcon from "@mui/icons-material/Badge";
 import io from "socket.io-client";
+import LoadingPage from "../../Utils/LoadingPage";
 import { useNavigate,  useParams } from "react-router-dom";
 
 function CommentBox({ itemId, currUser, userRole }) {
@@ -71,7 +72,7 @@ function CommentBox({ itemId, currUser, userRole }) {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingPage/>;
   }
 
   return (

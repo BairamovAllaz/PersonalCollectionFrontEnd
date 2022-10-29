@@ -15,6 +15,7 @@ import { UserContext } from "../../Middleware/UserContext";
 import ItemsAccordion from "../../Components/EditCollectionPageComponents/ItemsAccordion";
 import MarkDownAccordion from "../../Components/EditCollectionPageComponents/MarkDownAccordion";
 import SelectTopicInput from "../../Components/EditCollectionPageComponents/SelectTopicInput";
+
 function EditCollection() {
   const navigate = useNavigate();
   const { collectionId, userId } = useParams();

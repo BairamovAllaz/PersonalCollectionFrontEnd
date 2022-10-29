@@ -6,6 +6,7 @@ import { Box, Paper, Grid } from "@mui/material";
 import CollectionList from "../../Components/UserPageComponents/CollectionList";
 import { UserContext } from "../../Middleware/UserContext";
 import UserInfoContainer from "../../Components/UserPageComponents/UserInfoContainer";
+import LoadingPage from "../../Utils/LoadingPage";
 
 function UserPage() {
   const { userId } = useParams();
@@ -42,7 +43,7 @@ function UserPage() {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingPage/>
   }
 
   return (

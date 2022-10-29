@@ -3,6 +3,7 @@ import { useState } from "react";
 import Home from "../../Pages/HomePages/Home";
 import * as React from "react";
 import axios from "axios";
+import LoadingPage from "../../Utils/LoadingPage";
 export { PrivateRoute };
 function PrivateRoute({ children }) {
   const [isAuth, setisAuth] = useState(false);
@@ -31,7 +32,7 @@ function PrivateRoute({ children }) {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingPage/>;
   }
   return isAuth ? <Home /> : <Navigate to="/auth" />;
 }

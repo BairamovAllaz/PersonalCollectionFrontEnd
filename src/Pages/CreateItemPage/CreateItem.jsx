@@ -4,6 +4,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import React from "react";
 import Box from "@mui/material/Box";
+import LoadingPage from "../../Utils/LoadingPage";
 import {
   Autocomplete,
   Avatar,
@@ -85,7 +86,7 @@ function CreateItem() {
   };
 
   if (loadedFields || loadedTags) {
-    return <div>Loading...</div>;
+    return <LoadingPage/>;
   }
 
   const render = (element, i) => {

@@ -1,6 +1,7 @@
 import React from "react";
 import CollectionBox from "./CollectionContainerComponents/CollectionBox";
 import Carousel from "react-material-ui-carousel";
+import LoadingPage from "../../../../Utils/LoadingPage";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 function CollectionContainer() {
@@ -24,7 +25,7 @@ function CollectionContainer() {
   }, []);
 
   if (loading) {
-    return <div>Loading....</div>;
+    return <LoadingPage/>;
   }
   return (
     <div style={{ width: "100%" }}>

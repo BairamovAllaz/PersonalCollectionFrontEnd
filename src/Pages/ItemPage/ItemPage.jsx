@@ -7,6 +7,7 @@ import { UserContext } from "../../Middleware/UserContext";
 import CommentBox from "../../Components/ItemPageComponents/CommentBox";
 import ItemContainer from "../../Components/ItemPageComponents/ItemContainer";
 import InfoContainer from "../../Components/ItemPageComponents/InfoContainer";
+import LoadingPage from "../../Utils/LoadingPage";
 function ItemShow() {
   const { userId, collectionId, itemId } = useParams();
   const [isLoaded, setIsLoaded] = React.useState(true);
@@ -29,7 +30,7 @@ function ItemShow() {
   }, []);
 
   if (isLoaded) {
-    return <div>Loading...</div>;
+    return <LoadingPage/>;
   }
   return (
     <div>

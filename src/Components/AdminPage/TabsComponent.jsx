@@ -13,6 +13,7 @@ import axios from "axios";
 import { UserContext } from "../../Middleware/UserContext";
 import DeletedUsers from "./TabsComponents/DeletedUsers";
 import BlockedUsers from "./TabsComponents/BlockedUsers";
+import LoadingPage from '../../Utils/LoadingPage'
 function TabsComponents() {
   const [value, setValue] = React.useState(0);
   const [isLoadedusers, setIsLoadedusers] = React.useState(true);
@@ -45,7 +46,7 @@ function TabsComponents() {
   });
 
   if (isLoadedusers) {
-    return <div>Loading...</div>;
+    return <LoadingPage/>;
   }
 
   return (

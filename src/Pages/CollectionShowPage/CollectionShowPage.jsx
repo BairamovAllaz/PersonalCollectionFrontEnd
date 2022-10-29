@@ -4,6 +4,7 @@ import axios from "axios";
 import { UserContext } from "../../Middleware/UserContext";
 import ItemsContainer from "../../Components/CollectionShowPageComponents/ItemsContainer";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import LoadingPage from "../../Utils/LoadingPage";
 import {
   FormLabel,
   FormControl,
@@ -46,7 +47,7 @@ function CollectionShowPage() {
   }, []);
 
   if (isLoaded) {
-    return <div>Loading...</div>;
+    return <LoadingPage/>;
   }
 
   return (

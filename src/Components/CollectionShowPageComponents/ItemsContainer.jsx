@@ -92,7 +92,7 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
   };
 
   if (items.length <= 0) {
-    return <div style={{ marginTop: "30px" }}>No Item yet</div>;
+    return <div style={{ marginTop: "30px" }}>No Item yet</div>; //TODO ADD NOT ITEM COMPONENT
   }
 
   const SearchedItems = Items.filter(el => {
