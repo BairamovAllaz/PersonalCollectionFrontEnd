@@ -1,20 +1,20 @@
 import React from "react";
 import PrivateRoute from "./PrivateRouteComponents/PrivateRoute";
-import Auth from "../Pages/Auth/AuthPage";
-import Home from "../Pages/HomePages/Home";
+import Auth from "../Pages/Auth/index";
+import Home from "../Pages/Home/index";
 import LoginSuccess from "../Pages/Auth/LoginSuccess";
 import ForgotPassword from "../Pages/Auth/ForgotPassword";
-import CreateCollection from "../Pages/CreateCollectionPage/CreateCollection";
-import Admin from "../Pages/AdminPage/Admin";
+import CreateCollection from "../Pages/CreateCollection/index";
+import Admin from "../Pages/Admin/index";
 import OnlyAdminRoute from "../Routes/PrivateRouteComponents/OnlyAdminRoute";
-import UserPage from "../Pages/UserPage/UserPage";
-import CollectionShowPage from "../Pages/CollectionShowPage/CollectionShowPage";
-import UserEdit from "../Pages/EditPages/UserEdit";
+import UserPage from "../Pages/User/index";
+import CollectionShowPage from "../Pages/CollectionShow";
+import UserEdit from "../Pages/UserEdit/index";
 import OwnPageRoute from "./PrivateRouteComponents/OwnPageRoute";
-import CreateItem from "../Pages/CreateItemPage/CreateItem";
-import EditCollection from "../Pages/EditPages/EditCollection";
-import EditItem from "../Pages/EditPages/EditItem";
-import ItemPage from "../Pages/ItemPage/ItemPage";
+import CreateItem from "../Pages/CreateItem/index";
+import EditCollection from "../Pages/CollectionEdit/index"
+import EditItem from "../Pages/ItemEdit/index";
+import ItemPage from "../Pages/ItemShow/index";
 import { Routes, Route } from "react-router-dom";
 function AuthRoutes() {
   return (
@@ -91,5 +91,4 @@ function AuthRoutes() {
     </Routes>
   );
 }
-
 export default AuthRoutes;
