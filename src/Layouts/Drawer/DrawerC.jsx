@@ -11,6 +11,7 @@ import {
   Divider,
   Drawer,
   Avatar,
+  Button
 } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -138,6 +139,13 @@ function DrawerC({ isDrawerOpened, handleCloseDrawer }) {
               ) : (
                 <></>
               )}
+              {
+                user.userRole == "Guest" && (
+                    <div style = {{textAlign : "center",marginTop :"20px"}}>
+                        <Button onClick = {() => navigation("/auth")}>Join</Button>
+                    </div>
+                )
+              }
             </ListItem>
             <ListItem sx={{ display: "block" }}>
               <ListItemButton

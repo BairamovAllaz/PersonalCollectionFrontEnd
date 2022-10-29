@@ -1,14 +1,19 @@
-import { useState } from "react";
+import React from "react";
 import Button from "@mui/material/Button";
 import Login from "../../Components/AuthComponents/Login";
 import Sign from "../../Components/AuthComponents/Sign";
 import AuthFotter from "../../Components/AuthComponents/AuthFotter";
-import { Container, Paper, Typography ,Box,Stack} from "@mui/material";
+import { Container, Paper, Typography, Box, Stack } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import "./styles/Auth.scss";
 function AuthPage() {
-  const [isLog, setisLog] = useState(true);
-    const { t } = useTranslation();
+  const [isLog, setisLog] = React.useState(true);
+  const { t } = useTranslation();
+  React.useEffect(() => {
+    if (localStorage.getItem("user") != null) {
+      localStorage.removeItem("user");
+    }
+  }, []);
   return (
     <Container
       component="main"
