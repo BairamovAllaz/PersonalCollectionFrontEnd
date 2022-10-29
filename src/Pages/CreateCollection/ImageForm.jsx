@@ -1,4 +1,4 @@
-import "./Style/ImageForm.css";
+import "./Styles/ImageForm.css";
 import { useDropzone } from "react-dropzone";
 import Container from "@mui/material/Container";
 import React, { useContext } from "react";
