@@ -5,6 +5,7 @@ import { UserContext } from "../../Middleware/UserContext";
 import ItemsContainer from "./ItemsContainer";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import LoadingPage from "../../Utils/LoadingPage";
+import {useStyles} from './Styles/index.style'
 import {
   FormLabel,
   FormControl,
@@ -16,12 +17,14 @@ import {
 import FilterComponent from "./FilterComponent";
 import CollectionContainer from "./CollectionContainer";
 function CollectionShowPage() {
+  const classes = useStyles();
   const { user } = React.useContext(UserContext);
   const { userId, collectionId } = useParams();
   const [values, setValues] = React.useState([]);
   const [isLoaded, setIsLoaded] = React.useState(true);
   const [selectedFilter, setSelectedFilter] = React.useState("Default");
   const [searchText, setSearchText] = React.useState("");
+  
   const handleChangeSearchText = text => {
     setSearchText(text);
   };
@@ -51,24 +54,18 @@ function CollectionShowPage() {
   }
 
   return (
-    <Box sx={{ width: "100%", height: "100%" }}>
+    <Box className={classes.BoxMain}>
       {values.map(userCol =>
         userCol.collections.map(collection =>
           collection.isDelete === true ? (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                marginTop: "20px",
-              }}
-            >
+            <div className={classes.DeletedDiv}>
               <h1>
                 <DeleteForeverIcon />
                 Collection Deleted
               </h1>
             </div>
           ) : (
-            <Container maxWidth={false} sx={{ marginTop: "30px" }}>
+            <Container maxWidth={false} className={classes.ContainerMain}>
               <Paper
                 variant="outlined"
                 sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
@@ -83,20 +80,10 @@ function CollectionShowPage() {
                     />
                   </Grid>
                   <Grid item md={8} xs={12}>
-                    <Box
-                      sx={{
-                        maxWidth: "100%",
-                        height: "auto",
-                        marginLeft: { sm: "140px" },
-                      }}
-                    >
+                    <Box className={classes.FormBox}>
                       <FormControl>
                         <FormLabel id="demo-row-radio-buttons-group-label">
-                          <h2
-                            style={{ textAlign: "center", paddingTop: "20px" }}
-                          >
-                            Items
-                          </h2>
+                          <h2 className={classes.ItemsText}>Items</h2>
                         </FormLabel>
                         <FilterComponent
                           handleFilterChange={handleFilterChange}
@@ -104,20 +91,13 @@ function CollectionShowPage() {
                         />
                       </FormControl>
                     </Box>
-                    <div
-                      style={{
-                        width: "100%",
-                        maxHeight: "500px",
-                      }}
-                    >
-                      <div style = {{textAlign: "center"}}>
+                    <div className={classes.DivItemsContainer}>
                         <ItemsContainer
                           items={collection.items}
                           searchText={searchText}
                           selectedFilter={selectedFilter}
                           userId={userCol.Id}
                         />
-                      </div>
                     </div>
                   </Grid>
                 </Grid>

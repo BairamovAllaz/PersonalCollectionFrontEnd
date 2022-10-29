@@ -13,29 +13,32 @@ import {
   Tooltip,
   IconButton,
 } from "@mui/material";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { useStyles } from "./Styles/CollectionBox.style";
 function CollectionBox({ item }) {
+  const classes = useStyles();
   const navigate = useNavigate();
-    const { t } = useTranslation();
+  const { t } = useTranslation();
+
+  const navigateTo = url => {
+    navigate(url);
+  };
   return (
-    <Paper style={{ width: "100%" }}>
-      <Card sx={{ width: "100%" }}>
+    <Paper className={classes.PaperContainer}>
+      <Card className={classes.CardContainer}>
         <CardMedia
           component="img"
-          sx={{ maxHeight: "250px", minWidth: "280px" }}
-          width="70"
+          className={classes.CardMedia}
+          width = "70"
           image={item.image}
         />
-        <CardContent sx={{ textAlign: "center" }}>
+        <CardContent className={classes.CardContent}>
           <List
-            sx={{
-              bgcolor: "background.paper",
-              marginLeft: "20px",
-              margin: "0 auto",
-            }}
+            className={classes.List}
+            sx = {{bgcolor : "background.paper"}}
             component="nav"
             aria-label="mailbox folders"
           >
@@ -44,20 +47,29 @@ function CollectionBox({ item }) {
               <ListItemIcon>
                 <p>{t("name")}</p>
               </ListItemIcon>
-              <ListItemText primary={item.name} sx={{ textAlign: "center" }} />
+              <ListItemText
+                primary={item.name}
+                className={classes.ListItemText}
+              />
             </ListItem>
             <ListItem>
               <ListItemIcon>
                 <p>{t("about")}</p>
               </ListItemIcon>
-              <ListItemText primary={item.about} sx={{ textAlign: "center" }} />
+              <ListItemText
+                primary={item.about}
+                className={classes.ListItemText}
+              />
             </ListItem>
             <Divider light />
             <ListItem>
               <ListItemIcon>
                 <p>{t("topic")}</p>
               </ListItemIcon>
-              <ListItemText primary={item.topic} sx={{ textAlign: "center" }} />
+              <ListItemText
+                primary={item.topic}
+                className={classes.ListItemText}
+              />
             </ListItem>
             <ListItem>
               <ListItemIcon>
@@ -65,7 +77,7 @@ function CollectionBox({ item }) {
               </ListItemIcon>
               <ListItemText
                 primary={item.ItemCount}
-                sx={{ textAlign: "center" }}
+                className={classes.ListItemText}
               />
             </ListItem>
             <ListItem>
@@ -74,7 +86,7 @@ function CollectionBox({ item }) {
               </ListItemIcon>
               <ListItemText
                 primary={`${item.user.firstName} ${item.user.lastName}`}
-                sx={{ textAlign: "center" }}
+                className={classes.ListItemText}
               />
             </ListItem>
             <ListItem>
@@ -83,20 +95,16 @@ function CollectionBox({ item }) {
               </ListItemIcon>
               <ListItemText
                 primary={new Date(item.createdAt).toLocaleDateString()}
-                sx={{ textAlign: "center" }}
+                className={classes.ListItemText}
               />
             </ListItem>
           </List>
-          <Stack direction="row" spacing={2} sx = {{mt : 2}}>
+          <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
             <Tooltip title="Open Collection">
               <IconButton
-                sx={{
-                  cursor: "pointer",
-                  fontSize: "30px",
-                  marginLeft: "30px",
-                }}
+                className={classes.IconButton}
                 onClick={() =>
-                  navigate(`/User/${item.userId}/collection/${item.Id}`)
+                  navigateTo(`/User/${item.userId}/collection/${item.Id}`)
                 }
               >
                 <OpenInNewIcon />
@@ -104,11 +112,8 @@ function CollectionBox({ item }) {
             </Tooltip>
             <Tooltip title="Open user">
               <IconButton
-                sx={{
-                  cursor: "pointer",
-                  fontSize: "30px",
-                }}
-                onClick={() => navigate(`/User/${item.userId}`)}
+                className={classes.IconButtonAccount}
+                onClick={() => navigateTo(`/User/${item.userId}`)}
               >
                 <AccountCircleIcon />
               </IconButton>

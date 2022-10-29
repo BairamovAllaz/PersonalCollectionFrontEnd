@@ -2,7 +2,6 @@ import {Grid,Container} from '@mui/material';
 import CollectionContainer from './CollectionContainer';
 import ItemContainers from './ItemContainers';
 function Home() {
-
     return (
       <Container maxWidth="md" sx={{ textAlign: "center" }}>
         <Grid container>

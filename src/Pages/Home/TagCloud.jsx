@@ -3,7 +3,9 @@ import { Box, Stack, Chip } from "@mui/material";
 import axios from "axios";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { useTheme } from "@emotion/react";
+import {useStyles} from './Styles/TagCloud.style'
 function TagCloud({ selectedTags, handleClick }) {
+  const classes = useStyles();
   const [tags, setTags] = React.useState([]);
   const [loaded, setLoaded] = React.useState(true);
   const theme = useTheme();
@@ -24,18 +26,7 @@ function TagCloud({ selectedTags, handleClick }) {
   }
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        maxHeight: "200px",
-        display: "flex",
-        flexWrap: "wrap",
-        justifyContent: "center",
-        aligntItems: "center",
-        gap: "10px",
-        marginTop: "30px",
-      }}
-    >
+    <Box className={classes.MainBox}>
       <div>
         <FilterListIcon />
       </div>

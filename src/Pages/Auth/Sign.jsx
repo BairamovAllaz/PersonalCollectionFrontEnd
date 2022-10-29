@@ -1,11 +1,13 @@
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Box } from "@mui/material";
 import { BiImageAdd } from "react-icons/bi";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import axios from "axios";
+import { useStyles } from "./Styles/Sign.style";
 
 function Sign() {
+  const classes = useStyles();
   const [firstName, setfirstName] = useState("");
   const [lastName, setlastName] = useState("");
   const [email, setEmail] = useState("");
@@ -13,20 +15,15 @@ function Sign() {
   const [image, setImage] = useState();
   const { t } = useTranslation();
 
-  const RegisterClick = e => {
+  const RegisterClick = async e => {
     e.preventDefault();
     if (isBlankInputsRegister()) {
       alert("Please fill all the input fileds");
       return;
     }
-    const UserData = new FormData();
-    UserData.append("firstName", firstName);
-    UserData.append("lastName", lastName);
-    UserData.append("email", email);
-    UserData.append("password", password);
-    UserData.append("image", image);
+    const payload = CreateUser();
     axios
-      .post(`${global.config.backendUrl}/v1/register`, UserData, {
+      .post(`${global.config.backendUrl}/v1/register`, payload, {
         withCredentials: true,
         headers: { "Content-Type": "multipart/form-data" },
       })
@@ -37,16 +34,7 @@ function Sign() {
       .catch(err => {
         alert(err.response.data);
       });
-    clearInputs();
   };
-
-  function clearInputs() {
-    setEmail("");
-    setPassword("");
-    setfirstName("");
-    setlastName("");
-    setImage(undefined);
-  }
 
   function isBlankInputsRegister() {
     if (
@@ -62,14 +50,52 @@ function Sign() {
     return false;
   }
 
+  function clearInputs() {
+    setEmail("");
+    setPassword("");
+    setfirstName("");
+    setlastName("");
+    setImage(undefined);
+  }
+
+  const CreateUser = () => {
+    const UserData = new FormData();
+    UserData.append("firstName", firstName);
+    UserData.append("lastName", lastName);
+    UserData.append("email", email);
+    UserData.append("password", password);
+    UserData.append("image", image);
+    return UserData;
+  };
+
+  const handleChangeFirstName = e => {
+    setfirstName(e.target.value);
+  };
+
+  const handleChangeLastName = e => {
+    setlastName(e.target.value);
+  };
+
+  const handleChangeEmail = e => {
+    setEmail(e.target.value);
+  };
+
+  const handleChangePassword = e => {
+    setPassword(e.target.value);
+  };
+
+  const handleImageChange = e => {
+    setImage(e.target.files[0]);
+  };
+
   return (
-    <div>
+    <Box>
       <TextField
         className="outlined-basic"
         label={`${t("firstname")}*`}
         variant="outlined"
         style={{ marginTop: "20px" }}
-        onChange={e => setfirstName(e.target.value)}
+        onChange={handleChangeFirstName}
         value={firstName}
       />
       <TextField
@@ -77,7 +103,7 @@ function Sign() {
         label={`${t("lastname")}*`}
         variant="outlined"
         style={{ marginTop: "20px" }}
-        onChange={e => setlastName(e.target.value)}
+        onChange={handleChangeLastName}
         value={lastName}
       />
       <TextField
@@ -85,7 +111,7 @@ function Sign() {
         label={`${t("email")}*`}
         variant="outlined"
         style={{ marginTop: "20px" }}
-        onChange={e => setEmail(e.target.value)}
+        onChange={handleChangeEmail}
         value={email}
       />
       <TextField
@@ -94,54 +120,35 @@ function Sign() {
         variant="outlined"
         type="password"
         style={{ marginTop: "20px" }}
-        onChange={e => setPassword(e.target.value)}
+        onChange={handleChangePassword}
         value={password}
       />
       <Button
         variant="contained"
         component="label"
-        style={{
-          marginTop: "15px",
-          width: "65%",
-          height: "50px",
-        }}
+        className={classes.ImageButton}
       >
-        <BiImageAdd
-          style={{
-            paddingRight: "10px",
-            fontSize: "20px",
-          }}
-        />
-         
+        <BiImageAdd className={classes.BiImageAdd} />
         <b>{t("profile_image_text")}</b>
-        <input
-          type="file"
-          hidden
-          onChange={e => {
-            setImage(e.target.files[0]);
-          }}
-        />
+        <input type="file" hidden onChange={handleImageChange} />
       </Button>
-      <div style = {{textAlign : "center"}}>
-      {
-        image != null &&<img width = "60" height = "60" style = {{marginTop : "30px"}} src = {URL.createObjectURL(image)}/>
-      }
-      </div>
+      <Box className={classes.TextAlignDiv}>
+        {image != null && (
+          <img
+            className={classes.ImagePreview}
+            src={URL.createObjectURL(image)}
+          />
+        )}
+      </Box>
       <Button
-      
         variant="contained"
         startIcon={<AppRegistrationIcon />}
-        style={{
-          background: "linear-gradient(to bottom,#cb42f5,#f542ec)",
-          marginTop: "40px",
-          width: "70%",
-          height: "50px",
-        }}
+        className={classes.SignButton}
         onClick={RegisterClick}
       >
         {t("sign_text")}
       </Button>
-    </div>
+    </Box>
   );
 }
 

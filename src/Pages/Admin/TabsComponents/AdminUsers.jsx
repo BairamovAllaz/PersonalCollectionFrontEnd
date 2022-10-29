@@ -1,7 +1,9 @@
 import React from "react";
 import UserContainer from "../UserContainer";
 import Box from "@material-ui/core/Box";
+import {useStyles} from '../Styles/TabCompoents.style'
 function AllAdmins({ value, index, AllAdmins }) {
+  const classes = useStyles();
   const [admins, setAdmins] = React.useState([]);
 
   React.useEffect(() => {
@@ -9,15 +11,7 @@ function AllAdmins({ value, index, AllAdmins }) {
   }, [AllAdmins]);
   return (
     <div hidden={value !== index} id="alladmins" aria-labelledby="All-admins">
-      <Box
-        style={{
-          width: "100%",
-          maxheight: "500px",
-          display: "flex",
-          flexWrap: "wrap",
-          overflowY: "scroll",
-        }}
-      >
+      <Box className={classes.MainBox}>
         {admins.length <= 0 ? (
           <div style={{ width: "100%" }}>
             <p style={{ textAlign: "center" }}>No admins expect you</p>

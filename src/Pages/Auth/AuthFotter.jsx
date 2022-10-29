@@ -4,13 +4,14 @@ import ModalForgotPassword from "./Modals/ModalForgotPassword";
 import ModalGuestAccount from "./Modals/ModalGuestAccount";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import { useTranslation } from "react-i18next";
+import { useStyles } from "./Styles/AuthFooter.style";
 import { useState } from "react";
 
 function AuthFotter() {
-  //MODAL STATES
+  const classes = useStyles();
   const [openGuest, setOpenGuest] = useState(false);
   const [openForgot, setOpenForgot] = useState(false);
-    const { t } = useTranslation();
+  const { t } = useTranslation();
 
   const handleClickOpenGuest = () => {
     setOpenGuest(!openGuest);
@@ -28,36 +29,26 @@ function AuthFotter() {
       "width=500,height=600"
     );
   };
+
   return (
     <div style={{ marginTop: "10px" }}>
       <GoogleButton
         type="light"
-        onClick={() => {
-          console.log("clicm");
-          authWithGoogle();
-        }}
-        style={{
-          margin: "0 auto",
-          width: "70%",
-          marginTop: "20px",
-        }}
+        className={classes.GoogleButton}
+        onClick={() => authWithGoogle()}
       />
       <Button
         variant="contained"
         startIcon={<AssignmentIndIcon />}
-        style={{
-          width: "70%",
-          height: "50px",
-          margin: "20px auto",
-        }}
+        className={classes.OpenGuestButton}
         onClick={handleClickOpenGuest}
       >
         <b>{t("guest_account")}</b>
       </Button>
-      <div style={{ marginBottom: "20px" }}>
+      <div className={classes.DivContainer}>
         <p
           onClick={handleClickOpenForgot}
-          style={{ cursor: "pointer", color: "blue" }}
+          className={classes.ForgotPasswordText}
         >
           {t("forgot_password")}
         </p>

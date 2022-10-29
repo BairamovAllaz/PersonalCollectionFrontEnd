@@ -1,14 +1,14 @@
-import {TextField,Box,Button} from "@mui/material";
+import { TextField, Box, Button } from "@mui/material";
 import LoginIcon from "@mui/icons-material/Login";
 import { useTranslation } from "react-i18next";
 import React, { useState } from "react";
+import { useStyles } from "./Styles/Login.style";
 import axios from "axios";
 function Login() {
+  const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-    const { t } = useTranslation();
-    
-
+  const { t } = useTranslation();
   const LoginClick = () => {
     if (isBlankInputsLogin()) {
       alert("Fields cannot be empty");
@@ -47,34 +47,37 @@ function Login() {
     setPassword("");
   }
 
+  const handleChangeEmail = e => {
+    setEmail(e.target.value);
+  };
+
+  const handleChangePassword = e => {
+    setPassword(e.target.value);  
+  };
+
   return (
     <Box>
       <TextField
         className="outlined-basic"
         label={`${t("email")}*`}
         variant="outlined"
-        style={{ marginTop: "20px" }}
-        onChange={e => setEmail(e.target.value)}
-        value={email}
+        className={classes.TextFieldStyle}
+        onChange={handleChangeEmail}
+        value={handleChangePassword}
       />
       <TextField
         className="outlined-basic"
         label={`${t("password")}*`}
         variant="outlined"
         type="password"
-        style={{ marginTop: "20px" }}
+        className={classes.TextFieldStyle}
         onChange={e => setPassword(e.target.value)}
         value={password}
       />
       <Button
         variant="contained"
         startIcon={<LoginIcon />}
-        style={{
-          background: "linear-gradient(to bottom,#cb42f5,#f542ec)",
-          marginTop: "20px",
-          width: "70%",
-          height: "50px",
-        }}
+        className={classes.LoginButton}
         onClick={LoginClick}
       >
         {t("login_text")}

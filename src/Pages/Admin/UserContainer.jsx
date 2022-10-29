@@ -11,6 +11,7 @@ import PlaylistRemoveIcon from "@mui/icons-material/PlaylistRemove";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 import BlockIcon from "@mui/icons-material/Block";
 import { useNavigate } from "react-router-dom";
+import { useStyles } from "./Styles/UserContainer.style";
 import {
   DeleteUser,
   AddUserToAdmin,
@@ -20,12 +21,13 @@ import {
   ReturnBlockedUser
 } from "./AdminMethods/AdminMethods";
 function UserContainer({ userProp, userStatus }) {
+  const classes = useStyles();
   const navigation = useNavigate();
   return (
     <Box
       sx={{
         height: { xs: "150px", sm: "200px" },
-        minWidth: '100%',
+        minWidth: "100%",
         margin: { xs: "10px auto" },
       }}
     >
@@ -38,22 +40,17 @@ function UserContainer({ userProp, userStatus }) {
         <Grid container wrap="nowrap" spacing={2}>
           <Grid
             item
-            style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+            className={classes.DivUserProfile}
             onClick={() => navigation(`/user/${userProp.Id}`)}
           >
             <Avatar
-              style={{ width: "70px", height: "70px" }}
+            className = {classes.Avatar}
               src={userProp.image}
             />
           </Grid>
           <Grid justifyContent="left" item xs zeroMinWidth>
             <h4 style={{ margin: 0, textAlign: "left" }}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
+              <div className = {classes.DivContaier}>
                 <p
                   style={{ marginRight: "20px", cursor: "pointer" }}
                   onClick={() => navigation(`/user/${userProp.Id}`)}
@@ -61,7 +58,7 @@ function UserContainer({ userProp, userStatus }) {
                   {userProp.firstName}
                 </p>
                 {userProp.userRole == true && (
-                  <StarIcon sx = {{fontSize : "20px"}}/>
+                  <StarIcon sx={{ fontSize: "20px" }} />
                 )}
                 <p style={{ marginLeft: "auto" }}>
                   {new Date(userProp.createdAt).toLocaleDateString()}

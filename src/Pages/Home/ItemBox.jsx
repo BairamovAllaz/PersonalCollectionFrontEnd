@@ -1,36 +1,19 @@
 import React from "react";
-import { styled } from "@mui/material/styles";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import Badge from "@mui/material/Badge";
 import { useNavigate } from "react-router-dom";
-import {Grid,Paper,Typography,ButtonBase,Chip} from "@mui/material";
+import { useStyles } from "./Styles/ItemBox.style";
+import { Grid, Paper, Typography, ButtonBase, Chip } from "@mui/material";
 
-const Img = styled("img")({
-  margin: "auto",
-  display: "block",
-  maxWidth: "100%",
-  maxHeight: "100%",
-});
-function ItemBox({item}) {
-    const navigate = useNavigate(); 
+function ItemBox({ item }) {
+  const classes = useStyles();
+  const navigate = useNavigate();
   return (
-    <Paper
-      sx={{
-        p: 2,
-        margin: "auto",
-        maxWidth: { xs: "100%", sm: "30%" },
-        flexGrow: 1,
-        marginTop: "60px",
-        justifyContent: "center",
-        backgroundColor: theme =>
-          theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-      }}
-    >
+    <Paper className={classes.MainPaper} sx={{backgroundColor: theme => theme.palette.mode === "dark" ? "#1A2027" : "#fff"}}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <ButtonBase sx={{ width: 128, height: 128 }}>
-            <Img alt="complex" src={item.image} />
+          <ButtonBase className={classes.ButtonBase}>
+            <img alt="complex" src={item.image} className={classes.Img} />
           </ButtonBase>
         </Grid>
         <Grid item xs={12} sm container>
@@ -40,7 +23,7 @@ function ItemBox({item}) {
                 gutterBottom
                 variant="subtitle1"
                 component="div"
-                sx={{ cursor: "pointer", fontSize: "25px" }}
+                className={classes.TypographyItemName}
                 onClick={() =>
                   navigate(
                     `/User/${item.collection.user.Id}/collection/${item.collection.Id}/Item/${item.Id}`
@@ -52,7 +35,7 @@ function ItemBox({item}) {
               <Typography
                 variant="body2"
                 gutterBottom
-                sx={{ pt: 1, cursor: "pointer" }}
+                className={classes.TypographyInfo}
                 onClick={() =>
                   navigate(
                     `/User/${item.collection.user.Id}/collection/${item.collectionId}`
@@ -64,28 +47,27 @@ function ItemBox({item}) {
               <Typography
                 variant="body2"
                 color="text.secondary"
-                sx={{ pt: 1, cursor: "pointer" }}
+                className={classes.TypographyInfo}
                 onClick={() => navigate(`/User/${item.collection.user.Id}`)}
               >
                 {item.collection.user.firstName}
               </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ pt: 1 }}>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                className={classes.TypographyInfo}
+                sx = {{pt: 1}}
+              >
                 {new Date(item.createdAt).toLocaleDateString()}
               </Typography>
-              <div style = {{width : "100%",display : "flex",justifyContent : "center"}}>
+              <div className={classes.MainDivTags}>
                 {item.itemTags.map(tag => (
-                  <Chip label={`${tag.tag_name}`} sx={{ marginLeft: "5px",marginTop :"10px" }} />
+                  <Chip label={`${tag.tag_name}`} className={classes.Chip} />
                 ))}
               </div>
             </Grid>
             <Grid item>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
+              <div className={classes.BageDiv}>
                 <p>
                   <Badge
                     badgeContent={

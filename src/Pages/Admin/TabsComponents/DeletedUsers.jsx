@@ -2,7 +2,9 @@ import React from "react";
 import UserContainer from "../UserContainer";
 import axios from "axios";
 import { Box } from "@mui/material";
+import { useStyles } from "../Styles/TabCompoents.style";
 function DeletedUsers({ value, index }) {
+  const classes = useStyles();
   const [users, setUsers] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
 
@@ -29,15 +31,7 @@ function DeletedUsers({ value, index }) {
       id="deletedUsers"
       aria-labelledby="Deleted-Users"
     >
-      <Box
-        style={{
-          width: "100%",
-          maxHeight: "500px",
-          display: "flex",
-          flexWrap: "wrap",
-          overflowY: "scroll",
-        }}
-      >
+      <Box className = {classes.MainBox}>
         {users.length <= 0 ? (
           <div style={{ width: "100%" }}>
             <p style={{ textAlign: "center" }}>No Deleted Users</p>

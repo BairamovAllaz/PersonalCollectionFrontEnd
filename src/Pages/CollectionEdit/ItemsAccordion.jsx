@@ -8,23 +8,19 @@ import {
   IconButton,
   ButtonBase,
   Typography,
+  Stack
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
-import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import { useStyles } from "./Styles/ItemsAccordion.style";
 import axios from 'axios'
-const Img = styled("img")({
-  margin: "auto",
-  display: "block",
-  maxWidth: "100%",
-  maxHeight: "100%",
-});
 
 function ItemsAccordion({collection, userId }) {
+  const classes = useStyles();
   const DeleteItem = itemId => {
     axios
       .delete(`${global.config.backendUrl}/items/DeleteItemById/${itemId}`, {
@@ -39,60 +35,45 @@ function ItemsAccordion({collection, userId }) {
   };
   const navigate = useNavigate();
   return (
-    <Accordion style={{ marginTop: "20px" }}>
+    <Accordion className={classes.MainAccordion}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
         <LibraryBooksIcon />
-        <Typography sx={{ ml: 2 }}>Items update</Typography>
+        <Typography className={classes.ItemUpdateText}>Items update</Typography>
       </AccordionSummary>
       <AccordionDetails>
         {collection.items.map(element => (
           <Grid container spacing={2}>
             <Grid item>
-              <ButtonBase sx={{ width: 80, height: 80 }}>
-                <Img alt="complex" src={element.image} />
+              <ButtonBase className={classes.ButtonBase}>
+                <img
+                  alt="complex"
+                  src={element.image}
+                  className={classes.Img}
+                />
               </ButtonBase>
             </Grid>
             <Grid item xs={6} sm container>
               <Grid item xs container direction="column" spacing={2}>
                 <Grid item xs>
+                  <div className={classes.DivItemName}>{element.item_name}</div>
                   <Typography
                     gutterBottom
                     variant="subtitle1"
                     component="div"
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
+                    className={classes.TypoElementName}
                   >
-                    <span style={{ fontWeight: "700" }}>
-                      {element.item_name}
-                    </span>
-                    <p style={{ display: "flex" }}>
+                    <Stack direction="row">
                       <Tooltip title="Delete Item">
-                        <IconButton
-                          sx={{
-                            marginLeft: "10px",
-                            color: "red",
-                            cursor: "pointer",
-                            fontSize: "20px",
-                            marginLeft: "30px",
-                          }}
-                        >
+                        <IconButton className={classes.IconButton}>
                           <DeleteIcon onClick={() => DeleteItem(element.Id)} />
                         </IconButton>
                       </Tooltip>
                       <Tooltip title="Edit Item">
-                        <IconButton
-                          sx={{
-                            paddingLeft: "30px",
-                            cursor: "pointer",
-                            fontSize: "20px",
-                          }}
-                        >
+                        <IconButton className={classes.IconButton}>
                           <EditIcon
                             onClick={() =>
                               navigate(
@@ -103,13 +84,7 @@ function ItemsAccordion({collection, userId }) {
                         </IconButton>
                       </Tooltip>
                       <Tooltip title="Edit Item">
-                        <IconButton
-                          sx={{
-                            paddingLeft: "20px",
-                            cursor: "pointer",
-                            fontSize: "20px",
-                          }}
-                        >
+                        <IconButton className={classes.IconButton}>
                           <OpenInNewIcon
                             onClick={() =>
                               navigate(
@@ -119,7 +94,7 @@ function ItemsAccordion({collection, userId }) {
                           />
                         </IconButton>
                       </Tooltip>
-                    </p>
+                    </Stack>
                   </Typography>
                 </Grid>
               </Grid>

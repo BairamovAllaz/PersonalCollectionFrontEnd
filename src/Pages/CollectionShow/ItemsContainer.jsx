@@ -21,14 +21,10 @@ import IconButton from "@mui/material/IconButton";
 import { UserContext } from "../../Middleware/UserContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-const Img = styled("img")({
-  margin: "auto",
-  display: "block",
-  maxWidth: "100%",
-  maxHeight: "100%",
-});
+import {useStyles} from './Styles/ItemContainer.style'
 
 function ItemsContainer({ items, searchText, selectedFilter, userId }) {
+  const classes = useStyles();
   const { user } = React.useContext(UserContext);
   const [Items, setItems] = React.useState([]);
   const [expanded, setExpanded] = React.useState("panel_0");
@@ -116,24 +112,14 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
   });
 
   return (
-    <Box
-      sx={{
-        marginTop: "20px",
-        overflowY: "scroll",
-        maxHeight : "500px",
-        marginLeft: { sm: "140px" }
-      }}
-    >
+    <Box>
       <div>
+        {/* TODO FIX REPOSNEVE MAKE STYLE */}
         {FiteredItems.map((element, id) => (
           <Accordion
             expanded={expanded === `panel_${id}`}
             onChange={handleChangeExpanded(`panel_${id}`)}
-            sx={{
-              marginTop: "20px",
-              width: { xs: "100%", sm: "60%" },
-              border: "solid 1px #e3e1da",
-            }}
+            className={classes.AccordionMain}
           >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -143,14 +129,18 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
               <Grid container spacing={2}>
                 <Grid item>
                   <ButtonBase
-                    sx={{ width: 80, height: 80 }}
+                    className={classes.ButtonBase}
                     onClick={() =>
                       navigate(
                         `/User/${userId}/collection/${element.collectionId}/Item/${element.Id}`
                       )
                     }
                   >
-                    <Img alt="complex" src={element.image} />
+                    <img
+                      alt="complex"
+                      src={element.image}
+                      className={classes.Img}
+                    />
                   </ButtonBase>
                   <Typography variant="subtitle1" component="div" noWrap>
                     {user.userRole != "Guest" && user.isBlocked != true ? (
@@ -208,13 +198,8 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
                         gutterBottom
                         variant="subtitle1"
                         component="div"
-                        sx={{
-                          display: "block",
-                          justifyContent: "center",
-                          marginTop: "10px",
-                        }}
                       >
-                        <span style={{ fontWeight: "700" }}>
+                        <span className={classes.TypoItemNameSpan}>
                           {element.item_name}
                         </span>
                         <p>{new Date(element.createdAt).toDateString()}</p>

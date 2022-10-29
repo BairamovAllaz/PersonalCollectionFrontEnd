@@ -19,6 +19,7 @@ import {
   Box,
   Stack,
 } from "@mui/material";
+import { useStyles } from "./Styles/CollectionContainer.style";
 import EditIcon from "@mui/icons-material/Edit";
 import DescriptionIcon from "@mui/icons-material/Description";
 import AddIcon from "@mui/icons-material/Add";
@@ -30,6 +31,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 function CollectionContainer({ collection, userCol, user, userId }) {
+  const classes = useStyles();
   const navigation = useNavigate();
   const [openDialog, setOpenDialog] = React.useState(false);
 
@@ -111,30 +113,20 @@ function CollectionContainer({ collection, userCol, user, userId }) {
             <CardHeader
               onClick={() => navigation(`/user/${userCol.Id}`)}
               avatar={<Avatar aria-label="recipe" src={userCol.image} />}
-              style={{ cursor: "pointer", marginLeft: "-15px" }}
+              className={classes.CardHeader}
               title={`${userCol.firstName}`}
               subheader={`${new Date(collection.createdAt).toLocaleDateString(
                 "en-US"
               )}`}
             />
           </Grid>
-          <Grid
-            item
-            xs={12}
-            md={12}
-            sx={{ marginTop: "30px", textAlign: "center" }}
-          >
+          <Grid item xs={12} md={12} className={classes.GridContainer}>
             <Typography sx={{ mb: 1.5 }} color="text.secondary" variant="h3">
               {collection.name}
             </Typography>
             <p>#{collection.topic}</p>
             <Typography variant="body2">
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
+              <div className={classes.TypoAbout}>
                 <span style={{ padding: "2px" }}>
                   <InfoIcon sx={{ fontSize: "20px" }} />
                   <p style={{ marginTop: "10px" }}>{collection.about}</p>
@@ -145,30 +137,17 @@ function CollectionContainer({ collection, userCol, user, userId }) {
         </Grid>
       </CardContent>
       <CardActions sx={{ padding: "20px" }}>
-        {user.userRole === "Guest" ||
-        user.isBlocked ||
-        (user.Id != userId && user.userRole !== true) ? (
-          <></>
-        ) : (
-          <>
+        {user.userRole != "Guest" &&
+         user.isBlocked != true &&
+          ((user.Id == userId || user.userRole == true) && (
             <Stack direction="row" spacing={2}>
               <Tooltip title="Delete">
-                <IconButton
-                  sx={{
-                    cursor: "pointer",
-                    fontSize: "30px",
-                  }}
-                >
+                <IconButton className={classes.IconButton}>
                   <DeleteIcon onClick={() => deleteCollection(collection.Id)} />
                 </IconButton>
               </Tooltip>
               <Tooltip title="Edit Collection">
-                <IconButton
-                  sx={{
-                    cursor: "pointer",
-                    fontSize: "30px",
-                  }}
-                >
+                <IconButton className={classes.IconButton}>
                   <EditIcon
                     onClick={() =>
                       navigation(
@@ -179,12 +158,7 @@ function CollectionContainer({ collection, userCol, user, userId }) {
                 </IconButton>
               </Tooltip>
               <Tooltip title="Add Item">
-                <IconButton
-                  sx={{
-                    cursor: "pointer",
-                    fontSize: "30px",
-                  }}
-                >
+                <IconButton className={classes.IconButton}>
                   <AddIcon
                     onClick={() =>
                       navigation(
@@ -196,18 +170,14 @@ function CollectionContainer({ collection, userCol, user, userId }) {
               </Tooltip>
               <Tooltip title="Open Description">
                 <IconButton
-                  sx={{
-                    cursor: "pointer",
-                    fontSize: "30px",
-                  }}
+                className={classes.IconButton}
                   onClick={handleClickOpenDialog}
                 >
                   <DescriptionIcon />
                 </IconButton>
               </Tooltip>
             </Stack>
-          </>
-        )}
+          ))}
         <CollectionDescModal
           isDialogOpened={openDialog}
           handleCloseDialog={() => setOpenDialog(false)}
@@ -231,11 +201,10 @@ function CollectionContainer({ collection, userCol, user, userId }) {
           ) : (
             <></>
           )}
-          {user.userRole != "Guest" ? (
+          {user.userRole != "Guest" && (
             <p>{collection.collectionLikes.length}</p>
-          ) : (
-            <></>
-          )}
+          )
+          }
         </Stack>
       </CardActions>
     </Card>
