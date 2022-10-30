@@ -2,20 +2,21 @@ import React from "react";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { CardMedia, ListItemText, Paper ,List,ListItem} from "@mui/material";
+import { CardMedia, ListItemText, Paper, List, ListItem } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import EditIcon from "@mui/icons-material/Edit";
-import Checkbox from "@mui/material/Checkbox";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-import Favorite from "@mui/icons-material/Favorite";
 import CardContent from "@mui/material/CardContent";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import Divider from "@mui/material/Divider";
+import Checkbox from "@mui/material/Checkbox";
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import Favorite from "@mui/icons-material/Favorite";
 function ItemContainer({ userId, userCol, collectionCol, itemCol, user }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
   const addLikeItem = itemId => {
     if (user.userRole === "Guest" || user.isBlocked) {
       alert(
@@ -61,10 +62,6 @@ function ItemContainer({ userId, userCol, collectionCol, itemCol, user }) {
       });
   };
 
-  function CheckUserLiked(likes) {
-    return likes.some(el => el.userId === user.Id);
-  }
-
   const DeleteItem = itemId => {
     axios
       .delete(`${global.config.backendUrl}/items/DeleteItemById/${itemId}`, {
@@ -77,6 +74,10 @@ function ItemContainer({ userId, userCol, collectionCol, itemCol, user }) {
         console.log(err);
       });
   };
+  function CheckUserLiked(likes) {
+    return likes.some(el => el.userId === user.Id);
+  }
+
   return (
     <CardContent>
       <CardMedia
@@ -131,8 +132,8 @@ function ItemContainer({ userId, userCol, collectionCol, itemCol, user }) {
             marginTop: "30px",
           }}
         >
-          {user.userRole !== "Guest" && user.isBlocked != true ? (
-            CheckUserLiked(itemCol.itemLikes) == true ? (
+          {user.userRole !== "Guest" && user.isBlocked != true && (
+             CheckUserLiked(itemCol.itemLikes) == true ? (
               <Checkbox
                 icon={<Favorite sx={{ color: "red" }} />}
                 checkedIcon={<FavoriteBorder />}
@@ -145,45 +146,41 @@ function ItemContainer({ userId, userCol, collectionCol, itemCol, user }) {
                 onClick={() => addLikeItem(itemCol.Id, itemCol.likes)}
               />
             )
-          ) : (
-            <></>
           )}
 
-          {(user.Id != userCol.Id && user.userRole != true) ||
-          user.isBlocked == true ? (
-            <></>
-          ) : (
-            <div>
-              <Tooltip title="Delete Item">
-                <IconButton
-                  sx={{
-                    cursor: "pointer",
-                    fontSize: "20px",
-                    marginLeft: "30px",
-                  }}
-                >
-                  <DeleteIcon onClick={() => DeleteItem(itemCol.Id)} />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Edit Item">
-                <IconButton
-                  sx={{
-                    marginLeft: "30px",
-                    cursor: "pointer",
-                    fontSize: "20px",
-                  }}
-                >
-                  <EditIcon
-                    onClick={() =>
-                      navigate(
-                        `/User/${collectionCol.userId}/collection/${collectionCol.Id}/Item/${itemCol.Id}/edit`
-                      )
-                    }
-                  />
-                </IconButton>
-              </Tooltip>
-            </div>
-          )}
+          {(user.Id == userCol.Id || user.userRole == true) &&
+            user.isBlocked == false && (
+              <div>
+                <Tooltip title="Delete Item">
+                  <IconButton
+                    sx={{
+                      cursor: "pointer",
+                      fontSize: "20px",
+                      marginLeft: "30px",
+                    }}
+                  >
+                    <DeleteIcon onClick={() => DeleteItem(itemCol.Id)} />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Edit Item">
+                  <IconButton
+                    sx={{
+                      marginLeft: "30px",
+                      cursor: "pointer",
+                      fontSize: "20px",
+                    }}
+                  >
+                    <EditIcon
+                      onClick={() =>
+                        navigate(
+                          `/User/${collectionCol.userId}/collection/${collectionCol.Id}/Item/${itemCol.Id}/edit`
+                        )
+                      }
+                    />
+                  </IconButton>
+                </Tooltip>
+              </div>
+            )}
           <Tooltip title="Open Collection">
             <IconButton
               sx={{

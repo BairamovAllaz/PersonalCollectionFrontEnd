@@ -3,9 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   Tooltip,
-  Checkbox,
-  FormLabel,
-  FormControl,
   Card,
   CardContent,
   CardHeader,
@@ -13,10 +10,8 @@ import {
   CardMedia,
   Typography,
   Avatar,
-  Paper,
+  CheckBox,
   Grid,
-  Container,
-  Box,
   Stack,
 } from "@mui/material";
 import { useStyles } from "./Styles/CollectionContainer.style";
@@ -138,8 +133,8 @@ function CollectionContainer({ collection, userCol, user, userId }) {
       </CardContent>
       <CardActions sx={{ padding: "20px" }}>
         {user.userRole != "Guest" &&
-         user.isBlocked != true &&
-          ((user.Id == userId || user.userRole == true) && (
+          user.isBlocked != true &&
+          (user.Id == userId || user.userRole == true) && (
             <Stack direction="row" spacing={2}>
               <Tooltip title="Delete">
                 <IconButton className={classes.IconButton}>
@@ -170,22 +165,22 @@ function CollectionContainer({ collection, userCol, user, userId }) {
               </Tooltip>
               <Tooltip title="Open Description">
                 <IconButton
-                className={classes.IconButton}
+                  className={classes.IconButton}
                   onClick={handleClickOpenDialog}
                 >
                   <DescriptionIcon />
                 </IconButton>
               </Tooltip>
             </Stack>
-          ))}
+          )}
         <CollectionDescModal
           isDialogOpened={openDialog}
           handleCloseDialog={() => setOpenDialog(false)}
           descText={collection.description}
         />
         <Stack direction="row" style={{ marginLeft: "auto" }}>
-          {user.userRole != "Guest" ? (
-            CheckUserLiked(collection.collectionLikes) == true ? (
+          {user.userRole != "Guest" &&
+            (CheckUserLiked(collection.collectionLikes) == true ? (
               <Checkbox
                 icon={<Favorite sx={{ color: "red" }} />}
                 checkedIcon={<FavoriteBorder />}
@@ -197,14 +192,10 @@ function CollectionContainer({ collection, userCol, user, userId }) {
                 checkedIcon={<Favorite sx={{ color: "red" }} />}
                 onClick={() => addLikeCollection(collection.Id)}
               />
-            )
-          ) : (
-            <></>
-          )}
+            ))}
           {user.userRole != "Guest" && (
             <p>{collection.collectionLikes.length}</p>
-          )
-          }
+          )}
         </Stack>
       </CardActions>
     </Card>

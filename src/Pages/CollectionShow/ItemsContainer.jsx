@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
 import Checkbox from "@mui/material/Checkbox";
@@ -11,8 +9,7 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Box, Button } from "@mui/material";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import { Box } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
@@ -143,7 +140,7 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
                     />
                   </ButtonBase>
                   <Typography variant="subtitle1" component="div" noWrap>
-                    {user.userRole != "Guest" && user.isBlocked != true ? (
+                    {user.userRole != "Guest" && user.isBlocked != true && (
                       CheckUserLiked(element.itemLikes) == true ? (
                         <Checkbox
                           icon={<Favorite sx={{ color: "red" }} />}
@@ -163,8 +160,6 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
                           }}
                         />
                       )
-                    ) : (
-                      <></>
                     )}
 
                     {user.userRole !== "Guest" && user.isBlocked != true ? (
