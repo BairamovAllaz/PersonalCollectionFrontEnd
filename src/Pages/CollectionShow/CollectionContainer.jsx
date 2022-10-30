@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
-  Tooltip,
   Card,
   CardContent,
   CardHeader,
@@ -10,20 +9,16 @@ import {
   CardMedia,
   Typography,
   Avatar,
-  CheckBox,
   Grid,
   Stack,
 } from "@mui/material";
+import CheckBox from "@mui/material/Checkbox";
 import { useStyles } from "./Styles/CollectionContainer.style";
-import EditIcon from "@mui/icons-material/Edit";
-import DescriptionIcon from "@mui/icons-material/Description";
-import AddIcon from "@mui/icons-material/Add";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
 import CollectionDescModal from "./CollectionDescModal";
-import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
-import DeleteIcon from "@mui/icons-material/Delete";
+import CollectionContainerButtons from "./CollectionContainerButtons";
 
 function CollectionContainer({ collection, userCol, user, userId }) {
   const classes = useStyles();
@@ -36,19 +31,6 @@ function CollectionContainer({ collection, userCol, user, userId }) {
 
   const handleClickOpenDialog = () => {
     setOpenDialog(!openDialog);
-  };
-
-  const deleteCollection = collectionId => {
-    axios
-      .delete(`${global.config.backendUrl}/collection/Delete/${collectionId}`, {
-        withCredentials: true,
-      })
-      .then(response => {
-        window.location.reload();
-      })
-      .catch(err => {
-        console.log(err);
-      });
   };
 
   const addLikeCollection = collectionId => {
@@ -135,43 +117,11 @@ function CollectionContainer({ collection, userCol, user, userId }) {
         {user.userRole != "Guest" &&
           user.isBlocked != true &&
           (user.Id == userId || user.userRole == true) && (
-            <Stack direction="row" spacing={2}>
-              <Tooltip title="Delete">
-                <IconButton className={classes.IconButton}>
-                  <DeleteIcon onClick={() => deleteCollection(collection.Id)} />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Edit Collection">
-                <IconButton className={classes.IconButton}>
-                  <EditIcon
-                    onClick={() =>
-                      navigation(
-                        `/User/${userCol.Id}/Collection/${collection.Id}/edit`
-                      )
-                    }
-                  />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Add Item">
-                <IconButton className={classes.IconButton}>
-                  <AddIcon
-                    onClick={() =>
-                      navigation(
-                        `/User/${userCol.Id}/collection/${collection.Id}/item/create`
-                      )
-                    }
-                  />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Open Description">
-                <IconButton
-                  className={classes.IconButton}
-                  onClick={handleClickOpenDialog}
-                >
-                  <DescriptionIcon />
-                </IconButton>
-              </Tooltip>
-            </Stack>
+            <CollectionContainerButtons
+              userCol={userCol}
+              collection={collection}
+              handleClickOpenDialog={handleClickOpenDialog}
+            />
           )}
         <CollectionDescModal
           isDialogOpened={openDialog}
@@ -181,13 +131,13 @@ function CollectionContainer({ collection, userCol, user, userId }) {
         <Stack direction="row" style={{ marginLeft: "auto" }}>
           {user.userRole != "Guest" &&
             (CheckUserLiked(collection.collectionLikes) == true ? (
-              <Checkbox
+              <CheckBox
                 icon={<Favorite sx={{ color: "red" }} />}
                 checkedIcon={<FavoriteBorder />}
                 onClick={() => DisLikeCollection(collection.Id)}
               />
             ) : (
-              <Checkbox
+              <CheckBox
                 icon={<FavoriteBorder />}
                 checkedIcon={<Favorite sx={{ color: "red" }} />}
                 onClick={() => addLikeCollection(collection.Id)}

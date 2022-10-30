@@ -7,5 +7,8 @@ export const useStyles = makeStyles({
     display: "flex",
     flexWrap: "wrap",
     overflowY: "scroll",
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
   },
 });

@@ -31,4 +31,7 @@ export const useStyles = makeStyles({
     textAlign: "left",
     padding: "20px 10px",
   },
+  PathDiv : { 
+    margin : "20px"
+  }
 });

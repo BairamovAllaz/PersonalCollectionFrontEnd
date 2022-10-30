@@ -33,16 +33,15 @@ export const InfoContext = React.createContext();
 function CreateCollection() {
   const { userId } = useParams();
   const [collectionId, setCollectionId] = React.useState();
-  const [fieldList, setFieldList] = React.useState([
-    { field_name: "", field_type: "" },
-  ]);
   const [image, setImage] = React.useState([]);
   const [name, setName] = React.useState("");
   const [topic, setTopic] = React.useState("");
   const [about, setAbout] = React.useState("");
   const [markDownInput, setMarkDownInput] = React.useState("");
-
   const [activeStep, setActiveStep] = React.useState(0);
+  const [fieldList, setFieldList] = React.useState([
+    { field_name: "", field_type: "" },
+  ]);
 
   const handleNext = () => {
     if (checkIfEmpty()) {
@@ -64,6 +63,19 @@ function CreateCollection() {
 
   const createCollectionClick = e => {
     e.preventDefault();
+    const formData = InitFormData();
+    axios
+      .post(`${global.config.backendUrl}/collection/create`, formData)
+      .then(response => {
+        setCollectionId(response.data);
+      })
+      .catch(err => {
+        alert(err.response.data);
+      });
+    handleNext();
+  };
+
+  function InitFormData() {
     const formData = new FormData();
     formData.append("name", name);
     formData.append("userId", userId);
@@ -72,18 +84,8 @@ function CreateCollection() {
     formData.append("about", about);
     formData.append("image", image[0]);
     formData.append("field", JSON.stringify(fieldList));
-
-    axios
-      .post(`${global.config.backendUrl}/collection/create`, formData)
-      .then(response => {
-        setCollectionId(response.data);
-        console.log(response.data);
-      })
-      .catch(err => {
-        alert(err.response.data);
-      });
-    handleNext();
-  };
+    return formData;
+  }
 
   return (
     <div>

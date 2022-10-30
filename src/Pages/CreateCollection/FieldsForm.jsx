@@ -1,23 +1,27 @@
-import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
 import React, { useContext } from "react";
-import { Alert, FormControl, InputLabel, Select } from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import MenuItem from "@mui/material/MenuItem";
-import Button from "@mui/material/Button";
+import {
+  Alert,
+  FormControl,
+  InputLabel,
+  Select,
+  Typography,
+  Grid,
+  TextField,
+  MenuItem,
+  Button,
+} from "@mui/material";
 import { InfoContext } from "./index";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 function FieldsForm() {
   const { inputList, setInputList } = useContext(InfoContext);
+
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
     const list = [...inputList];
     list[index][name] = value;
     setInputList(list);
-    console.log(inputList);
   };
 
   const handleRemoveClick = index => {
@@ -46,7 +50,6 @@ function FieldsForm() {
               <TextField
                 required
                 id="name"
-                name="name"
                 label="Field Name"
                 fullWidth
                 autoComplete="given-name"

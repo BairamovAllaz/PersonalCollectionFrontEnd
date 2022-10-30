@@ -79,7 +79,7 @@ function CollectionShowPage() {
                       userId={userId}
                     />
                   </Grid>
-                  <Grid item md={8} xs={12}>
+                  <Grid item md={8} xs={12} sx = {{textAlign : "center"}}>
                     <Box className={classes.FormBox}>
                       <FormControl>
                         <FormLabel id="demo-row-radio-buttons-group-label">

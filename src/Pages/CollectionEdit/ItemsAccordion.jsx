@@ -8,7 +8,7 @@ import {
   IconButton,
   ButtonBase,
   Typography,
-  Stack
+  Stack,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -17,9 +17,9 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import { useNavigate } from "react-router-dom";
 import { useStyles } from "./Styles/ItemsAccordion.style";
-import axios from 'axios'
+import axios from "axios";
 
-function ItemsAccordion({collection, userId }) {
+function ItemsAccordion({ collection, userId }) {
   const classes = useStyles();
   const DeleteItem = itemId => {
     axios
@@ -77,7 +77,7 @@ function ItemsAccordion({collection, userId }) {
                           <EditIcon
                             onClick={() =>
                               navigate(
-                                `/User/${collection.UserId}/collection/${collection.Id}/Item/${element.Id}/edit`
+                                `/User/${collection.userId}/collection/${collection.Id}/Item/${element.Id}/edit`
                               )
                             }
                           />

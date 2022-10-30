@@ -47,31 +47,29 @@ function Login() {
     setPassword("");
   }
 
-  const handleChangeEmail = e => {
+  const handleChangeEmail = (e) => {
     setEmail(e.target.value);
   };
 
-  const handleChangePassword = e => {
+  const handleChangePassword = (e) => {
     setPassword(e.target.value);  
   };
 
   return (
     <Box>
       <TextField
-        className="outlined-basic"
         label={`${t("email")}*`}
         variant="outlined"
         className={classes.TextFieldStyle}
         onChange={handleChangeEmail}
-        value={handleChangePassword}
+        value={email}
       />
       <TextField
-        className="outlined-basic"
         label={`${t("password")}*`}
         variant="outlined"
         type="password"
         className={classes.TextFieldStyle}
-        onChange={e => setPassword(e.target.value)}
+        onChange={handleChangePassword}
         value={password}
       />
       <Button

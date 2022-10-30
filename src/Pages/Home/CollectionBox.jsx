@@ -5,11 +5,6 @@ import {
   Stack,
   CardMedia,
   Paper,
-  List,
-  ListItemText,
-  ListItem,
-  Divider,
-  ListItemIcon,
   Tooltip,
   IconButton,
 } from "@mui/material";
@@ -18,6 +13,7 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useStyles } from "./Styles/CollectionBox.style";
+import CollectionBoxInfo from "./CollectionBoxInfo";
 function CollectionBox({ item }) {
   const classes = useStyles();
   const navigate = useNavigate();
@@ -32,73 +28,11 @@ function CollectionBox({ item }) {
         <CardMedia
           component="img"
           className={classes.CardMedia}
-          width = "70"
+          width="70"
           image={item.image}
         />
         <CardContent className={classes.CardContent}>
-          <List
-            className={classes.List}
-            sx = {{bgcolor : "background.paper"}}
-            component="nav"
-            aria-label="mailbox folders"
-          >
-            <Divider />
-            <ListItem divider>
-              <ListItemIcon>
-                <p>{t("name")}</p>
-              </ListItemIcon>
-              <ListItemText
-                primary={item.name}
-                className={classes.ListItemText}
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <p>{t("about")}</p>
-              </ListItemIcon>
-              <ListItemText
-                primary={item.about}
-                className={classes.ListItemText}
-              />
-            </ListItem>
-            <Divider light />
-            <ListItem>
-              <ListItemIcon>
-                <p>{t("topic")}</p>
-              </ListItemIcon>
-              <ListItemText
-                primary={item.topic}
-                className={classes.ListItemText}
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <p>{t("item_count")}</p>
-              </ListItemIcon>
-              <ListItemText
-                primary={item.ItemCount}
-                className={classes.ListItemText}
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <p>{t("created_by")}</p>
-              </ListItemIcon>
-              <ListItemText
-                primary={`${item.user.firstName} ${item.user.lastName}`}
-                className={classes.ListItemText}
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <p>{t("createdAt")}</p>
-              </ListItemIcon>
-              <ListItemText
-                primary={new Date(item.createdAt).toLocaleDateString()}
-                className={classes.ListItemText}
-              />
-            </ListItem>
-          </List>
+          <CollectionBoxInfo item={item} />
           <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
             <Tooltip title="Open Collection">
               <IconButton

@@ -23,6 +23,9 @@ function PrivateRoute({ children }) {
         })
         .then(response => {
           setisAuth(response.data);
+          if(response.data.isDelete) { 
+            alert("User Is deleted By Admin");
+          }
           setisLoading(false);
         })
         .catch(err => {
@@ -34,6 +37,6 @@ function PrivateRoute({ children }) {
   if (isLoading) {
     return <LoadingPage/>;
   }
-  return isAuth ? <Home /> : <Navigate to="/auth" />;
+  return isAuth && isAuth.isDelete != true ? children : <Navigate to="/auth" />;
 }
 export default PrivateRoute;

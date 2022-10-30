@@ -12,7 +12,7 @@ import CollectionShowPage from "../Pages/CollectionShow";
 import UserEdit from "../Pages/UserEdit/index";
 import OwnPageRoute from "./PrivateRouteComponents/OwnPageRoute";
 import CreateItem from "../Pages/CreateItem/index";
-import EditCollection from "../Pages/CollectionEdit/index"
+import EditCollection from "../Pages/CollectionEdit/index";
 import EditItem from "../Pages/ItemEdit/index";
 import ItemPage from "../Pages/ItemShow/index";
 import { Routes, Route } from "react-router-dom";
@@ -31,61 +31,88 @@ function AuthRoutes() {
       <Route path="/success/google" element={<LoginSuccess />} />
       <Route path="/forgot-password/:id/:token" element={<ForgotPassword />} />
 
-      <Route path="/user/:userId" element={<UserPage />} />
+      <Route
+        path="/user/:userId"
+        element={
+          <PrivateRoute>
+            <UserPage />
+          </PrivateRoute>
+        }
+      />
       <Route
         path="/User/:userId/collection/:collectionId"
-        element={<CollectionShowPage />}
+        element={
+          <PrivateRoute>
+            <CollectionShowPage />
+          </PrivateRoute>
+        }
       />
       <Route
         path="/User/:userId/edit"
         element={
-          <OwnPageRoute>
-            <UserEdit />
-          </OwnPageRoute>
+          <PrivateRoute>
+            <OwnPageRoute>
+              <UserEdit />
+            </OwnPageRoute>
+          </PrivateRoute>
         }
       />
       <Route
         path="/User/:userId/Collection/:collectionId/edit"
         element={
-          <OwnPageRoute>
-            <EditCollection />
-          </OwnPageRoute>
+          <PrivateRoute>
+            <OwnPageRoute>
+              <EditCollection />
+            </OwnPageRoute>
+          </PrivateRoute>
         }
       />
       <Route
         path="/User/:userId/collection/create"
         element={
-          <OwnPageRoute>
-            <CreateCollection />
-          </OwnPageRoute>
+          <PrivateRoute>
+            <OwnPageRoute>
+              <CreateCollection />
+            </OwnPageRoute>
+          </PrivateRoute>
         }
       />
       <Route
         path="/User/:userId/collection/:collectionId/Item/:itemId/edit"
         element={
-          <OwnPageRoute>
-            <EditItem />
-          </OwnPageRoute>
+          <PrivateRoute>
+            <OwnPageRoute>
+              <EditItem />
+            </OwnPageRoute>
+          </PrivateRoute>
         }
       />
       <Route
         path="/User/:userId/collection/:collectionId/item/create"
         element={
-          <OwnPageRoute>
-            <CreateItem />
-          </OwnPageRoute>
+          <PrivateRoute>
+            <OwnPageRoute>
+              <CreateItem />
+            </OwnPageRoute>
+          </PrivateRoute>
         }
       />
       <Route
         path="/User/:userId/collection/:collectionId/Item/:itemId"
-        element={<ItemPage />}
+        element={
+          <PrivateRoute>
+            <ItemPage />
+          </PrivateRoute>
+        }
       />
       <Route
         path="/admin"
         element={
-          <OnlyAdminRoute>
-            <Admin />
-          </OnlyAdminRoute>
+          <PrivateRoute>
+            <OnlyAdminRoute>
+              <Admin />
+            </OnlyAdminRoute>
+          </PrivateRoute>
         }
       />
     </Routes>

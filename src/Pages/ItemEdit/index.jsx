@@ -10,6 +10,7 @@ import Container from "@mui/material/Container";
 import { TextField } from "@mui/material";
 import { render } from "../../Utils/RenderField";
 import LoadingPage from "../../Utils/LoadingPage";
+import Path from './Path'
 function EditItem() {
   const [items, setItems] = React.useState([]);
   const [isLoadedItem, setIsLoadedItem] = React.useState(true);
@@ -17,7 +18,7 @@ function EditItem() {
   const [isLoadedField, setIsLoadedField] = React.useState(true);
   const [image, setImage] = React.useState();
   const [fields, setFields] = React.useState([]);
-  const { itemId } = useParams();
+  const { itemId,collectionId,userId } = useParams();
   React.useEffect(() => {
     axios
       .get(`${global.config.backendUrl}/items/getItemById/${itemId}`)
@@ -94,7 +95,10 @@ function EditItem() {
             variant="outlined"
             sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
           >
-            <Typography component="h1" variant="h4" align="center">
+            <div>
+              <Path collectionId = {collectionId} userId = {userId} itemId = {itemId}/>
+            </div>
+            <Typography component="h1" variant="h4" align="center" mt = {3}>
               Update
             </Typography>
             <React.Fragment>
@@ -117,7 +121,7 @@ function EditItem() {
                   sx={{ marginTop: "20px" }}
                   onClick={handleClick}
                 >
-                  Image
+                  Update Image
                 </Button>
                 <div style={{ textAlign: "center" }}>
                   {image != null && (

@@ -11,13 +11,15 @@ import {
 import UpgradeIcon from "@mui/icons-material/Upgrade";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { UserContext } from "../../Middleware/UserContext";
 import ItemsAccordion from "./ItemsAccordion";
 import MarkDownAccordion from "./MarkDownAccordion";
 import SelectTopicInput from "./SelectTopicInput";
+import Path from "./Path";
+import { useStyles } from "./Styles/index.style";
 
 function EditCollection() {
   const navigate = useNavigate();
+  const classes = useStyles();
   const { collectionId, userId } = useParams();
   const [image, setImage] = React.useState();
   const [name, setName] = React.useState("");
@@ -52,7 +54,21 @@ function EditCollection() {
 
   const UpdateCollection = collection => {
     const currentUpdates = removeEmpty(CheckUpdates(collection));
+    const obj = UpdatedCollection(currentUpdates);
+    axios
+      .put(
+        `${global.config.backendUrl}/collection/UpdateCollection/${collectionId}`,
+        obj
+      )
+      .then(response => {
+        window.location.reload();
+      })
+      .catch(err => {
+        alert(err.response.data);
+      });
+  };
 
+  function UpdatedCollection(currentUpdates) {
     const formdata = new FormData();
     if (image !== undefined) {
       formdata.append("image", URL.createObjectURL(image));
@@ -62,18 +78,8 @@ function EditCollection() {
     for (const key of Object.keys(currentUpdates)) {
       formdata.append(key, currentUpdates[key]);
     }
-    axios
-      .put(
-        `${global.config.backendUrl}/collection/UpdateCollection/${collectionId}`,
-        formdata
-      )
-      .then(response => {
-        window.location.reload();
-      })
-      .catch(err => {
-        alert(err.response.data);
-      });
-  };
+    return formdata;
+  }
 
   function CheckUpdates(collection) {
     let updates = {};
@@ -106,16 +112,23 @@ function EditCollection() {
   return (
     <div>
       {values.map(collection => (
-        <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+        <Container
+          component="main"
+          maxWidth="sm"
+          sx={{ mb: 4, padding: "20px" }}
+        >
           <Paper
             variant="outlined"
             sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
           >
-            <Typography component="h1" variant="h4" align="center">
+            <div className={classes.PathDiv}>
+              <Path userId={userId} collectionId={collectionId} />
+            </div>
+            <Typography component="h3" variant="h4" align="center" mt={3}>
               Update
             </Typography>
             <React.Fragment>
-              <Box sx={{ display: "grid", justifyContent: "center" }}>
+              <Box className={classes.BoxContainer}>
                 <Box
                   component="img"
                   sx={{
@@ -134,7 +147,7 @@ function EditCollection() {
                   sx={{ marginTop: "30px" }}
                   onClick={handleClick}
                 >
-                  Image
+                  Update Image
                 </Button>
                 <div style={{ textAlign: "center" }}>
                   {image != null && (

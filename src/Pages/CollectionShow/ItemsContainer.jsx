@@ -19,6 +19,7 @@ import { UserContext } from "../../Middleware/UserContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {useStyles} from './Styles/ItemContainer.style'
+import ItemsContainerFields from "./ItemsContainerFields";
 
 function ItemsContainer({ items, searchText, selectedFilter, userId }) {
   const classes = useStyles();
@@ -109,7 +110,7 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
   });
 
   return (
-    <Box>
+    <Box sx = {{maxWidth : {sm : "70%",xs : "100%"},margin : "30px auto"}}>
       <div>
         {/* TODO FIX REPOSNEVE MAKE STYLE */}
         {FiteredItems.map((element, id) => (
@@ -205,31 +206,7 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
               </Grid>
             </AccordionSummary>
             <AccordionDetails>
-              <div>
-                <Stack direction="row" spacing={1}>
-                  {element.itemTags.map(tag => (
-                    <div>
-                      <Chip label={tag.tag_name} />
-                    </div>
-                  ))}
-                </Stack>
-                <div style={{ marginTop: "20px" }}>
-                  {element.itemFields.map(field => (
-                    <p style={{ textAlign: "left", paddingLeft: "3px" }}>
-                      {field.field_value == "" ? (
-                        <></>
-                      ) : (
-                        <p>
-                          <span style={{ color: "#88909e", fontWeight: "700" }}>
-                            {field.field_name}
-                          </span>{" "}
-                          : <span>{field.field_value}</span>
-                        </p>
-                      )}
-                    </p>
-                  ))}
-                </div>
-              </div>
+              <ItemsContainerFields element = {element}/>
             </AccordionDetails>
           </Accordion>
         ))}

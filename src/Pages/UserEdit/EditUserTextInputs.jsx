@@ -94,7 +94,7 @@ function EditUserTextInputs({ user, userId }) {
           Update
         </Typography>
         <React.Fragment>
-          <Box sx={{ display: "grid", justifyContent: "center" }}>
+          <Box sx={{ display: "grid", justifyContent: "center",padding : "20px"}}>
             <Avatar
               alt="User"
               src={user.image}
@@ -102,7 +102,7 @@ function EditUserTextInputs({ user, userId }) {
                 width: 120,
                 height: 120,
                 marginTop: "20px",
-                margin: "0 auto",
+                margin: "30px auto",
               }}
             />
             <Button
@@ -111,7 +111,7 @@ function EditUserTextInputs({ user, userId }) {
               sx={{ marginTop: "20px" }}
               onClick={handleClick}
             >
-              Image
+              Update Image
             </Button>
             <div style={{ textAlign: "center" }}>
               {image != null && (

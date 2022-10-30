@@ -25,6 +25,6 @@ export const useStyles = makeStyles({
   DivItemsContainer: {
     width: "100%",
     maxHeight: "500px",
-    textAlign : "center"
+    overflowY: "scroll",
   },
 });

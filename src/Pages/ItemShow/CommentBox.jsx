@@ -1,17 +1,7 @@
 import React from "react";
 import axios from "axios";
-import Box from "@mui/material/Box";
-import Input from "@mui/material/Input";
-import InputLabel from "@mui/material/InputLabel";
-import InputAdornment from "@mui/material/InputAdornment";
-import FormControl from "@mui/material/FormControl";
-import TextField from "@mui/material/TextField";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import Container from "@mui/material/Container";
+import {Box,TextField,Container,Button,Grid,Paper} from "@mui/material";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
 import SendIcon from "@mui/icons-material/Send";
 import BadgeIcon from "@mui/icons-material/Badge";
 import io from "socket.io-client";
@@ -19,18 +9,19 @@ import LoadingPage from "../../Utils/LoadingPage";
 import { useNavigate,  useParams } from "react-router-dom";
 
 function CommentBox({ itemId, currUser, userRole }) {
+
   const navigate = useNavigate();
   const [loading, setLoading] = React.useState(true);
   const [comments, setComments] = React.useState([]);
   const [message, setMessage] = React.useState("");
   const { userId } = useParams();
   React.useEffect(() => {
+    
     axios
       .get(`${global.config.backendUrl}/items/GetItemComments/${itemId}`)
       .then(response => {
         setComments(response.data);
         setLoading(false);
-        console.log(response.data);
       })
       .catch(err => {
         console.log(err);

@@ -93,7 +93,16 @@ function TabsComponents() {
           placeholder="Search"
         />
       </Box>
-      <div style={{ wdith: "100%", maxHeight: "100vh", overflowY: "scroll" }}>
+      <Box
+        sx={{
+          wdith: "100%",
+          maxHeight: "100vh",
+          overflowY: "scroll",
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+        }}
+      >
         <NormalUsers
           value={value}
           index={0}
@@ -110,7 +119,7 @@ function TabsComponents() {
         />
         <DeletedUsers value={value} index={2} />
         <BlockedUsers value={value} index={3} />
-      </div>
+      </Box>
     </Box>
   );
 }
