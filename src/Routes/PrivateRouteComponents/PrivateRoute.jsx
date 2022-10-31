@@ -1,6 +1,5 @@
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
-import Home from "../../Pages/Home/index";
 import * as React from "react";
 import axios from "axios";
 import LoadingPage from "../../Utils/LoadingPage";

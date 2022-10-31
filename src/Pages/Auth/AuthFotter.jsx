@@ -24,7 +24,7 @@ function AuthFotter() {
   //TODO FIX GOOGLE AUTH BUTTON
   const authWithGoogle = () => {
     window.open(
-      `http://localhost:5100/v1/google`,
+      `${global.config.backendUrl}/v1/google`,
       "_self",
       "width=500,height=600"
     );
