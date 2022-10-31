@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import {
   Grid,
   TextField,
-} from "@material-ui/core";
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useStyles } from "./Styles/ForgotPassword.style";
 
@@ -18,7 +18,7 @@ function ForgotPassword() {
 
   useEffect(async () => {
     const isExsist = (
-      await axios.get(`${global.config.backendUrl}/v1/checkToken`, token)
+      await axios.get(`${global.config.backendUrl}/v1/checkToken/${token}`)
     ).data;
     if (!isExsist) {
       alert("This token no longer exsist");
@@ -27,6 +27,10 @@ function ForgotPassword() {
   }, []);
 
   const changePassword = async () => {
+    if(password != passwordVerify) {
+      alert("Fields need ton be same");
+      return;
+    }
     const newpass = {
       password,
       passwordVerify,
