@@ -1,10 +1,13 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-export const useStyles = makeStyles({
+export const useStyles = makeStyles(theme => ({
   MainPaper: {
     p: 2,
     margin: "auto",
-    maxWidth: { xs: "100%", sm: "30%" },
+    maxWidth: "30%",
+    [theme.breakpoints.down('600')] : {
+      maxWidth : "100%",
+    },
     flexGrow: 1,
     marginTop: "60px",
     marginLeft : "10px",
@@ -42,4 +45,4 @@ export const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
   },
-});
+}));

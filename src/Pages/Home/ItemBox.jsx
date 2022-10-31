@@ -9,7 +9,13 @@ function ItemBox({ item }) {
   const classes = useStyles();
   const navigate = useNavigate();
   return (
-    <Paper className={classes.MainPaper} sx={{backgroundColor: theme => theme.palette.mode === "dark" ? "#1A2027" : "#fff"}}>
+    <Paper
+      className={classes.MainPaper}
+      sx={{
+        backgroundColor: theme =>
+          theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+      }}
+    >
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <ButtonBase className={classes.ButtonBase}>
@@ -56,7 +62,7 @@ function ItemBox({ item }) {
                 variant="body2"
                 color="text.secondary"
                 className={classes.TypographyInfo}
-                sx = {{pt: 1}}
+                sx={{ pt: 1 }}
               >
                 {new Date(item.createdAt).toLocaleDateString()}
               </Typography>
