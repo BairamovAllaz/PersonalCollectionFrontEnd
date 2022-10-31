@@ -5,8 +5,6 @@ import { useLocation } from "react-router-dom";
 import Routes from "./Routes/Routes";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { useTheme } from "@emotion/react";
-
 export const ColorModeContext = React.createContext({
   toggleColorMode: () => {},
 });

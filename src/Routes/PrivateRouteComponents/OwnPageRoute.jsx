@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import React, { useContext, useEffect, useState } from "react";
+import React, {useState } from "react";
 import { UserContext } from "../../Middleware/UserContext";
-import NotYou from "./NotYou";
+import NotCreator from "../../Pages/Info/NotCreator";
 function OwnPageRoute({ children }) {
   const { userId } = useParams();
   const [isAuth, setisAuth] = useState(false);
@@ -17,6 +17,6 @@ function OwnPageRoute({ children }) {
     }
   }, []);
 
-  return isAuth ? children : <NotYou />;
+  return isAuth ? children : <NotCreator />;
 }
 export default OwnPageRoute;

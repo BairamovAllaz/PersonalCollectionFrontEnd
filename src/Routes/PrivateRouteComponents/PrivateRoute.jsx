@@ -1,8 +1,9 @@
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
-import Home from "../../Pages/HomePages/Home";
+import Home from "../../Pages/Home/index";
 import * as React from "react";
 import axios from "axios";
+import LoadingPage from "../../Utils/LoadingPage";
 export { PrivateRoute };
 function PrivateRoute({ children }) {
   const [isAuth, setisAuth] = useState(false);
@@ -22,6 +23,9 @@ function PrivateRoute({ children }) {
         })
         .then(response => {
           setisAuth(response.data);
+          if(response.data.isDelete) { 
+            alert("User Is deleted By Admin");
+          }
           setisLoading(false);
         })
         .catch(err => {
@@ -31,8 +35,8 @@ function PrivateRoute({ children }) {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingPage/>;
   }
-  return isAuth ? <Home /> : <Navigate to="/auth" />;
+  return isAuth && isAuth.isDelete != true ? children : <Navigate to="/auth" />;
 }
 export default PrivateRoute;
