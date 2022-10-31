@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import * as React from "react";
-import { UserContext } from "../../../Middleware/UserContext";
+import { UserContext } from "../../../Context/UserContext";
 
 function ModalGuestAccount({ isDialogOpened, handleCloseDialog }) {
   const navigation = useNavigate();

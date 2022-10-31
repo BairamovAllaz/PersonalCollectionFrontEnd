@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
-import React, {useState } from "react";
-import { UserContext } from "../../Middleware/UserContext";
+import React, { useState } from "react";
+import { UserContext } from "../../Context/UserContext";
 import NotCreator from "../../Pages/Info/NotCreator";
 function OwnPageRoute({ children }) {
   const { userId } = useParams();

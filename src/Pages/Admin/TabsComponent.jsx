@@ -8,12 +8,12 @@ import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import FolderDeleteIcon from "@mui/icons-material/FolderDelete";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import NormalUsers from "./TabsComponents/NormalUsers";
-import AdminUsers from "./TabsComponents/AdminUsers"
+import AdminUsers from "./TabsComponents/AdminUsers";
 import axios from "axios";
-import { UserContext } from "../../Middleware/UserContext";
+import { UserContext } from "../../Context/UserContext";
 import DeletedUsers from "./TabsComponents/DeletedUsers";
 import BlockedUsers from "./TabsComponents/BlockedUsers";
-import LoadingPage from '../../Utils/LoadingPage'
+import LoadingPage from "../../Utils/LoadingPage";
 function TabsComponents() {
   const [value, setValue] = React.useState(0);
   const [isLoadedusers, setIsLoadedusers] = React.useState(true);
@@ -46,7 +46,7 @@ function TabsComponents() {
   });
 
   if (isLoadedusers) {
-    return <LoadingPage/>;
+    return <LoadingPage />;
   }
 
   return (

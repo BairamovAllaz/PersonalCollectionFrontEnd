@@ -6,13 +6,13 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Box ,Stack} from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
-import { UserContext } from "../../Middleware/UserContext";
+import { UserContext } from "../../Context/UserContext";
 import { useNavigate } from "react-router-dom";
-import {useStyles} from './Styles/ItemContainer.style'
+import { useStyles } from "./Styles/ItemContainer.style";
 import ItemsContainerFields from "./ItemsContainerFields";
 import LikeDislikeButton from "./LikeDislikeButton";
 
@@ -30,7 +30,6 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
   React.useEffect(() => {
     setItems(items);
   }, [items]);
-
 
   if (items.length <= 0) {
     return <div style={{ marginTop: "30px" }}>No Item yet</div>;
@@ -95,7 +94,7 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
                         user.isBlocked == false && (
                           <Tooltip title="Edit Item">
                             <IconButton
-                              style={{marginLeft: "10px" }}
+                              style={{ marginLeft: "10px" }}
                               onClick={() =>
                                 navigate(
                                   `/User/${userId}/collection/${element.collectionId}/Item/${element.Id}/edit`

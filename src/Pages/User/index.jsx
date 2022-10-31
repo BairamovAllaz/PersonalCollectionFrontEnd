@@ -3,7 +3,7 @@ import * as React from "react";
 import axios from "axios";
 import { Box, Paper, Grid } from "@mui/material";
 import CollectionList from "./CollectionList";
-import { UserContext } from "../../Middleware/UserContext";
+import { UserContext } from "../../Context/UserContext";
 import UserInfoContainer from "./UserInfoContainer";
 import LoadingPage from "../../Utils/LoadingPage";
 
@@ -42,7 +42,7 @@ function UserPage() {
   };
 
   if (loading) {
-    return <LoadingPage/>
+    return <LoadingPage />;
   }
 
   return (

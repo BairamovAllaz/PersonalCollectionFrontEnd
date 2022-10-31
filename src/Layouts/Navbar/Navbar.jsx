@@ -13,18 +13,18 @@ import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import DrawerC from "../Drawer/DrawerC";
-import { UserContext } from "../../Middleware/UserContext";
+import { UserContext } from "../../Context/UserContext";
 import RenderMenu from "./NavbarComponents/RenderMenu";
 import RenderMobilMenu from "./NavbarComponents/RenderMobilMenu";
 
 import { Button, MenuItem } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import SearchModal from './NavbarComponents/SearchModal'
+import SearchModal from "./NavbarComponents/SearchModal";
 
 function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-   const [openSearchModal, setOpenSearchModal] = React.useState(false);
+  const [openSearchModal, setOpenSearchModal] = React.useState(false);
   const { user } = React.useContext(UserContext);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -89,7 +89,7 @@ function Navbar() {
               />
             </div>
           </Typography>
-        <SearchModal/>
+          <SearchModal />
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton

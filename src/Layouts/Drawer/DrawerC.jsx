@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled,useTheme } from "@mui/material/styles";
+import { styled, useTheme } from "@mui/material/styles";
 import {
   Box,
   IconButton,
@@ -11,7 +11,7 @@ import {
   Divider,
   Drawer,
   Avatar,
-  Button
+  Button,
 } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -31,9 +31,9 @@ import StarIcon from "@mui/icons-material/Star";
 import LanguageIcon from "@mui/icons-material/Language";
 import BadgeIcon from "@mui/icons-material/Badge";
 import { useTranslation } from "react-i18next";
-import {ColorModeContext} from '../../App'
+import { ColorModeContext } from "../../App";
 import axios from "axios";
-import { UserContext } from "../../Middleware/UserContext";
+import { UserContext } from "../../Context/UserContext";
 import i18next from "i18next";
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -48,7 +48,7 @@ function DrawerC({ isDrawerOpened, handleCloseDrawer }) {
   const { user } = React.useContext(UserContext);
   const value = React.useContext(ColorModeContext);
   const theme = useTheme();
-    const { t } = useTranslation();
+  const { t } = useTranslation();
 
   const handleClose = () => {
     handleCloseDrawer(false);
@@ -83,10 +83,9 @@ function DrawerC({ isDrawerOpened, handleCloseDrawer }) {
     }
   };
 
-
-  const handleLangChange = (e) => {
+  const handleLangChange = e => {
     i18next.changeLanguage(e.target.value);
-  }
+  };
 
   return (
     <div>
@@ -139,13 +138,11 @@ function DrawerC({ isDrawerOpened, handleCloseDrawer }) {
               ) : (
                 <></>
               )}
-              {
-                user.userRole == "Guest" && (
-                    <div style = {{textAlign : "center",marginTop :"20px"}}>
-                        <Button onClick = {() => navigation("/auth")}>Join</Button>
-                    </div>
-                )
-              }
+              {user.userRole == "Guest" && (
+                <div style={{ textAlign: "center", marginTop: "20px" }}>
+                  <Button onClick={() => navigation("/auth")}>Join</Button>
+                </div>
+              )}
             </ListItem>
             <ListItem sx={{ display: "block" }}>
               <ListItemButton

@@ -4,6 +4,7 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { Tooltip, Stack } from "@mui/material";
 import { useStyles } from "./Styles/CollectionContainer.style";
 import axios from "axios";
@@ -72,6 +73,14 @@ function CollectionContainerButtons({
             onClick={handleClickOpenDialog}
           >
             <DescriptionIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Download csv">
+          <IconButton
+            className={classes.IconButton}
+            onClick={handleClickOpenDialog}
+          >
+            <FileDownloadIcon />
           </IconButton>
         </Tooltip>
       </Stack>

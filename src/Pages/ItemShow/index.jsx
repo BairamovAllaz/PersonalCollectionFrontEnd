@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import { UserContext } from "../../Middleware/UserContext";
+import { UserContext } from "../../Context/UserContext";
 import CommentBox from "./CommentBox";
 import ItemContainer from "./ItemContainer";
 import InfoContainer from "./InfoContainer";
@@ -33,7 +33,9 @@ function ItemShow() {
   return (
     <div>
       {items.length <= 0 ? (
-        <h2 style = {{textAlign : "center"}}>Item does not exsist OR deleted!!</h2> //TODO ADD PAGE HERE
+        <h2 style={{ textAlign: "center" }}>
+          Item does not exsist OR deleted!!
+        </h2> //TODO ADD PAGE HERE
       ) : (
         <div>
           <div>

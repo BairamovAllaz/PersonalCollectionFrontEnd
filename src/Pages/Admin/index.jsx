@@ -1,5 +1,5 @@
 import React from "react";
-import { UserContext } from "../../Middleware/UserContext";
+import { UserContext } from "../../Context/UserContext";
 import UserContainer from "./UserContainer";
 import InfoContainer from "./InfoContainer";
 import TabsComponents from "./TabsComponent";

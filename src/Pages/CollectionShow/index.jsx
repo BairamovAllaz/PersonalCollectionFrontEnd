@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
 import React from "react";
 import axios from "axios";
-import { UserContext } from "../../Middleware/UserContext";
+import { UserContext } from "../../Context/UserContext";
 import ItemsContainer from "./ItemsContainer";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import LoadingPage from "../../Utils/LoadingPage";
-import {useStyles} from './Styles/index.style'
+import { useStyles } from "./Styles/index.style";
 import {
   FormLabel,
   FormControl,
@@ -24,7 +24,7 @@ function CollectionShowPage() {
   const [isLoaded, setIsLoaded] = React.useState(true);
   const [selectedFilter, setSelectedFilter] = React.useState("Default");
   const [searchText, setSearchText] = React.useState("");
-  
+
   const handleChangeSearchText = text => {
     setSearchText(text);
   };
@@ -50,7 +50,7 @@ function CollectionShowPage() {
   }, []);
 
   if (isLoaded) {
-    return <LoadingPage/>;
+    return <LoadingPage />;
   }
 
   return (
