@@ -1,0 +1,24 @@
+.pagination {
+    display: flex;
+    list-style: none;
+    outline: none;
+    margin : 40px
+}
+
+.pagination>.active>a {
+    background-color: #1750b3;
+    color: white;
+}
+
+.pagination>li>a {
+    border: 1px solid #356167;
+    padding: 5px 10px;
+    outline: none;
+    cursor: pointer;
+}
+
+.pagination>li>a,
+.pagination>li>span {
+    color: white;
+    background-color: #7487a6;
+}

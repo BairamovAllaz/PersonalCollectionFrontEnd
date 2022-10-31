@@ -1,5 +1,11 @@
-import { TextField,FormControl,InputLabel,Select,MenuItem} from "@mui/material";
-export const render = (element, i,handleChange) => {
+import {
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
+export const render = (element, i, handleChange) => {
   if (element.field_type === "Text") {
     return (
       <TextField

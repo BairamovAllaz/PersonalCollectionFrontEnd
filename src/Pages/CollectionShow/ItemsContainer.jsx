@@ -2,24 +2,19 @@ import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
-import Checkbox from "@mui/material/Checkbox";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-import Favorite from "@mui/icons-material/Favorite";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Box } from "@mui/material";
+import { Box ,Stack} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import Chip from "@mui/material/Chip";
-import Stack from "@mui/material/Stack";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import { UserContext } from "../../Middleware/UserContext";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {useStyles} from './Styles/ItemContainer.style'
 import ItemsContainerFields from "./ItemsContainerFields";
+import LikeDislikeButton from "./LikeDislikeButton";
 
 function ItemsContainer({ items, searchText, selectedFilter, userId }) {
   const classes = useStyles();
@@ -36,57 +31,9 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
     setItems(items);
   }, [items]);
 
-  function CheckUserLiked(likes) {
-    return likes.some(el => el.userId === user.Id);
-  }
-
-  const addLikeItem = itemId => {
-    if (user.userRole === "Guest" || user.isBlocked) {
-      alert(
-        "You cant like you are guest OR your account BLOCKED please register or sign"
-      );
-      return;
-    }
-    const info = {
-      itemId,
-      userId: user.Id,
-    };
-    axios
-      .post(`${global.config.backendUrl}/items/addLikeItem`, info, {
-        withCredentials: true,
-      })
-      .then(response => {
-        window.location.reload();
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
-  const DisLikeItem = itemId => {
-    if (user.userRole === "Guest" || user.isBlocked) {
-      alert(
-        "You cant like you are guest OR your account is BLOCKED please register or sign"
-      );
-      return;
-    }
-    axios
-      .get(
-        `${global.config.backendUrl}/items/ItemDislike/${user.Id}/${itemId}`,
-        {
-          withCredentials: true,
-        }
-      )
-      .then(response => {
-        window.location.reload();
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
 
   if (items.length <= 0) {
-    return <div style={{ marginTop: "30px" }}>No Item yet</div>; //TODO ADD NOT ITEM COMPONENT
+    return <div style={{ marginTop: "30px" }}>No Item yet</div>;
   }
 
   const SearchedItems = Items.filter(el => {
@@ -110,9 +57,8 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
   });
 
   return (
-    <Box sx = {{maxWidth : {sm : "70%",xs : "100%"},margin : "30px auto"}}>
+    <Box sx={{ maxWidth: { sm: "70%", xs: "100%" }, margin: "30px auto" }}>
       <div>
-        {/* TODO FIX REPOSNEVE MAKE STYLE */}
         {FiteredItems.map((element, id) => (
           <Accordion
             expanded={expanded === `panel_${id}`}
@@ -141,50 +87,26 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
                     />
                   </ButtonBase>
                   <Typography variant="subtitle1" component="div" noWrap>
-                    {user.userRole != "Guest" && user.isBlocked != true && (
-                      CheckUserLiked(element.itemLikes) == true ? (
-                        <Checkbox
-                          icon={<Favorite sx={{ color: "red" }} />}
-                          checkedIcon={<FavoriteBorder />}
-                          onClick={() => DisLikeItem(element.Id, element.likes)}
-                          sx={{
-                            marginTop: "20px",
-                          }}
-                        />
-                      ) : (
-                        <Checkbox
-                          icon={<FavoriteBorder />}
-                          checkedIcon={<Favorite sx={{ color: "red" }} />}
-                          onClick={() => addLikeItem(element.Id, element.likes)}
-                          sx={{
-                            marginTop: "20px",
-                          }}
-                        />
-                      )
-                    )}
-
-                    {user.userRole !== "Guest" && user.isBlocked != true ? (
-                      <span style={{ position: "relative", top: "10px" }}>
-                        {element.itemLikes.length}
-                      </span>
-                    ) : (
-                      <></>
-                    )}
-                    {(userId == user.Id || user.userRole == "admin") &&
-                      user.isBlocked == false && (
-                        <Tooltip title="Edit Item">
-                          <IconButton
-                            style={{ marginTop: "20px", marginLeft: "10px" }}
-                            onClick={() =>
-                              navigate(
-                                `/User/${userId}/collection/${element.collectionId}/Item/${element.Id}/edit`
-                              )
-                            }
-                          >
-                            <EditIcon />
-                          </IconButton>
-                        </Tooltip>
+                    <Stack direction="row">
+                      {user.userRole != "Guest" && user.isBlocked != true && (
+                        <LikeDislikeButton element={element} user={user} />
                       )}
+                      {(userId == user.Id || user.userRole == "admin") &&
+                        user.isBlocked == false && (
+                          <Tooltip title="Edit Item">
+                            <IconButton
+                              style={{marginLeft: "10px" }}
+                              onClick={() =>
+                                navigate(
+                                  `/User/${userId}/collection/${element.collectionId}/Item/${element.Id}/edit`
+                                )
+                              }
+                            >
+                              <EditIcon />
+                            </IconButton>
+                          </Tooltip>
+                        )}
+                    </Stack>
                   </Typography>
                 </Grid>
                 <Grid item xs={6} sm container>
@@ -206,7 +128,7 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
               </Grid>
             </AccordionSummary>
             <AccordionDetails>
-              <ItemsContainerFields element = {element}/>
+              <ItemsContainerFields element={element} />
             </AccordionDetails>
           </Accordion>
         ))}
@@ -214,5 +136,4 @@ function ItemsContainer({ items, searchText, selectedFilter, userId }) {
     </Box>
   );
 }
-
 export default ItemsContainer;

@@ -4,6 +4,7 @@ import Carousel from "react-material-ui-carousel";
 import LoadingPage from "../../Utils/LoadingPage";
 import { useTranslation } from "react-i18next";
 import { useStyles } from "./Styles/CollectionContainer.style";
+import {Link} from 'react-router-dom'
 import axios from "axios";
 function CollectionContainer() {
   const classes = useStyles();
@@ -31,7 +32,13 @@ function CollectionContainer() {
   }
   return (
     <div className={classes.MainDiv}>
-      <h2 className={classes.Title}>{t("top_5_largest_collection")}</h2>
+      <div style = {{margin : "20px"}}>
+        <h2 className={classes.Title}>{t("top_5_largest_collection")}</h2>
+        <Link to="/AllCollections" className = {classes.Link}>
+          See All
+        </Link>
+      </div>
+
       <Carousel className={classes.Carousel}>
         {collections.map((item, i) => (
           <CollectionBox item={item} key={i} />

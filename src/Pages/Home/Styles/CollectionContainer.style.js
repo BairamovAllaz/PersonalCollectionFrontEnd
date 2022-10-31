@@ -7,7 +7,12 @@ export const useStyles = makeStyles({
   Title: {
     margin: "20px",
   },
-  Carousel : { 
-    width : "100%"
-  }
+  Carousel: {
+    width: "100%",
+  },
+  Link: {
+    color: "#34b7eb",
+    fontSize : "20px",
+    textDecoration : "none"
+  },
 });

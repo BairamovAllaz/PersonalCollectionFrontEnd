@@ -4,34 +4,13 @@ import * as React from "react";
 import { Card, CardActions, CardContent, CardMedia } from "@mui/material";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
-import { useNavigate, useNavigation } from "react-router-dom";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import { Stack, Tooltip, IconButton } from "@mui/material";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
-import Badge from "@mui/material/Badge";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import CollectionInfoBadge from "../../Components/UI/CollectionInfoBadge";
+import CollectionListTooltip from "./CollectionListTooltip";
 
 function CollectionList(props) {
   const navigate = useNavigate();
   const { user, collections } = props;
-
-  const DeleteCollection = collectionId => {
-    axios
-      .delete(`${global.config.backendUrl}/collection/Delete/${collectionId}`, {
-        withCredentials: true,
-      })
-      .then(response => {
-        window.location.reload();
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
-
   return (
     <div style={{ height: "100vh", overflowY: "auto" }}>
       <div style={{ textAlign: "right" }}>
@@ -59,11 +38,11 @@ function CollectionList(props) {
         }}
       >
         {collections.length <= 0 ? (
-          <div style={{ margin: "30px auto" }}>Not Collections</div>
+          <div style={{ margin: "30px auto" }}>No Collection</div>
         ) : (
           collections.map(element => (
             <Card
-              sx={{ width: { xs: "100%", sm: "30%",margin : "30px 10px" } }}
+              sx={{ width: { xs: "100%", sm: "30%", margin: "30px 10px" } }}
             >
               <CardMedia
                 component="img"
@@ -72,7 +51,7 @@ function CollectionList(props) {
                 image={element.image}
                 alt={`${element.name}`}
               />
-              <CardContent sx = {{textAlign :"center"}}>
+              <CardContent sx={{ textAlign: "center" }}>
                 <Typography gutterBottom variant="h5" component="div">
                   {element.name}
                 </Typography>
@@ -88,88 +67,12 @@ function CollectionList(props) {
                 <Typography sx={{ mt: 2 }}>
                   {new Date(element.createdAt).toLocaleDateString()}
                 </Typography>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <p>
-                    <Badge
-                      badgeContent={element.collectionLikes.length > 0 ? element.collectionLikes.length : "0"}
-                      color="primary"
-                    >
-                      <FavoriteIcon color="action" />
-                    </Badge>
-                  </p>
-                  <div style={{width : "30px"}}></div>
-                  <p>
-                    <Badge
-                      badgeContent={element.items.length > 0 ? element.items.length : "0"}
-                      color="primary"
-                    >
-                      <FormatListNumberedIcon color="action" />
-                    </Badge>
-                  </p>
-                </div>
+                <div style={{ marginBottom: "20px" }}></div>
+                <CollectionInfoBadge collection={element} />
               </CardContent>
               <CardActions>
-                <Stack direction="row" justifyContent="center" spacing={1}>
-                  <Tooltip title="Show Collection">
-                    <IconButton>
-                      <VisibilityIcon
-                        onClick={() =>
-                          navigate(`/User/${user.Id}/collection/${element.Id}`)
-                        }
-                      />
-                    </IconButton>
-                  </Tooltip>
-
-                  {(props.currUser.Id != props.userId &&
-                    props.currUser.userRole != true) ||
-                  props.currUser.isBlocked ? (
-                    <></>
-                  ) : (
-                    <div>
-                      <Tooltip title="Edit Collection">
-                        <IconButton>
-                          <EditIcon
-                            onClick={() =>
-                              navigate(
-                                `/User/${user.Id}/Collection/${element.Id}/edit`
-                              )
-                            }
-                          />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip title="Add Item">
-                        <IconButton
-                          sx={{
-                            cursor: "pointer",
-                            fontSize: "30px",
-                          }}
-                        >
-                          <AddIcon
-                            onClick={() =>
-                              navigate(
-                                `/User/${user.Id}/collection/${element.Id}/item/create`
-                              )
-                            }
-                          />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip title="Delete Collection">
-                        <IconButton>
-                          <DeleteIcon
-                            onClick={() => DeleteCollection(element.Id)}
-                          />
-                        </IconButton>
-                      </Tooltip>
-                    </div>
-                  )}
-                </Stack>
-              </CardActions>
+                <CollectionListTooltip user = {user} element = {element} currUser = {props.currUser} userId = {props.userId}/>
+              </CardActions>  
             </Card>
           ))
         )}

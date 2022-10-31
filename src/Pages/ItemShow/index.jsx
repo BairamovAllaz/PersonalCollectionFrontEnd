@@ -33,7 +33,7 @@ function ItemShow() {
   return (
     <div>
       {items.length <= 0 ? (
-        <h2>Item does not exsist OR deleted!!</h2> //TODO ADD PAGE HERE
+        <h2 style = {{textAlign : "center"}}>Item does not exsist OR deleted!!</h2> //TODO ADD PAGE HERE
       ) : (
         <div>
           <div>

@@ -85,7 +85,6 @@ function CollectionContainer({ collection, userCol, user, userId }) {
               component="img"
               height="194"
               image={collection.image}
-              alt="Paella dish"
             />
             <CardHeader
               onClick={() => navigation(`/user/${userCol.Id}`)}
@@ -114,15 +113,13 @@ function CollectionContainer({ collection, userCol, user, userId }) {
         </Grid>
       </CardContent>
       <CardActions sx={{ padding: "20px" }}>
-        {user.userRole != "Guest" &&
-          user.isBlocked != true &&
-          (user.Id == userId || user.userRole == true) && (
-            <CollectionContainerButtons
+          <CollectionContainerButtons
               userCol={userCol}
               collection={collection}
               handleClickOpenDialog={handleClickOpenDialog}
+              user = {user}
+              userId = {userId}
             />
-          )}
         <CollectionDescModal
           isDialogOpened={openDialog}
           handleCloseDialog={() => setOpenDialog(false)}

@@ -15,6 +15,7 @@ import CreateItem from "../Pages/CreateItem/index";
 import EditCollection from "../Pages/CollectionEdit/index";
 import EditItem from "../Pages/ItemEdit/index";
 import ItemPage from "../Pages/ItemShow/index";
+import CollectionAll from '../Pages/CollectionAll/index'
 import { Routes, Route } from "react-router-dom";
 function AuthRoutes() {
   return (
@@ -30,7 +31,14 @@ function AuthRoutes() {
       <Route path="/auth" element={<Auth />} />
       <Route path="/success/google" element={<LoginSuccess />} />
       <Route path="/forgot-password/:id/:token" element={<ForgotPassword />} />
-
+      <Route
+        path="/AllCollections"
+        element={
+          <PrivateRoute>
+            <CollectionAll />
+          </PrivateRoute>
+        }
+      />
       <Route
         path="/user/:userId"
         element={

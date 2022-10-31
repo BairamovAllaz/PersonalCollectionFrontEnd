@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import React from "react";
 import Box from "@mui/material/Box";
 import LoadingPage from "../../Utils/LoadingPage";
-import { Autocomplete } from "@mui/material";
+import { Autocomplete, iconButtonClasses } from "@mui/material";
 import Button from "@mui/material/Button";
 import { TextField } from "@mui/material";
 import axios from "axios";
@@ -13,7 +13,6 @@ import Path from "./Path";
 import { RenderField } from "./RenderField";
 
 function CreateItem() {
-  
   const { userId, collectionId } = useParams();
   const navigate = useNavigate();
   const [tags, setTags] = React.useState([]);
@@ -53,19 +52,17 @@ function CreateItem() {
   const handleChange = (e, idx) => {
     let cl = [...fields];
     let obj = cl[idx];
-    obj.field_value = e.target.value;
+    obj.field_value = e.target.value; 
     cl[idx] = obj;
     setFields([...cl]);
   };
 
   const Create = () => {
-    let formData = new FormData();
-
-    formData.append("fields", JSON.stringify(fields));
-    formData.append("selectedTags", JSON.stringify(selectedTags));
-    formData.append("itemName", itemName);
-    formData.append("image", image);
-
+    if (image == null) {
+      alert("Please fill image field");
+      return;
+    }
+    const formData = createFormData();
     axios
       .post(
         `${global.config.backendUrl}/items/addItem/${collectionId}`,
@@ -78,6 +75,15 @@ function CreateItem() {
         console.log(err);
       });
   };
+
+  function createFormData() {
+    let formData = new FormData();
+    formData.append("fields", JSON.stringify(fields));
+    formData.append("selectedTags", JSON.stringify(selectedTags));
+    formData.append("itemName", itemName);
+    formData.append("image", image);
+    return formData;
+  }
 
   const OnTagsChange = (event, values) => {
     setSelectedTags(values);
@@ -142,6 +148,12 @@ function CreateItem() {
                   onChange={e => setImage(e.target.files[0])}
                 />
               </Button>
+              {image != null && (
+                <img
+                  style={{ width: "60px", height: "60px", margin : "20px auto" }}
+                  src={URL.createObjectURL(image)}
+                />
+              )}
               <Button
                 variant="contained"
                 style={{ marginTop: "30px" }}

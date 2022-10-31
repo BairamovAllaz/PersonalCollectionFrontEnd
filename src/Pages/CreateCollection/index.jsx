@@ -64,6 +64,10 @@ function CreateCollection() {
   const createCollectionClick = e => {
     e.preventDefault();
     const formData = InitFormData();
+    if(image == null) { 
+      alert("Image cant be empty"); 
+      return;
+    }
     axios
       .post(`${global.config.backendUrl}/collection/create`, formData)
       .then(response => {

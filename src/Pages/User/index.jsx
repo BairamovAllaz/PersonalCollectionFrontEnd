@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import * as React from "react";
 import axios from "axios";
 import { Box, Paper, Grid } from "@mui/material";
-
 import CollectionList from "./CollectionList";
 import { UserContext } from "../../Middleware/UserContext";
 import UserInfoContainer from "./UserInfoContainer";

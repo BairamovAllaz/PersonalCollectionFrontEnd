@@ -42,7 +42,7 @@ function Sign() {
       lastName === "" ||
       email === "" ||
       password === "" ||
-      image == undefined
+      image == null
     ) {
       clearInputs();
       return true;
