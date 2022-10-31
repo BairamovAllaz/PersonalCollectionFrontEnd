@@ -36,7 +36,7 @@ function CollectionShowPage() {
   React.useEffect(() => {
     axios
       .get(
-        `${global.config.backendUrl}/items/getAllItems/${userId}/${collectionId}`,
+        `${global.config.backendUrl}/items/getAllCollectionItems/${collectionId}`,
         { withCredentials: true }
       )
       .then(response => {
@@ -55,55 +55,53 @@ function CollectionShowPage() {
 
   return (
     <Box className={classes.BoxMain}>
-      {values.map(userCol =>
-        userCol.collections.map(collection =>
-          collection.isDelete === true ? (
-            <div className={classes.DeletedDiv}>
-              <h1>
-                <DeleteForeverIcon />
-                Collection Deleted
-              </h1>
-            </div>
-          ) : (
-            <Container maxWidth={false} className={classes.ContainerMain}>
-              <Paper
-                variant="outlined"
-                sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
-              >
-                <Grid container>
-                  <Grid item md={4} xs={12}>
-                    <CollectionContainer
-                      collection={collection}
-                      userCol={userCol}
-                      user={user}
-                      userId={userId}
-                    />
-                  </Grid>
-                  <Grid item md={8} xs={12} sx = {{textAlign : "center"}}>
-                    <Box className={classes.FormBox}>
-                      <FormControl>
-                        <FormLabel id="demo-row-radio-buttons-group-label">
-                          <h2 className={classes.ItemsText}>Items</h2>
-                        </FormLabel>
-                        <FilterComponent
-                          handleFilterChange={handleFilterChange}
-                          handleChangeSearchText={handleChangeSearchText}
-                        />
-                      </FormControl>
-                    </Box>
-                    <div className={classes.DivItemsContainer}>
-                        <ItemsContainer
-                          items={collection.items}
-                          searchText={searchText}
-                          selectedFilter={selectedFilter}
-                          userId={userCol.Id}
-                        />
-                    </div>
-                  </Grid>
+      {values.map(collection =>
+        collection.isDelete === true ? (
+          <div className={classes.DeletedDiv}>
+            <h1>
+              <DeleteForeverIcon />
+              Collection Deleted
+            </h1>
+          </div>
+        ) : (
+          <Container maxWidth={false} className={classes.ContainerMain}>
+            <Paper
+              variant="outlined"
+              sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
+            >
+              <Grid container>
+                <Grid item md={4} xs={12}>
+                  <CollectionContainer
+                    collection={collection}
+                    userCol={collection.user}
+                    user={user}
+                    userId={userId}
+                  />
                 </Grid>
-              </Paper>
-            </Container>
-          )
+                <Grid item md={8} xs={12} sx={{ textAlign: "center" }}>
+                  <Box className={classes.FormBox}>
+                    <FormControl>
+                      <FormLabel id="demo-row-radio-buttons-group-label">
+                        <h2 className={classes.ItemsText}>Items</h2>
+                      </FormLabel>
+                      <FilterComponent
+                        handleFilterChange={handleFilterChange}
+                        handleChangeSearchText={handleChangeSearchText}
+                      />
+                    </FormControl>
+                  </Box>
+                  <div className={classes.DivItemsContainer}>
+                    <ItemsContainer
+                      items={collection.items}
+                      searchText={searchText}
+                      selectedFilter={selectedFilter}
+                      userId={collection.user.Id}
+                    />
+                  </div>
+                </Grid>
+              </Grid>
+            </Paper>
+          </Container>
         )
       )}
     </Box>

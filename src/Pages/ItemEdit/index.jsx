@@ -10,7 +10,7 @@ import Container from "@mui/material/Container";
 import { TextField } from "@mui/material";
 import { render } from "../../Utils/RenderField";
 import LoadingPage from "../../Utils/LoadingPage";
-import Path from './Path'
+import Path from "./Path";
 function EditItem() {
   const [items, setItems] = React.useState([]);
   const [isLoadedItem, setIsLoadedItem] = React.useState(true);
@@ -18,7 +18,7 @@ function EditItem() {
   const [isLoadedField, setIsLoadedField] = React.useState(true);
   const [image, setImage] = React.useState();
   const [fields, setFields] = React.useState([]);
-  const { itemId,collectionId,userId } = useParams();
+  const { itemId, collectionId, userId } = useParams();
   React.useEffect(() => {
     axios
       .get(`${global.config.backendUrl}/items/getItemById/${itemId}`)
@@ -60,18 +60,11 @@ function EditItem() {
   };
 
   const UpdateItem = () => {
-    const formData = new FormData();
-    if (image !== undefined) {
-      formData.append("image", image);
-    } else {
-      formData.append("image", "");
-    }
-    formData.append("item_name", ItemName);
-    formData.append("fields", JSON.stringify(fields));
+    const updatedItems = CreateFormData();
     axios
       .put(
         `${global.config.backendUrl}/items/updateItemFields/${itemId}`,
-        formData,
+        updatedItems,
         {
           withCredentials: true,
         }
@@ -84,8 +77,20 @@ function EditItem() {
       });
   };
 
+  function CreateFormData() {
+    const formData = new FormData();
+    if (image !== undefined) {
+      formData.append("image", image);
+    } else {
+      formData.append("image", "");
+    }
+    formData.append("item_name", ItemName);
+    formData.append("fields", JSON.stringify(fields));
+    return formData;
+  }
+
   if (isLoadedItem || isLoadedField) {
-    return <LoadingPage/>;
+    return <LoadingPage />;
   }
   return (
     <div>
@@ -96,9 +101,13 @@ function EditItem() {
             sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
           >
             <div>
-              <Path collectionId = {collectionId} userId = {userId} itemId = {itemId}/>
+              <Path
+                collectionId={collectionId}
+                userId={userId}
+                itemId={itemId}
+              />
             </div>
-            <Typography component="h1" variant="h4" align="center" mt = {3}>
+            <Typography component="h1" variant="h4" align="center" mt={3}>
               Update
             </Typography>
             <React.Fragment>
