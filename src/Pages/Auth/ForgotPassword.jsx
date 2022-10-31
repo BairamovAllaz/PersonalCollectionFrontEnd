@@ -61,6 +61,7 @@ function ForgotPassword() {
 
   const handlePasswordVerifyChange = (e) => { 
     setpasswordverify(e.target.value)
+    
   }
 
   return (
@@ -72,7 +73,7 @@ function ForgotPassword() {
         alignItems="center"
         className={classes.MainGrid}
       >
-        <h5>Change password</h5>
+        <h3>Change password</h3>
         <TextField
           label="new password"
           type="password"
