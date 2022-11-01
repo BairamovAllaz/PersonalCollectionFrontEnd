@@ -11,7 +11,9 @@ function BlockedUsers({ value, index }) {
 
   React.useEffect(() => {
     axios
-      .get(`${global.config.backendUrl}/admin/GetBlockedUsers`)
+      .get(`${global.config.backendUrl}/admin/GetBlockedUsers`, {
+        withCredentials: true,
+      })
       .then(response => {
         setUsers(response.data);
         setLoading(false);

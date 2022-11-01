@@ -10,7 +10,9 @@ function DeletedUsers({ value, index }) {
 
   React.useEffect(() => {
     axios
-      .get(`${global.config.backendUrl}/admin/GetDeletedUsers`)
+      .get(`${global.config.backendUrl}/admin/GetDeletedUsers`,{ 
+        withCredentials : true,
+      })
       .then(response => {
         setUsers(response.data);
         console.log(response.data);

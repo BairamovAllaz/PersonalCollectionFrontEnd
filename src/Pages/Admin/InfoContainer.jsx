@@ -4,6 +4,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import axios from "axios";
+import LoadingPage from "../../Utils/LoadingPage";
 const style = {
   width: "100%",
   maxWidth: 360,
@@ -16,7 +17,9 @@ function InfoContainer() {
   const [loading, setLoading] = React.useState(true);
   React.useEffect(() => {
     axios
-      .get(`${global.config.backendUrl}/admin/GetCountInfo`)
+      .get(`${global.config.backendUrl}/admin/GetCountInfo`,{ 
+        withCredentials : true
+      })
       .then(response => {
         setInfos(response.data);
         console.log(response.data);
@@ -28,7 +31,7 @@ function InfoContainer() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingPage/>;
   }
   return (
     <List sx={style} component="nav" aria-label="mailbox folders" style = {{marginTop : "25px"}}>

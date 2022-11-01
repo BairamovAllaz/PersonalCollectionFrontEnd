@@ -27,7 +27,9 @@ function TabsComponents() {
 
   React.useEffect(() => {
     axios
-      .get(`${global.config.backendUrl}/admin/getAllUsers`)
+      .get(`${global.config.backendUrl}/admin/getAllUsers`, {
+        withCredentials: true,
+      })
       .then(response => {
         setUsers(response.data);
         setIsLoadedusers(false);
