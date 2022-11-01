@@ -1,4 +1,4 @@
 module.exports = global.config = {
-  backendUrl: "http://localhost:5100",
-  frontendUrl: "http://localhost:3100",
+  backendUrl: "https://personalcollection-itransition.herokuapp.com",
+  frontendUrl: "https://main--sprightly-boba-3c9eab.netlify.app",
 };

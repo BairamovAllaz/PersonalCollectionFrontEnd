@@ -10,6 +10,7 @@ import { initReactI18next } from "react-i18next";
 import HttpApi from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 import Context from "./Context/UserContext";
+import LoadingPage from "./Utils/LoadingPage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -32,7 +33,7 @@ i18next
   });
 
   const loadingMarkup = (
-      <h3>Loading..</h3>
+      <LoadingPage/>
   );
 
 root.render(
