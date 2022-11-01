@@ -1,10 +1,12 @@
 import "./App.scss";
 import React from "react";
 import Navbar from "./Layouts/Navbar/Navbar";
+import Box from "@mui/material/Box";
 import { useLocation } from "react-router-dom";
 import Routes from "./Routes/Routes";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import { Toolbar } from "@mui/material";
 export const ColorModeContext = React.createContext({
   toggleColorMode: () => {},
 });
@@ -43,11 +45,13 @@ function App() {
       }),
     [mode]
   );
+
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         {pathname !== "/auth" && <Navbar />}
+        <Toolbar/>
         <Routes />
       </ThemeProvider>
     </ColorModeContext.Provider>
