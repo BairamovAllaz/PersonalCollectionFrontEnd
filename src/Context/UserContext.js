@@ -6,7 +6,7 @@ export default function Context(props) {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = React.useState(true);
   React.useLayoutEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = { userRole: "Guest", Id: "1" };
     if (user !== null) {
       user.userRole = "Guest";
       setUser(user);
@@ -31,7 +31,7 @@ export default function Context(props) {
   }, []);
 
   if (isLoading) {
-    return <LoadingPage/>;
+    return <LoadingPage />;
   }
 
   return (
