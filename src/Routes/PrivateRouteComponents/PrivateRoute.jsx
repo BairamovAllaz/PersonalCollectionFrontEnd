@@ -8,7 +8,8 @@ function PrivateRoute({ children }) {
   const [isAuth, setisAuth] = useState(false);
   const [isLoading, setisLoading] = useState(true);
   React.useLayoutEffect(() => {
-    const user = { userRole: "Guest", Id: "1" };
+    // const user = { userRole: "Guest", Id: "1" };
+    const user = JSON.parse(localStorage.getItem("user"));
     if (user !== null) {
       setisAuth(true);
       setisLoading(false);
@@ -22,6 +23,7 @@ function PrivateRoute({ children }) {
         })
         .then(response => {
           setisAuth(response.data);
+          console.log("Your useR: " + response.data.email);
           if(response.data.isDelete) { 
             alert("User Is deleted By Admin");
           }

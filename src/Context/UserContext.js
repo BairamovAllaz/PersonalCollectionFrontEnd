@@ -6,7 +6,8 @@ export default function Context(props) {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = React.useState(true);
   React.useLayoutEffect(() => {
-    const user = { userRole: "Guest", Id: "1" };
+    // const user = { userRole: "Guest", Id: "1" };
+    const user = JSON.parse(localStorage.getItem("user"));
     if (user !== null) {
       user.userRole = "Guest";
       setUser(user);
@@ -22,6 +23,7 @@ export default function Context(props) {
         })
         .then(response => {
           setUser(response.data);
+          console.log("User id : " + response.data.Id)
           setIsLoading(false);
         })
         .catch(err => {
